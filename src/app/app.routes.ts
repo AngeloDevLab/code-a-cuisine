@@ -4,6 +4,11 @@ export const routes: Routes = [
   {
     path: '',
     title: 'Code à Cuisine',
+    loadComponent: () => import('./pages/hero/hero').then((m) => m.Hero),
+  },
+  {
+    path: 'generator',
+    title: 'Generate recipes | Code à Cuisine',
     loadComponent: () => import('./pages/generator/generator').then((m) => m.Generator),
   },
   {
@@ -12,9 +17,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/results/results').then((m) => m.Results),
   },
   {
-    path: 'recipes',
-    title: 'Recipe library | Code à Cuisine',
-    loadComponent: () => import('./pages/library/library').then((m) => m.Library),
+    path: 'cookbook',
+    title: 'Cookbook | Code à Cuisine',
+    loadComponent: () => import('./pages/cookbook/cookbook').then((m) => m.Cookbook),
+  },
+  {
+    path: 'cookbook/:cuisine',
+    title: 'Recipes | Code à Cuisine',
+    loadComponent: () => import('./pages/recipe-list/recipe-list').then((m) => m.RecipeList),
   },
   {
     path: 'recipes/:id',
