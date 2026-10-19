@@ -85,6 +85,10 @@ create table quota_log (
 
 create index quota_log_ip_created_idx on quota_log (ip, created_at);
 
+-- "Automatically expose new tables" is disabled, so privileges are granted explicitly
+grant select on recipes to anon;
+grant select, insert, update, delete on recipes, quota_log to service_role;
+
 alter table recipes enable row level security;
 alter table quota_log enable row level security;
 
@@ -103,5 +107,6 @@ as $$
   returning likes;
 $$;
 
+revoke execute on function like_recipe(uuid, boolean) from public;
 grant execute on function like_recipe(uuid, boolean) to anon;
 ```
