@@ -13,6 +13,12 @@ $fluid-from: 320px;
 $fluid-to: 1440px;
 $page-max-width: 1440px;
 
+// Breakpoints (mobile-first, used with min-width)
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 2560px;
+$bp-uhd: 3840px;
+
 // Spacing
 $space-4: 4px;
 $space-8: 8px;
@@ -39,6 +45,7 @@ $white: #ffffff;
 $creamy: #faf0e6;
 $sage: #dbe0db;
 $sand: #f6e3cf;
+$peach: #fae0c6;
 
 // Alpha variants
 $green-40: color.change($green, $alpha: 0.4);
@@ -48,6 +55,7 @@ $dark-green-30: color.change($dark-green, $alpha: 0.3);
 $creamy-80: color.change($creamy, $alpha: 0.8);
 $creamy-20: color.change($creamy, $alpha: 0.2);
 $sage-70: color.change($sage, $alpha: 0.7);
+$peach-20: color.change($peach, $alpha: 0.2);
 
 // Chef labels, one color per cook
 $chef-1: #d7dfd7;

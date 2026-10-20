@@ -1,1 +1,29 @@
-<p>hero works!</p>
+<section class="hero">
+    <div class="hero__content">
+        <img class="hero__logo" ngSrc="icons/logo-creamy.svg" alt="Code à Cuisine" width="142" height="48" priority />
+
+        <div class="hero__intro">
+            <p class="hero__tagline">AI-Powered<br class="hero__break" /> recipe generator</p>
+            <h1 class="hero__title">Code à<br class="hero__break" /> Cuisine</h1>
+            <a class="hero__cta" routerLink="/generator" data-label="Get started">Get started</a>
+        </div>
+
+        <div class="hero__teaser">
+            <p class="hero__teaser-text">Hungry for<br class="hero__break hero__break--tablet" /> inspiration?</p>
+            <a class="hero__link" routerLink="/cookbook">
+                Go to cookbook
+                <span class="hero__link-icon" aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="hero__images">
+            <img class="hero__image" ngSrc="images/hero-1.webp" alt="" width="940" height="940" priority />
+            <img class="hero__image hero__image--rotated" ngSrc="images/hero-2.webp" alt="" width="940" height="940" priority />
+            <img class="hero__image" ngSrc="images/hero-3.webp" alt="" width="940" height="940" priority />
+            <img class="hero__image hero__image--wide" ngSrc="images/hero-4.webp" alt="" width="940" height="940" />
+            <img class="hero__image hero__image--wide" ngSrc="images/hero-5.webp" alt="" width="940" height="940" />
+            <img class="hero__image hero__image--uhd" ngSrc="images/hero-1.webp" alt="" width="940" height="940" />
+            <img class="hero__image hero__image--uhd" ngSrc="images/hero-2.webp" alt="" width="940" height="940" />
+        </div>
+    </div>
+</section>
