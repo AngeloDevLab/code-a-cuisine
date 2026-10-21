@@ -1,0 +1,78 @@
+<main class="preferences">
+    <app-logo />
+    <a class="preferences__back" routerLink="/generator" aria-label="Back to ingredients">
+        <span class="preferences__icon preferences__icon--back" aria-hidden="true"></span>
+        <span class="preferences__back-label">Ingredients</span>
+    </a>
+
+    <h1 class="preferences__title">Choose your preferences</h1>
+
+    <form class="preferences__form" (submit)="generate($event)" novalidate>
+        <div class="preferences__counts">
+            <div class="preferences__count">
+                <p class="preferences__question" id="portions-label">How many portions do you need?</p>
+                <app-stepper aria-labelledby="portions-label" unit="Portions"
+                    [formField]="preferencesForm.portions" />
+            </div>
+            <div class="preferences__count">
+                <p class="preferences__question" id="cooks-label">How many are cooking?</p>
+                <app-stepper aria-labelledby="cooks-label"
+                    [unit]="preferencesForm.cooks().value() === 1 ? 'Person' : 'Persons'"
+                    [formField]="preferencesForm.cooks" />
+            </div>
+        </div>
+
+        <div class="preferences__card">
+            <fieldset class="preferences__group">
+                <legend class="preferences__legend">
+                    <span class="preferences__icon preferences__icon--time" aria-hidden="true"></span>
+                    Cooking time:
+                </legend>
+                <div class="preferences__chips">
+                    @for (option of cookingTimes; track option.value) {
+                    <label class="preferences__chip">
+                        <input class="preferences__radio" type="radio" [value]="option.value"
+                            [formField]="preferencesForm.cookingTime" />
+                        <span class="preferences__chip-label">{{ option.label }}</span>
+                        <span class="preferences__chip-hint">{{ option.hint }}</span>
+                    </label>
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset class="preferences__group">
+                <legend class="preferences__legend">
+                    <span class="preferences__icon preferences__icon--cuisine" aria-hidden="true"></span>
+                    Cuisine
+                </legend>
+                <div class="preferences__chips">
+                    @for (option of cuisines; track option.value) {
+                    <label class="preferences__chip">
+                        <input class="preferences__radio" type="radio" [value]="option.value"
+                            [formField]="preferencesForm.cuisine" />
+                        <span class="preferences__chip-label">{{ option.label }}</span>
+                    </label>
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset class="preferences__group">
+                <legend class="preferences__legend">
+                    <span class="preferences__icon preferences__icon--diet" aria-hidden="true"></span>
+                    Diet preferences
+                </legend>
+                <div class="preferences__chips">
+                    @for (option of diets; track option.value) {
+                    <label class="preferences__chip">
+                        <input class="preferences__radio" type="radio" [value]="option.value"
+                            [formField]="preferencesForm.diet" />
+                        <span class="preferences__chip-label">{{ option.label }}</span>
+                    </label>
+                    }
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="preferences__submit" type="submit">Generate recipe</button>
+    </form>
+</main>

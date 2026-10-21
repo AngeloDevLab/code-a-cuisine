@@ -1,0 +1,201 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+.preferences {
+  @include page-container;
+  min-height: 100dvh;
+  font-family: $font-quicksand;
+  font-weight: $weight-medium;
+  color: $dark-green;
+}
+
+.preferences__back {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-8;
+  margin-top: fluid($space-16, $space-32);
+  font-size: 14px;
+  text-decoration: none;
+  padding: $space-4 $space-8;
+  border-radius: $radius-2;
+  color: inherit;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $olive-green-20;
+  }
+}
+
+.preferences__back-label {
+  display: none;
+
+  @media (min-width: $bp-desktop) {
+    display: inline;
+  }
+}
+
+.preferences__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: center / contain no-repeat;
+}
+
+.preferences__icon--back {
+  width: 22px;
+  height: 15px;
+  mask-image: url('/icons/arrow.svg');
+}
+
+.preferences__icon--time {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/icons/schedule.svg');
+}
+
+// TODO: export the globe and cutlery icons from Figma.
+.preferences__icon--cuisine {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/icons/cuisine.svg');
+}
+
+.preferences__icon--diet {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/icons/diet.svg');
+}
+
+.preferences__title {
+  margin-top: fluid($space-40, $space-64);
+  font-weight: $weight-semibold;
+  font-size: fluid(24px, 28px);
+
+  @media (min-width: $bp-desktop) {
+    text-align: center;
+  }
+}
+
+.preferences__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.preferences__counts {
+  margin-top: fluid(0px, $space-56);
+
+  @media (min-width: $bp-desktop) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 100px;
+    padding-inline: $space-24;
+  }
+}
+
+.preferences__question {
+  margin-top: $space-24;
+  margin-bottom: $space-8;
+  font-size: fluid(16px, 18px);
+
+  @media (min-width: $bp-desktop) {
+    margin-top: 0;
+    margin-bottom: $space-16;
+  }
+}
+
+.preferences__card {
+  margin-top: $space-32;
+  padding: fluid($space-32, $space-40) fluid($space-16, $space-24);
+  border-radius: $radius-20;
+  background-color: $sage;
+}
+
+.preferences__group {
+  min-width: 0;
+  padding: 0;
+  border: none;
+
+  & + & {
+    margin-top: $space-40;
+  }
+}
+
+.preferences__legend {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  font-size: fluid(20px, 24px);
+  font-weight: $weight-semibold;
+}
+
+.preferences__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-16 $space-20;
+  margin-top: $space-24;
+}
+
+.preferences__chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-8;
+  cursor: pointer;
+}
+
+.preferences__radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preferences__chip-label {
+  padding: $space-4 12px;
+  border-radius: $radius-30;
+  font-size: 20px;
+  color: $middle-green;
+  background-color: $creamy;
+  transition:
+    background-color 150ms ease-in-out,
+    color 150ms ease-in-out;
+
+  .preferences__chip:hover & {
+    background-color: $peach;
+  }
+
+  .preferences__radio:checked ~ & {
+    color: $dark-green;
+    background-color: $olive-green-20;
+  }
+
+  .preferences__radio:focus-visible ~ & {
+    outline: 2px solid $olive-green;
+    outline-offset: 2px;
+  }
+}
+
+.preferences__chip-hint {
+  font-size: 14px;
+}
+
+.preferences__submit {
+  align-self: center;
+  margin-top: fluid($space-40, $space-56);
+  padding: $space-16 fluid($space-16, 26px);
+  border: none;
+  font: inherit;
+  font-size: fluid(16px, 24px);
+  color: $creamy;
+  background-color: $olive-green;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $middle-green;
+  }
+}

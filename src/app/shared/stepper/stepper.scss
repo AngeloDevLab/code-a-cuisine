@@ -1,0 +1,61 @@
+@use 'tokens' as *;
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+}
+
+.stepper__button {
+  display: grid;
+  place-items: center;
+  padding: $space-4;
+  border: none;
+  border-radius: $radius-2;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover:enabled,
+  &:focus-visible {
+    background-color: $olive-green-12;
+  }
+
+  &:active:enabled {
+    background-color: $olive-green-30;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.stepper__icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  mask: center / contain no-repeat;
+}
+
+.stepper__icon--decrease {
+  mask-image: url('/icons/decrease.svg');
+}
+
+.stepper__icon--increase {
+  mask-image: url('/icons/increase.svg');
+}
+
+.stepper__value {
+  min-width: 24px;
+  padding-inline: $space-4;
+  text-align: center;
+  background-color: $sage;
+}
+
+.stepper__unit {
+  min-width: 72px;
+  font-size: 18px;
+}
