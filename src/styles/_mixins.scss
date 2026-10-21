@@ -1,0 +1,10 @@
+@use 'tokens' as t;
+@use 'functions' as *;
+
+// Centered page content with a max width and padding that grows with the viewport.
+@mixin page-container {
+  width: 100%;
+  max-width: t.$page-max-width;
+  margin-inline: auto;
+  padding: fluid(t.$space-16, t.$space-40) fluid(t.$space-16, t.$space-64) fluid(t.$space-40, 126px);
+}

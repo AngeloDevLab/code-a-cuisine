@@ -1,0 +1,16 @@
+@use 'functions' as *;
+
+:host {
+  display: block;
+  width: fit-content;
+}
+
+.logo {
+  display: block;
+}
+
+.logo__image {
+  display: block;
+  width: fluid(95px, 142px);
+  height: auto;
+}
