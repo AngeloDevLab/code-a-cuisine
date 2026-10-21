@@ -1,0 +1,52 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  background-color: $olive-green;
+}
+
+.loading {
+  @include page-container;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  font-family: $font-quicksand;
+  font-weight: $weight-medium;
+  color: $creamy;
+}
+
+.loading__error {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading__title {
+  font-family: $font-ubuntu;
+  font-weight: $weight-bold;
+  font-size: fluid(32px, 48px);
+  text-align: center;
+}
+
+.loading__text {
+  margin-top: $space-16;
+  text-align: center;
+}
+
+.loading__back {
+  margin-top: $space-32;
+  padding: $space-16;
+  font-weight: $weight-semibold;
+  color: $green;
+  text-decoration: none;
+  background-color: $creamy;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $peach;
+  }
+}

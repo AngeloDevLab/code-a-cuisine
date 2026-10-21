@@ -1,0 +1,436 @@
+@use 'sass:math';
+
+// All positions are measured in the 436 x 613 px frames of the original animation.
+$frame-width: 436;
+$frame-height: 613;
+$cycle: 12.64s;
+
+// The bowl stays centered on its original axis and keeps its bottom edge when resized.
+$bowl-width: 204;
+$bowl-scale: math.div($bowl-width, 204);
+$bowl-left: 230 - math.div($bowl-width, 2);
+$bowl-front-top: 613 - 114.56 * $bowl-scale;
+$bowl-back-top: $bowl-front-top - 15.54 * $bowl-scale;
+
+// Converts a frame pixel value into a size relative to the stage width.
+@function u($px) {
+  @return math.div($px, $frame-width) * 100cqw;
+}
+
+@mixin piece($left, $top, $width) {
+  position: absolute;
+  left: u($left);
+  top: u($top);
+  width: u($width);
+  height: auto;
+  animation-duration: $cycle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+:host {
+  display: block;
+  container-type: inline-size;
+}
+
+.cooking {
+  position: relative;
+  aspect-ratio: #{$frame-width} / #{$frame-height};
+}
+
+// Without animation every piece shows its resting state: a full bowl, the tools hidden.
+.cooking__bowl {
+  position: absolute;
+  inset: 0;
+  animation: bowl-slide $cycle ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.cooking__bowl-back {
+  @include piece($bowl-left, $bowl-back-top, $bowl-width);
+}
+
+.cooking__bowl-front {
+  @include piece($bowl-left, $bowl-front-top, $bowl-width);
+}
+
+.cooking__leaf-light {
+  rotate: -28deg;
+  animation-name: leaf-light-drop;
+  @include piece(144, 406, 106);
+}
+
+.cooking__leaf-dark {
+  animation-name: leaf-dark-drop;
+  @include piece(186, 428, 106);
+}
+
+.cooking__pepper-specks {
+  opacity: 0;
+  animation-name: specks-settle;
+  @include piece(158, 418, 40);
+}
+
+.cooking__salt-specks {
+  opacity: 0;
+  animation-name: specks-settle;
+  @include piece(208, 440, 30);
+}
+
+.cooking__carrot {
+  animation-name: carrot-fly;
+  @include piece(256, 415, 96);
+}
+
+.cooking__tomato {
+  animation-name: tomato-roll;
+  @include piece(136, 476, 80);
+}
+
+.cooking__spoon {
+  opacity: 0;
+  animation-name: spoon-stir;
+  @include piece(266, 262, 58);
+}
+
+.cooking__pepper-mill {
+  opacity: 0;
+  rotate: -35deg;
+  animation-name: pepper-mill-shake;
+  @include piece(100, 190, 66);
+}
+
+.cooking__salt-shaker {
+  opacity: 0;
+  rotate: -105deg;
+  animation-name: salt-shaker-shake;
+  @include piece(274, 264, 53);
+}
+
+.cooking__pepper {
+  opacity: 0;
+  animation-name: seasoning-fall;
+  @include piece(172, 368, 37);
+}
+
+.cooking__salt {
+  opacity: 0;
+  animation-name: seasoning-fall;
+  @include piece(232, 364, 30);
+}
+
+@keyframes bowl-slide {
+  0%,
+  0.9% {
+    translate: u(-420) 0;
+  }
+  2.5%,
+  90.2% {
+    translate: 0 0;
+  }
+  92.4%,
+  100% {
+    translate: u(420) 0;
+  }
+}
+
+// Pieces inside the bowl group stay hidden until their entry starts, otherwise the group's slide-in carries them into view.
+@keyframes leaf-dark-drop {
+  0%,
+  9.2% {
+    visibility: hidden;
+    translate: u(360) u(-300);
+    rotate: 20deg;
+  }
+  10.8% {
+    translate: u(157) u(-188);
+    rotate: 5deg;
+  }
+  13.6%,
+  63.3% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  68% {
+    translate: u(6) u(-4);
+    rotate: 4deg;
+  }
+  74% {
+    translate: u(-6) u(2);
+    rotate: -3deg;
+  }
+  80% {
+    translate: u(4) 0;
+    rotate: 2deg;
+  }
+  84%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+@keyframes carrot-fly {
+  0%,
+  14.9% {
+    visibility: hidden;
+    translate: u(270) u(-250);
+    rotate: 25deg;
+  }
+  16.1% {
+    translate: u(30) u(-245);
+    rotate: 20deg;
+  }
+  18.7%,
+  63.3% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  70% {
+    translate: u(-8) u(-4);
+    rotate: -5deg;
+  }
+  76% {
+    translate: u(4) u(2);
+    rotate: 4deg;
+  }
+  84%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+@keyframes tomato-roll {
+  0%,
+  22.2% {
+    visibility: hidden;
+    translate: u(-300) u(-200);
+    rotate: -270deg;
+  }
+  23% {
+    translate: u(-143) u(-180);
+    rotate: -200deg;
+  }
+  25% {
+    translate: u(-40) u(-110);
+    rotate: -60deg;
+  }
+  26.6%,
+  63.3% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  70% {
+    translate: u(10) u(-6);
+    rotate: 40deg;
+  }
+  77% {
+    translate: u(-6) u(2);
+    rotate: -20deg;
+  }
+  84%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+@keyframes leaf-light-drop {
+  0%,
+  27.8% {
+    visibility: hidden;
+    translate: u(430) u(-230);
+    rotate: 20deg;
+  }
+  28.5% {
+    translate: u(270) u(-250);
+    rotate: 10deg;
+  }
+  29.7% {
+    translate: u(88) u(-280);
+    rotate: 0deg;
+  }
+  31.6%,
+  63.3% {
+    translate: 0 0;
+    rotate: -28deg;
+  }
+  68% {
+    translate: u(-5) u(3);
+    rotate: -32deg;
+  }
+  74% {
+    translate: u(5) u(-3);
+    rotate: -24deg;
+  }
+  80% {
+    translate: u(-3) 0;
+    rotate: -30deg;
+  }
+  84%,
+  100% {
+    translate: 0 0;
+    rotate: -28deg;
+  }
+}
+
+@keyframes pepper-mill-shake {
+  0%,
+  40.2% {
+    opacity: 1;
+    translate: u(-310) u(40);
+    rotate: -80deg;
+  }
+  43.4% {
+    translate: 0 0;
+    rotate: -35deg;
+  }
+  45% {
+    rotate: -28deg;
+  }
+  46.5% {
+    rotate: -40deg;
+  }
+  48% {
+    rotate: -28deg;
+  }
+  49% {
+    translate: 0 0;
+    rotate: -35deg;
+  }
+  53.2%,
+  100% {
+    opacity: 1;
+    translate: u(-320) u(60);
+    rotate: -130deg;
+  }
+}
+
+@keyframes salt-shaker-shake {
+  0%,
+  40.2% {
+    opacity: 1;
+    translate: u(250) u(-30);
+    rotate: -10deg;
+  }
+  43.4% {
+    translate: 0 0;
+    rotate: -105deg;
+  }
+  45% {
+    rotate: -96deg;
+  }
+  46.5% {
+    rotate: -114deg;
+  }
+  48% {
+    rotate: -96deg;
+  }
+  49% {
+    translate: 0 0;
+    rotate: -105deg;
+  }
+  53.2%,
+  100% {
+    opacity: 1;
+    translate: u(260) u(-30);
+    rotate: -20deg;
+  }
+}
+
+@keyframes seasoning-fall {
+  0%,
+  44% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  44.6% {
+    opacity: 1;
+  }
+  46% {
+    opacity: 0;
+    translate: 0 u(70);
+  }
+  46.01% {
+    translate: 0 0;
+  }
+  46.6% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0;
+    translate: 0 u(70);
+  }
+  48.01%,
+  100% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+@keyframes specks-settle {
+  0%,
+  45.5% {
+    opacity: 0;
+  }
+  47.5%,
+  63.3% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spoon-stir {
+  0%,
+  53.5% {
+    opacity: 1;
+    visibility: hidden;
+    translate: u(360) u(-200);
+    rotate: 120deg;
+  }
+  57% {
+    translate: u(110) u(-70);
+    rotate: 115deg;
+  }
+  63.3% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  68% {
+    translate: u(-40) 0;
+    rotate: -6deg;
+  }
+  72% {
+    translate: u(-60) 0;
+    rotate: -9deg;
+  }
+  76% {
+    translate: u(-20) 0;
+    rotate: -3deg;
+  }
+  80% {
+    translate: u(10) 0;
+    rotate: 3deg;
+  }
+  82.3% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  88.9%,
+  100% {
+    opacity: 1;
+    translate: u(400) u(-300);
+    rotate: 40deg;
+  }
+}

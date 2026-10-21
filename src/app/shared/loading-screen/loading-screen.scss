@@ -1,0 +1,106 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+$dots-cycle: 2.4s;
+
+:host {
+  display: block;
+  background-color: $olive-green;
+}
+
+.loading-screen {
+  @include page-container;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  color: $creamy;
+}
+
+.loading-screen__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-screen__card {
+  display: grid;
+  place-items: center;
+  width: 253px;
+  aspect-ratio: 253 / 309;
+  overflow: clip;
+  border-radius: $radius-20;
+  background-color: $olive-green-30-solid;
+}
+
+.loading-screen__animation {
+  width: 78%;
+}
+
+.loading-screen__label {
+  margin-top: $space-40;
+  font-family: $font-ubuntu;
+  font-weight: $weight-bold;
+  font-size: fluid(32px, 48px);
+  text-align: center;
+}
+
+.loading-screen__dots {
+  display: inline-flex;
+  gap: 0.2em;
+}
+
+// Dots disappear from the first to the last and come back in the same order.
+.loading-screen__dot {
+  animation: $dots-cycle steps(1, end) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
+  &:nth-child(1) {
+    animation-name: dot-first;
+  }
+
+  &:nth-child(2) {
+    animation-name: dot-second;
+  }
+
+  &:nth-child(3) {
+    animation-name: dot-third;
+  }
+}
+
+@keyframes dot-first {
+  0%,
+  66.67%,
+  100% {
+    opacity: 1;
+  }
+  16.67% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot-second {
+  0%,
+  83.33%,
+  100% {
+    opacity: 1;
+  }
+  33.33% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot-third {
+  0% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { generationStartedGuard } from './guards/generation-started.guard';
 import { hasIngredientsGuard } from './guards/has-ingredients.guard';
 
 export const routes: Routes = [
@@ -17,6 +18,12 @@ export const routes: Routes = [
     title: 'Preferences | Code à Cuisine',
     canActivate: [hasIngredientsGuard],
     loadComponent: () => import('./pages/preferences/preferences').then((m) => m.Preferences),
+  },
+  {
+    path: 'generator/loading',
+    title: 'Cooking | Code à Cuisine',
+    canActivate: [generationStartedGuard],
+    loadComponent: () => import('./pages/loading/loading').then((m) => m.Loading),
   },
   {
     path: 'results',

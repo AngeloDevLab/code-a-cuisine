@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { COOKING_TIME_OPTIONS, CUISINE_OPTIONS, DIET_OPTIONS } from '../../models/generator-options';
 import { COOK_LIMITS, PORTION_LIMITS } from '../../models/recipe-request';
 import { GeneratorStore } from '../../services/generator-store';
+import { RecipeStore } from '../../services/recipe-store';
 import { Logo } from '../../shared/logo/logo';
 import { Stepper } from '../../shared/stepper/stepper';
 
@@ -16,6 +17,7 @@ import { Stepper } from '../../shared/stepper/stepper';
 })
 export class Preferences {
   private readonly store = inject(GeneratorStore);
+  private readonly recipeStore = inject(RecipeStore);
   private readonly router = inject(Router);
 
   protected readonly cookingTimes = COOKING_TIME_OPTIONS;
@@ -29,10 +31,11 @@ export class Preferences {
     max(path.cooks, COOK_LIMITS.max);
   });
 
-  /** Starts the generation, for now it only opens the results page. */
+  /** Starts the generation in the background and opens the loading page. */
   protected generate(event: Event): void {
     event.preventDefault();
     if (this.preferencesForm().invalid()) return;
-    this.router.navigate(['/results']);
+    void this.recipeStore.generate(this.store.request());
+    this.router.navigate(['/generator/loading']);
   }
 }

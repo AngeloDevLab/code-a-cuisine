@@ -62,6 +62,9 @@ $creamy-20: color.change($creamy, $alpha: 0.2);
 $sage-70: color.change($sage, $alpha: 0.7);
 $peach-20: color.change($peach, $alpha: 0.2);
 
+// Opaque variants for colored backgrounds
+$olive-green-30-solid: color.mix($olive-green, $white, 30%);
+
 // Chef labels, one color per cook
 $chef-1: #d7dfd7;
 $chef-2: #ffd9b3;
