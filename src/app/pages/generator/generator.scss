@@ -1,0 +1,372 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+$edit-row-height: 36px;
+
+.generator {
+  @include page-container;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  font-family: $font-quicksand;
+  font-weight: $weight-medium;
+  color: $dark-green;
+}
+
+.generator__title,
+.generator__intro {
+  @media (min-width: $bp-desktop) {
+    text-align: center;
+  }
+}
+
+.generator__title {
+  margin-top: fluid($space-40, $space-64);
+  font-weight: $weight-semibold;
+  font-size: fluid(32px, 54px);
+  color: $middle-green;
+}
+
+.generator__intro {
+  margin-top: $space-24;
+  font-weight: $weight-semibold;
+  font-size: fluid(18px, 24px);
+}
+
+// Mobile stacks the cards, desktop puts them side by side with the next button below the list.
+.generator__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1088px;
+  margin: fluid($space-40, $space-64) auto 0;
+
+  @media (min-width: $bp-desktop) {
+    display: grid;
+    grid-template-columns: 577fr 478fr;
+    align-items: start;
+    column-gap: $space-32;
+  }
+}
+
+.generator__card {
+  padding: $space-24 fluid($space-20, $space-32);
+  border-radius: $radius-20;
+  background-color: $olive-green-30;
+}
+
+.generator__form {
+  @media (min-width: $bp-desktop) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    column-gap: $space-32;
+    min-height: 176px;
+  }
+}
+
+.generator__field + .generator__field {
+  margin-top: $space-16;
+
+  @media (min-width: $bp-desktop) {
+    margin-top: 0;
+  }
+}
+
+.generator__label {
+  display: block;
+  font-weight: $weight-medium;
+  font-size: fluid(18px, 20px);
+}
+
+.generator__input {
+  margin-top: $space-16;
+  padding: $space-8 $space-16;
+  border: none;
+  border-radius: $radius-20;
+  font: inherit;
+  font-size: 16px;
+  color: inherit;
+  background-color: $creamy-80;
+
+  &::placeholder {
+    color: $dark-green-30;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $olive-green;
+  }
+}
+
+.generator__input--name {
+  width: 100%;
+}
+
+.generator__suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: $space-8;
+  padding-left: $space-16;
+  list-style: none;
+}
+
+.generator__suggestion {
+  padding: 2px $space-8;
+  border-radius: $radius-48;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &--active {
+    background-color: $creamy-80;
+  }
+}
+
+.generator__amount {
+  margin-top: $space-16;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: $space-8;
+}
+
+.generator__input--amount {
+  margin-top: 0;
+  width: 64px;
+  padding-inline: $space-4;
+  text-align: center;
+  appearance: textfield;
+  border-radius: $radius-48;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+
+.generator__add,
+.generator__item-action {
+  display: grid;
+  place-items: center;
+  padding: $space-8;
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.generator__add {
+  border-radius: $radius-8;
+  color: $dark-green;
+  transition:
+    background-color 150ms ease-in-out,
+    color 150ms ease-in-out;
+
+  &:hover:enabled,
+  &:focus-visible {
+    color: $olive-green;
+    background-color: $creamy-80;
+  }
+
+  &:active:enabled {
+    color: $green;
+  }
+}
+
+.generator__item-action {
+  padding: 2px;
+  border-radius: $radius-2;
+  transition:
+    background-color 150ms ease-in-out,
+    color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $olive-green-40;
+  }
+
+  &:active {
+    color: $white;
+  }
+}
+
+.generator__item-action--save {
+  &:hover:enabled,
+  &:focus-visible {
+    background-color: $creamy;
+  }
+
+  &:active:enabled {
+    color: $green;
+  }
+
+  &:disabled {
+    background: none;
+  }
+}
+
+.generator__icon {
+  display: block;
+  background-color: currentColor;
+  mask: center / contain no-repeat;
+}
+
+.generator__icon--add {
+  width: 18px;
+  height: 18px;
+  mask-image: url('/icons/add.svg');
+}
+
+.generator__icon--edit {
+  width: 13px;
+  height: 14px;
+  mask-image: url('/icons/edit.svg');
+}
+
+.generator__icon--delete {
+  width: 13px;
+  height: 15px;
+  mask-image: url('/icons/delete.svg');
+}
+
+.generator__icon--check {
+  width: 14px;
+  height: 11px;
+  mask-image: url('/icons/check.svg');
+}
+
+.generator__list-card {
+  min-height: fluid(130px, 208px);
+  margin-top: $space-24;
+  padding: $space-24 fluid($space-16, $space-24);
+
+  @media (min-width: $bp-desktop) {
+    margin-top: 0;
+  }
+}
+
+// Items share the list's columns via subgrid, so all names line up after the widest amount.
+.generator__list {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  column-gap: $space-16;
+  margin-top: $space-24;
+  padding-left: 0;
+}
+
+.generator__item {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+  margin-block-end: $space-8;
+  padding: 4px 2px;
+  border-radius: $radius-8;
+  transition: background-color 150ms ease-in-out;
+  font-size: fluid(16px, 18px);
+
+  &:hover {
+    background-color: $creamy;
+  }
+}
+
+.generator__item-amount {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+
+  &::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+}
+
+.generator__item--editing {
+  display: block;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+// Desktop puts the inputs first and the name with its actions into the same row.
+.generator__edit {
+  @media (min-width: $bp-desktop) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    column-gap: $space-16;
+  }
+}
+
+.generator__edit-header {
+  display: flex;
+  align-items: center;
+  gap: $space-16;
+
+  @media (min-width: $bp-desktop) {
+    grid-column: 2;
+    grid-row: 1;
+    height: $edit-row-height;
+  }
+}
+
+.generator__edit-name {
+  flex: 1;
+}
+
+// The bullet sits in the padding, so the inline unit options keep their offset to the amount field.
+.generator__amount--edit {
+  position: relative;
+  margin-top: $space-8;
+  padding-left: $space-16;
+
+  @media (min-width: $bp-desktop) {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: $edit-row-height * 0.5;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: currentColor;
+    translate: 0 -50%;
+  }
+}
+
+.generator__next {
+  align-self: center;
+  margin-top: fluid($space-40, $space-56);
+  padding: $space-16 fluid($space-16, 26px);
+  font-size: fluid(16px, 24px);
+  color: $creamy;
+  text-decoration: none;
+  background-color: $olive-green;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $middle-green;
+  }
+
+  @media (min-width: $bp-desktop) {
+    grid-column: 2;
+    justify-self: end;
+  }
+}

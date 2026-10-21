@@ -1,1 +1,95 @@
-<p>generator works!</p>
+<main class="generator">
+    <app-logo />
+
+    <h1 class="generator__title">Generate recipe</h1>
+    <p class="generator__intro">Got random stuff in your kitchen? Pop it in — we’ve got the perfect recipe waiting.</p>
+
+    <div class="generator__content">
+        <form class="generator__card generator__form" (submit)="addIngredient($event)" novalidate>
+            <div class="generator__field">
+                <label class="generator__label" for="ingredient-name">Ingredient</label>
+                <input class="generator__input generator__input--name" id="ingredient-name" type="text"
+                    autocomplete="off" role="combobox" aria-autocomplete="list"
+                    [attr.aria-expanded]="suggestions().length > 0"
+                    [attr.aria-controls]="suggestions().length ? 'ingredient-suggestions' : null"
+                    [attr.aria-activedescendant]="activeSuggestion() >= 0 ? 'ingredient-suggestion-' + activeSuggestion() : null"
+                    [formField]="ingredientForm.name" (input)="openSuggestions()" (keydown)="onNameKeydown($event)"
+                    (blur)="closeSuggestions()" />
+                @if (suggestions().length) {
+                <ul class="generator__suggestions" id="ingredient-suggestions" role="listbox"
+                    aria-label="Ingredient suggestions">
+                    @for (suggestion of suggestions(); track suggestion) {
+                    <li class="generator__suggestion" role="option" [id]="'ingredient-suggestion-' + $index"
+                        [class.generator__suggestion--active]="$index === activeSuggestion()"
+                        [attr.aria-selected]="$index === activeSuggestion()" (mousedown)="$event.preventDefault()"
+                        (click)="pickSuggestion(suggestion)">
+                        {{ suggestion }}
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
+
+            <div class="generator__field">
+                <label class="generator__label" for="ingredient-amount">Serving size</label>
+                <div class="generator__amount">
+                    <input class="generator__input generator__input--amount" id="ingredient-amount" type="number"
+                        inputmode="decimal" placeholder="100" [formField]="ingredientForm.amount" />
+                    <app-unit-select [formField]="ingredientForm.unit" />
+                    <button class="generator__add" type="submit" aria-label="Add ingredient"
+                        [disabled]="ingredientForm().invalid() || store.isFull()">
+                        <span class="generator__icon generator__icon--add" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <section class="generator__card generator__list-card" aria-labelledby="ingredient-list-title">
+            <h2 class="generator__label" id="ingredient-list-title">List of your Ingredients</h2>
+            <ul class="generator__list">
+                @for (item of store.ingredients(); track $index) {
+                @if ($index === editingIndex()) {
+                <li class="generator__item generator__item--editing">
+                    <form class="generator__edit" (submit)="saveEdit($event, $index)" novalidate>
+                        <div class="generator__edit-header">
+                            <span #editName class="generator__edit-name">{{ item.name }}</span>
+                            <button class="generator__item-action generator__item-action--save" type="submit"
+                                [attr.aria-label]="'Save ' + item.name" [disabled]="editForm().invalid()">
+                                <span class="generator__icon generator__icon--check" aria-hidden="true"></span>
+                            </button>
+                            <button class="generator__item-action" type="button"
+                                [attr.aria-label]="'Delete ' + item.name" (click)="deleteIngredient($index)">
+                                <span class="generator__icon generator__icon--delete" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="generator__amount generator__amount--edit">
+                            <input #editAmount class="generator__input generator__input--amount" type="number"
+                                inputmode="decimal" [attr.aria-label]="'Amount of ' + item.name"
+                                [formField]="editForm.amount" />
+                            <app-unit-select [formField]="editForm.unit" />
+                        </div>
+                    </form>
+                </li>
+                } @else {
+                <li class="generator__item">
+                    <span class="generator__item-amount">{{ item.amount }}{{ unitShort[item.unit] }}</span>
+                    <span #itemName class="generator__item-name">{{ item.name }}</span>
+                    <button class="generator__item-action" type="button" [attr.aria-label]="'Edit ' + item.name"
+                        (click)="startEdit($index, itemName)">
+                        <span class="generator__icon generator__icon--edit" aria-hidden="true"></span>
+                    </button>
+                    <button class="generator__item-action" type="button" [attr.aria-label]="'Delete ' + item.name"
+                        (click)="deleteIngredient($index)">
+                        <span class="generator__icon generator__icon--delete" aria-hidden="true"></span>
+                    </button>
+                </li>
+                }
+                }
+            </ul>
+        </section>
+
+        @if (store.hasIngredients()) {
+        <a class="generator__next" routerLink="/generator/preferences">Next step</a>
+        }
+    </div>
+</main>

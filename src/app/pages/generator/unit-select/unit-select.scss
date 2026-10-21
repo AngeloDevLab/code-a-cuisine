@@ -1,0 +1,90 @@
+@use 'tokens' as *;
+
+$unit-select-width: 96px;
+$unit-select-inset: $space-8;
+
+// The host is no box of its own, so the options can wrap onto a new line of the parent flex row.
+:host {
+  display: contents;
+}
+
+.unit-select__toggle,
+.unit-select__option {
+  border: none;
+  border-radius: $radius-48;
+  font: inherit;
+  font-size: 16px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.unit-select__toggle {
+  display: flex;
+  justify-content: space-between;
+  width: $unit-select-width;
+  padding: $space-8 $space-16;
+  align-items: center;
+  gap: $space-4;
+  background-color: $creamy-80;
+
+  &:focus-visible {
+    outline: 2px solid $olive-green;
+  }
+}
+
+.unit-select__arrow {
+  width: 10px;
+  height: 6px;
+  background-color: currentColor;
+  mask: url('/icons/arrow-dropdown.svg') center / contain no-repeat;
+  transition: rotate 150ms ease-in-out;
+}
+
+.unit-select__arrow--open {
+  rotate: 180deg;
+}
+
+// Animating the grid row from 0fr to 1fr lets the card grow smoothly to the list's natural height.
+// inline-size containment keeps the options from widening the parent row when it is sized by content.
+.unit-select__options {
+  flex-basis: 100%;
+  order: 1;
+  display: grid;
+  grid-template-rows: 0fr;
+  contain: inline-size;
+  transition: grid-template-rows 150ms ease-in-out;
+}
+
+.unit-select__options--open {
+  grid-template-rows: 1fr;
+}
+
+.unit-select__list {
+  display: flex;
+  flex-direction: column;
+  width: $unit-select-width - 2 * $unit-select-inset;
+  min-height: 0;
+  margin-left: 72px + $unit-select-inset;
+  overflow: hidden;
+  padding: $space-8 0 0;
+  list-style: none;
+}
+
+.unit-select__option {
+  width: 100%;
+  padding: 2px $space-8;
+  font-size: 14px;
+  text-align: left;
+  background: none;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    background-color: $creamy-80;
+  }
+
+  &[aria-pressed='true'] {
+    font-weight: $weight-medium;
+  }
+}

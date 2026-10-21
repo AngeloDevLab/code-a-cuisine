@@ -32,6 +32,8 @@ $space-64: 64px;
 $space-88: 88px;
 
 // Border radius
+$radius-2: 2px;
+$radius-8: 8px;
 $radius-20: 20px;
 $radius-30: 30px;
 $radius-48: 48px;
@@ -49,7 +51,10 @@ $peach: #fae0c6;
 
 // Alpha variants
 $green-40: color.change($green, $alpha: 0.4);
+$olive-green-40: color.change($olive-green, $alpha: 0.4);
 $olive-green-30: color.change($olive-green, $alpha: 0.3);
+$olive-green-20: color.change($olive-green, $alpha: 0.2);
+$olive-green-12: color.change($olive-green, $alpha: 0.12);
 $olive-green-04: color.change($olive-green, $alpha: 0.04);
 $dark-green-30: color.change($dark-green, $alpha: 0.3);
 $creamy-80: color.change($creamy, $alpha: 0.8);
