@@ -1,9 +1,27 @@
-import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { COOKING_TIME_OPTIONS, CUISINE_OPTIONS } from '../../models/generator-options';
+import { GeneratorStore } from '../../services/generator-store';
+import { RecipeStore } from '../../services/recipe-store';
+import { Logo } from '../../shared/logo/logo';
 
+/** Shows the three generated recipes with links to their details. */
 @Component({
-  imports: [],
+  imports: [Logo, NgOptimizedImage, RouterLink],
   selector: 'app-results',
   styleUrl: './results.scss',
   templateUrl: './results.html',
 })
-export class Results {}
+export class Results {
+  private readonly generatorStore = inject(GeneratorStore);
+  protected readonly recipes = inject(RecipeStore).recipes;
+
+  protected readonly tags = computed(() => {
+    const { cuisine, cookingTime } = this.generatorStore.preferences();
+    return [
+      CUISINE_OPTIONS.find((option) => option.value === cuisine)?.label,
+      COOKING_TIME_OPTIONS.find((option) => option.value === cookingTime)?.label,
+    ].filter((label) => label !== undefined);
+  });
+}

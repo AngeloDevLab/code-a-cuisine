@@ -1,0 +1,195 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  background-color: $olive-green;
+}
+
+.results {
+  @include page-container;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  font-family: $font-quicksand;
+  font-weight: $weight-medium;
+  color: $creamy;
+}
+
+.results__header {
+  display: grid;
+  grid-template-areas:
+    'title'
+    'image'
+    'intro';
+  row-gap: $space-16;
+  margin-top: fluid($space-40, $space-64);
+
+  @media (min-width: $bp-desktop) {
+    grid-template-areas:
+      'title image'
+      'intro image';
+    grid-template-columns: 1fr minmax(0, 40%);
+    grid-template-rows: auto 1fr;
+    column-gap: $space-64;
+    row-gap: $space-24;
+  }
+}
+
+.results__title {
+  grid-area: title;
+  font-weight: $weight-semibold;
+  font-size: fluid(32px, 54px);
+}
+
+.results__image {
+  grid-area: image;
+  width: 100%;
+  height: auto;
+  border-radius: $radius-20;
+  object-fit: cover;
+}
+
+.results__intro {
+  grid-area: intro;
+}
+
+.results__text {
+  max-width: 640px;
+  font-size: fluid(18px, 24px);
+}
+
+.results__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-16;
+  margin-top: fluid($space-16, $space-24);
+  padding: 0;
+  list-style: none;
+}
+
+.results__tag {
+  padding: $space-4 12px;
+  border-radius: $radius-30;
+  font-size: fluid(18px, 20px);
+  color: $middle-green;
+  background-color: $creamy;
+}
+
+.results__list {
+  display: grid;
+  gap: $space-16;
+  margin-top: fluid($space-40, $space-88);
+
+  @media (min-width: $bp-desktop) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-24;
+  }
+}
+
+.results__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: $space-32 $space-24;
+  border-radius: $radius-20;
+  background-color: $sage;
+}
+
+.results__label {
+  display: flex;
+  align-items: center;
+  gap: $space-16;
+  font-size: 24px;
+  font-weight: $weight-semibold;
+  color: $middle-green;
+}
+
+.results__recipe-title {
+  min-height: 2lh;
+  margin-top: $space-16;
+  font-weight: $weight-semibold;
+  font-size: fluid(24px, 32px);
+  color: $dark-green;
+}
+
+.results__time {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  margin-top: $space-16;
+  margin-bottom: fluid($space-32, $space-40);
+  font-size: fluid(18px, 20px);
+  color: $olive-green;
+}
+
+.results__view {
+  margin-top: auto;
+  padding: $space-16 fluid($space-16, 26px);
+  font-weight: $weight-semibold;
+  font-size: fluid(16px, 24px);
+  color: $green;
+  text-decoration: none;
+  background-color: $creamy;
+
+  .results__card:hover &,
+  &:focus-visible {
+    background-color: $peach;
+  }
+
+  // Stretches the click area over the whole card.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-20;
+  }
+}
+
+.results__new {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: $space-8;
+  margin-top: fluid($space-40, $space-64);
+  padding: $space-16 fluid($space-16, 26px);
+  font-size: fluid(18px, 20px);
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $peach-20;
+  }
+
+  @media (min-width: $bp-desktop) {
+    align-self: flex-end;
+  }
+}
+
+.results__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: center / contain no-repeat;
+}
+
+.results__cloche {
+  flex-shrink: 0;
+}
+
+.results__icon--time {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/icons/schedule.svg');
+}
+
+// The arrow icon points left, so it is mirrored.
+.results__icon--arrow {
+  width: 20px;
+  aspect-ratio: 22 / 15;
+  mask-image: url('/icons/arrow.svg');
+  scale: -1 1;
+}

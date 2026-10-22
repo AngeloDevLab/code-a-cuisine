@@ -1,1 +1,42 @@
-<p>results works!</p>
+<main class="results">
+    <app-logo variant="creamy" />
+
+    <header class="results__header">
+        <h1 class="results__title">The recipe results</h1>
+        <img class="results__image" ngSrc="images/results.webp" alt="" width="1148" height="444" priority />
+        <div class="results__intro">
+            <p class="results__text">
+                We took what you have and let our AI do the thinking.
+                Here are 3 easy recipes you can make right now!
+            </p>
+            <ul class="results__tags" aria-label="Your preferences">
+                @for (tag of tags(); track tag) {
+                <li class="results__tag">{{ tag }}</li>
+                }
+            </ul>
+        </div>
+    </header>
+
+    <section class="results__list" aria-label="Generated recipes">
+        @for (recipe of recipes(); track recipe.id; let index = $index) {
+        <article class="results__card">
+            <p class="results__label">
+                <img class="results__cloche" ngSrc="icons/cloche.svg" alt="" width="40" height="28" />
+                Recipe {{ index + 1 }}
+            </p>
+            <h2 class="results__recipe-title">{{ recipe.title }}</h2>
+            <p class="results__time">
+                <span class="results__icon results__icon--time" aria-hidden="true"></span>
+                Cooking time: {{ recipe.cookingTimeMinutes }}min
+            </p>
+            <a class="results__view" [routerLink]="['/recipes', recipe.id]"
+                [attr.aria-label]="'View ' + recipe.title">View</a>
+        </article>
+        }
+    </section>
+
+    <a class="results__new" routerLink="/generator">
+        Generate new recipe
+        <span class="results__icon results__icon--arrow" aria-hidden="true"></span>
+    </a>
+</main>

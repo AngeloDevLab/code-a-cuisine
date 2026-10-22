@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { generationStartedGuard } from './guards/generation-started.guard';
 import { hasIngredientsGuard } from './guards/has-ingredients.guard';
+import { hasRecipesGuard } from './guards/has-recipes.guard';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,7 @@ export const routes: Routes = [
   {
     path: 'results',
     title: 'Your recipes | Code à Cuisine',
+    canActivate: [hasRecipesGuard],
     loadComponent: () => import('./pages/results/results').then((m) => m.Results),
   },
   {
