@@ -46,12 +46,14 @@
 :host(.section-banner--directions) {
   --banner-image: url('/images/recipe/directions-banner-mobile.webp');
   --banner-bleed: 11px;
+  --banner-title-offset: 0;
   max-width: 320px;
   height: 91px;
 
   @media (min-width: $bp-desktop) {
     --banner-image: url('/images/recipe/directions-banner.webp');
     --banner-bleed: 0px;
+    --banner-title-offset: 10px;
     max-width: 1151px;
     height: 134px;
   }
@@ -60,6 +62,7 @@
 .section-banner__title {
   position: relative;
   z-index: 1;
+  translate: 0 var(--banner-title-offset, 0px);
   font-weight: $weight-semibold;
   font-size: fluid(24px, 32px);
   color: $middle-green;
