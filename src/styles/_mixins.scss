@@ -23,10 +23,8 @@
   }
 }
 
-// Closed state of the collapse wrapper, only below the desktop breakpoint.
+// Closed state of the collapse wrapper.
 @mixin collapse-closed {
-  @media (max-width: (t.$bp-desktop - 1px)) {
-    grid-template-rows: 0fr;
-    visibility: hidden;
-  }
+  grid-template-rows: 0fr;
+  visibility: hidden;
 }

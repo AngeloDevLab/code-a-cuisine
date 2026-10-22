@@ -11,7 +11,9 @@
 }
 
 .ingredients__collapse--closed {
-  @include collapse-closed;
+  @media (max-width: ($bp-desktop - 1px)) {
+    @include collapse-closed;
+  }
 }
 
 .ingredients__content {

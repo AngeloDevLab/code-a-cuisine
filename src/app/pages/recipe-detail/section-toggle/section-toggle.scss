@@ -9,6 +9,10 @@
   }
 }
 
+:host(.section-toggle--always) {
+  display: flex;
+}
+
 .section-toggle {
   display: inline-flex;
   align-items: center;

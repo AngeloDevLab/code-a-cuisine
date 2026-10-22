@@ -15,3 +15,34 @@
         </tr>
     </tbody>
 </table>
+
+<app-section-toggle class="nutrition__toggle" label="details" controls="nutrition-details" alwaysVisible
+    [(expanded)]="expanded" />
+
+<div class="nutrition__collapse" id="nutrition-details" [class.nutrition__collapse--closed]="!expanded()">
+    <div class="nutrition__details">
+        <svg class="nutrition__pie" viewBox="0 0 64 64" aria-hidden="true">
+            @for (share of shares(); track share.label) {
+            <circle class="nutrition__slice nutrition__slice--{{ share.modifier }}" cx="32" cy="32" r="15.9155"
+                [attr.stroke-dasharray]="share.value + ' ' + (100 - share.value)"
+                [attr.stroke-dashoffset]="25 - share.offset" />
+            }
+        </svg>
+
+        <ul class="nutrition__legend" aria-label="Share of calories">
+            @for (share of shares(); track share.label) {
+            <li class="nutrition__legend-item">
+                <span class="nutrition__dot nutrition__dot--{{ share.modifier }}" aria-hidden="true"></span>
+                {{ share.label }} {{ share.percent }}%
+            </li>
+            }
+        </ul>
+
+        <div class="nutrition__scopes" role="group" aria-label="Show values">
+            <button class="nutrition__scope" type="button" [attr.aria-pressed]="scope() === 'portion'"
+                (click)="scope.set('portion')">Per portion</button>
+            <button class="nutrition__scope" type="button" [attr.aria-pressed]="scope() === 'total'"
+                (click)="scope.set('total')">Total</button>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,10 @@
-import { Component, input, model } from '@angular/core';
+import { Component, booleanAttribute, input, model } from '@angular/core';
 
-/** Mobile-only button that shows or hides a recipe section. */
+/** Button that shows or hides a recipe section, by default only on mobile. */
 @Component({
   selector: 'app-section-toggle',
   styleUrl: './section-toggle.scss',
+  host: { '[class.section-toggle--always]': 'alwaysVisible()' },
   template: `
     <button class="section-toggle" type="button" [attr.aria-expanded]="expanded()" [attr.aria-controls]="controls()"
       (click)="expanded.set(!expanded())">
@@ -15,5 +16,6 @@ import { Component, input, model } from '@angular/core';
 export class SectionToggle {
   readonly label = input.required<string>();
   readonly controls = input.required<string>();
+  readonly alwaysVisible = input(false, { transform: booleanAttribute });
   readonly expanded = model(true);
 }

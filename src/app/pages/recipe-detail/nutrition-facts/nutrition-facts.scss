@@ -1,5 +1,6 @@
 @use 'tokens' as *;
 @use 'functions' as *;
+@use 'mixins' as *;
 
 :host {
   display: block;
@@ -34,4 +35,112 @@
 
 .nutrition__value {
   font-size: fluid(16px, 20px);
+}
+
+.nutrition__toggle {
+  justify-content: flex-start;
+  margin-top: $space-8;
+}
+
+.nutrition__collapse {
+  @include collapse;
+}
+
+.nutrition__collapse--closed {
+  @include collapse-closed;
+}
+
+.nutrition__details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-16 $space-24;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.nutrition__pie {
+  width: 96px;
+  height: 96px;
+  margin-top: $space-8;
+}
+
+.nutrition__slice {
+  fill: none;
+  stroke-width: 31.831;
+}
+
+.nutrition__legend {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  margin-top: $space-8;
+  padding: 0;
+  font-size: 16px;
+  list-style: none;
+}
+
+.nutrition__legend-item {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+}
+
+.nutrition__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.nutrition__dot--protein {
+  background-color: $dark-green;
+}
+
+.nutrition__dot--fat {
+  background-color: $green;
+}
+
+.nutrition__dot--carbs {
+  background-color: $chef-2;
+}
+
+.nutrition__slice--protein {
+  stroke: $dark-green;
+}
+
+.nutrition__slice--fat {
+  stroke: $green;
+}
+
+.nutrition__slice--carbs {
+  stroke: $chef-2;
+}
+
+.nutrition__scopes {
+  display: flex;
+  flex-basis: 100%;
+  gap: $space-8;
+  margin-bottom: $space-4;
+}
+
+.nutrition__scope {
+  padding: $space-4 12px;
+  border: 1px solid $olive-green-50;
+  border-radius: $radius-30;
+  font: inherit;
+  font-size: 16px;
+  color: $olive-green;
+  background: none;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $olive-green-12;
+  }
+
+  &[aria-pressed='true'] {
+    color: $dark-green;
+    background-color: $olive-green-20;
+  }
 }
