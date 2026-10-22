@@ -1,0 +1,81 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.steps__collapse {
+  @include collapse;
+}
+
+.steps__collapse--closed {
+  @include collapse-closed;
+}
+
+.steps__list {
+  display: grid;
+  gap: fluid($space-32, $space-40) $space-64;
+  width: 100%;
+  max-width: 900px;
+  min-height: 0;
+  overflow: hidden;
+  margin-inline: auto;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: $bp-desktop) {
+    grid-template-columns: 1fr 1fr;
+    padding-top: $space-24;
+  }
+}
+
+// Margins instead of padding, so the closed collapse can shrink to zero height.
+.steps__item {
+  @media (max-width: ($bp-desktop - 1px)) {
+    &:first-child {
+      margin-top: $space-24;
+    }
+
+    &:last-child {
+      margin-bottom: $space-24;
+    }
+  }
+}
+
+.steps__header {
+  display: flex;
+  align-items: center;
+  gap: $space-16;
+}
+
+.steps__number {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: $weight-semibold;
+  font-size: 18px;
+  color: $dark-green;
+  background-color: $creamy;
+}
+
+.steps__title {
+  font-weight: $weight-semibold;
+  font-size: fluid(18px, 24px);
+  color: $dark-green;
+}
+
+.steps__chef {
+  margin-left: auto;
+}
+
+.steps__text {
+  margin-top: fluid($space-16, $space-24);
+  font-size: fluid(16px, 18px);
+  line-height: 1.25;
+  color: $dark-green;
+}

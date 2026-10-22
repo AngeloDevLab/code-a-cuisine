@@ -1,0 +1,123 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+
+:host {
+  display: grid;
+  grid-template-areas:
+    'time'
+    'title'
+    'cooks'
+    'nutrition'
+    'tags';
+  padding: $space-24 fluid($space-16, $space-24);
+  border-radius: $radius-20;
+  background-color: $creamy;
+
+  @media (min-width: $bp-desktop) {
+    grid-template-areas:
+      'time tags'
+      'title nutrition'
+      'cooks nutrition';
+    grid-template-columns: 1fr minmax(0, 360px);
+    grid-template-rows: auto 1fr auto;
+    column-gap: $space-64;
+  }
+}
+
+.summary__time {
+  grid-area: time;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  font-size: fluid(18px, 20px);
+  color: $olive-green;
+}
+
+.summary__title {
+  grid-area: title;
+  margin-top: $space-8;
+  font-weight: $weight-semibold;
+  font-size: fluid(24px, 54px);
+  color: $middle-green;
+}
+
+.summary__cooks {
+  grid-area: cooks;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-16;
+  margin-top: $space-16;
+}
+
+.summary__cooks-label {
+  display: none;
+  font-size: 20px;
+  color: $olive-green;
+
+  @media (min-width: $bp-desktop) {
+    display: inline;
+  }
+}
+
+.summary__nutrition {
+  grid-area: nutrition;
+  margin-top: $space-40;
+
+  @media (min-width: $bp-desktop) {
+    margin-top: $space-24;
+  }
+}
+
+.summary__tags {
+  grid-area: tags;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-8;
+  margin-top: $space-24;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: $bp-desktop) {
+    margin-top: $space-32;
+  }
+}
+
+.summary__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4 12px;
+  border-radius: $radius-30;
+  font-size: 18px;
+  color: $dark-green;
+  background-color: $olive-green-20;
+}
+
+.summary__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: center / contain no-repeat;
+}
+
+.summary__icon--time {
+  width: 20px;
+  height: 20px;
+  mask-image: url('/icons/schedule.svg');
+}
+
+.summary__icon--like {
+  width: 16px;
+  height: 15px;
+  mask-image: url('/icons/like.svg');
+}
+
+.summary__hidden-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

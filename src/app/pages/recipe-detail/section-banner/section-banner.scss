@@ -1,0 +1,66 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+
+// The banner image is shown twice, aligned left and right, each covering one half.
+// The bar between the decorations is plain, so the seam is invisible and only the bar shrinks.
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    width: calc(50% + var(--banner-bleed, 0px));
+    background: var(--banner-image) no-repeat;
+    background-size: auto 100%;
+  }
+
+  &::before {
+    left: calc(-1 * var(--banner-bleed, 0px));
+    background-position: left center;
+  }
+
+  &::after {
+    right: calc(-1 * var(--banner-bleed, 0px));
+    background-position: right center;
+  }
+}
+
+:host(.section-banner--ingredients) {
+  --banner-image: url('/images/recipe/ingredients-banner-mobile.webp');
+  max-width: 320px;
+  height: 90px;
+
+  @media (min-width: $bp-desktop) {
+    --banner-image: url('/images/recipe/ingredients-banner.webp');
+    max-width: 1152px;
+    height: 148px;
+  }
+}
+
+:host(.section-banner--directions) {
+  --banner-image: url('/images/recipe/directions-banner-mobile.webp');
+  --banner-bleed: 11px;
+  max-width: 320px;
+  height: 91px;
+
+  @media (min-width: $bp-desktop) {
+    --banner-image: url('/images/recipe/directions-banner.webp');
+    --banner-bleed: 0px;
+    max-width: 1151px;
+    height: 134px;
+  }
+}
+
+.section-banner__title {
+  position: relative;
+  z-index: 1;
+  font-weight: $weight-semibold;
+  font-size: fluid(24px, 32px);
+  color: $middle-green;
+}

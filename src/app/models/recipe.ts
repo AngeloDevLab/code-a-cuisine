@@ -10,6 +10,7 @@ export interface Nutrition {
 export interface RecipeStep {
   order: number;
   cook: number;
+  title: string;
   text: string;
   parallel: boolean;
 }

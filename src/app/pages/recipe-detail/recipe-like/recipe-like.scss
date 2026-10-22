@@ -1,0 +1,65 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-16;
+  color: $dark-green;
+
+  @media (min-width: $bp-desktop) {
+    justify-content: center;
+    gap: $space-32;
+  }
+}
+
+.like__text {
+  font-size: 16px;
+}
+
+.like__question {
+  display: block;
+  margin-bottom: $space-4;
+  font-weight: $weight-semibold;
+  font-size: 18px;
+
+  @media (min-width: $bp-desktop) {
+    display: inline;
+    margin: 0 $space-8 0 0;
+  }
+}
+
+.like__button {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  padding: $space-4;
+  border: none;
+  border-radius: $radius-8;
+  color: $green;
+  background: none;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $pale-sage-60;
+  }
+}
+
+.like__icon {
+  width: 40px;
+  height: 36px;
+  background-color: currentColor;
+  mask: url('/icons/like.svg') center / contain no-repeat;
+  transition: scale 150ms ease-in-out;
+
+  .like__button:active & {
+    scale: 0.9;
+  }
+}
+
+.like__icon--filled {
+  mask-image: url('/icons/like-filled.svg');
+}

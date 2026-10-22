@@ -1,0 +1,62 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.ingredients__collapse {
+  @include collapse;
+}
+
+.ingredients__collapse--closed {
+  @include collapse-closed;
+}
+
+.ingredients__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-24;
+  min-height: 0;
+  overflow: hidden;
+  padding-inline: fluid(0px, $space-24);
+
+  @media (min-width: $bp-desktop) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+  }
+}
+
+// Margins instead of padding, so the closed collapse can shrink to zero height.
+.ingredients__group {
+  @media (max-width: ($bp-desktop - 1px)) {
+    &:first-child {
+      margin-top: $space-32;
+    }
+
+    &:last-child {
+      margin-bottom: $space-24;
+    }
+  }
+}
+
+.ingredients__heading {
+  font-weight: $weight-semibold;
+  font-size: fluid(18px, 24px);
+  color: $green;
+}
+
+.ingredients__list {
+  margin-top: fluid($space-16, $space-24);
+  padding-left: $space-24;
+  font-size: fluid(16px, 24px);
+  color: $dark-green;
+}
+
+.ingredients__amount {
+  display: inline-block;
+  min-width: 5em;
+  margin-right: $space-8;
+}

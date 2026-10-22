@@ -8,3 +8,25 @@
   margin-inline: auto;
   padding: fluid(t.$space-16, t.$space-40) fluid(t.$space-16, t.$space-64) fluid(t.$space-40, 126px);
 }
+
+// Wrapper that animates its single child's height open and closed.
+// The child needs min-height: 0 and overflow: hidden.
+@mixin collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 300ms ease-in-out,
+    visibility 300ms;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+// Closed state of the collapse wrapper, only below the desktop breakpoint.
+@mixin collapse-closed {
+  @media (max-width: (t.$bp-desktop - 1px)) {
+    grid-template-rows: 0fr;
+    visibility: hidden;
+  }
+}

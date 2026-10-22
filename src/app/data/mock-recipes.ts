@@ -25,11 +25,11 @@ export const MOCK_RECIPES: Recipe[] = [
       ],
     },
     steps: [
-      { order: 1, cook: 1, text: 'Bring a large pot of salted water to a boil.', parallel: false },
-      { order: 2, cook: 2, text: 'Halve the cherry tomatoes and slice the garlic.', parallel: true },
-      { order: 3, cook: 1, text: 'Cook the pasta until al dente.', parallel: false },
-      { order: 4, cook: 2, text: 'Fry the garlic in olive oil, add the tomatoes and let them soften.', parallel: true },
-      { order: 5, cook: 1, text: 'Toss the pasta with the sauce and the spinach until it wilts.', parallel: false },
+      { order: 1, cook: 1, title: 'Boil the water', text: 'Bring a large pot of salted water to a boil.', parallel: false },
+      { order: 2, cook: 2, title: 'Prepare the vegetables', text: 'Halve the cherry tomatoes and slice the garlic.', parallel: true },
+      { order: 3, cook: 1, title: 'Cook the pasta', text: 'Cook the pasta until al dente.', parallel: false },
+      { order: 4, cook: 2, title: 'Make the sauce', text: 'Fry the garlic in olive oil, add the tomatoes and let them soften.', parallel: true },
+      { order: 5, cook: 1, title: 'Finish the pasta', text: 'Toss the pasta with the sauce and the spinach until it wilts.', parallel: false },
     ],
   },
   {
@@ -56,12 +56,12 @@ export const MOCK_RECIPES: Recipe[] = [
       ],
     },
     steps: [
-      { order: 1, cook: 1, text: 'Boil the eggs for 9 minutes, then cool and peel them.', parallel: false },
-      { order: 2, cook: 2, text: 'Dice the onion and the tomatoes.', parallel: true },
-      { order: 3, cook: 3, text: 'Wash the spinach and chop it roughly.', parallel: true },
-      { order: 4, cook: 2, text: 'Fry the onion, add the curry powder and the tomatoes.', parallel: false },
-      { order: 5, cook: 2, text: 'Pour in the coconut milk and simmer for 10 minutes.', parallel: false },
-      { order: 6, cook: 1, text: 'Stir in the spinach, add the halved eggs and warm through.', parallel: false },
+      { order: 1, cook: 1, title: 'Boil the eggs', text: 'Boil the eggs for 9 minutes, then cool and peel them.', parallel: false },
+      { order: 2, cook: 2, title: 'Dice the vegetables', text: 'Dice the onion and the tomatoes.', parallel: true },
+      { order: 3, cook: 3, title: 'Prepare the spinach', text: 'Wash the spinach and chop it roughly.', parallel: true },
+      { order: 4, cook: 2, title: 'Start the curry', text: 'Fry the onion, add the curry powder and the tomatoes.', parallel: false },
+      { order: 5, cook: 2, title: 'Simmer the sauce', text: 'Pour in the coconut milk and simmer for 10 minutes.', parallel: false },
+      { order: 6, cook: 1, title: 'Finish the curry', text: 'Stir in the spinach, add the halved eggs and warm through.', parallel: false },
     ],
   },
   {
@@ -84,9 +84,9 @@ export const MOCK_RECIPES: Recipe[] = [
       extra: [{ name: 'Soy sauce', amount: 20, unit: 'ml' }],
     },
     steps: [
-      { order: 1, cook: 1, text: 'Cook the pasta and drain it.', parallel: false },
-      { order: 2, cook: 1, text: 'Fry the eggs sunny side up.', parallel: false },
-      { order: 3, cook: 1, text: 'Toss the pasta with spinach and soy sauce, top with the eggs.', parallel: false },
+      { order: 1, cook: 1, title: 'Cook the pasta', text: 'Cook the pasta and drain it.', parallel: false },
+      { order: 2, cook: 1, title: 'Fry the eggs', text: 'Fry the eggs sunny side up.', parallel: false },
+      { order: 3, cook: 1, title: 'Build the bowl', text: 'Toss the pasta with spinach and soy sauce, top with the eggs.', parallel: false },
     ],
   },
 ];

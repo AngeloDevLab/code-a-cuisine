@@ -1,1 +1,31 @@
-<p>recipe-detail works!</p>
+<main class="recipe-detail">
+    <app-logo />
+    <a class="recipe-detail__back" routerLink="/results" aria-label="Back to recipe results">
+        <span class="recipe-detail__icon recipe-detail__icon--back" aria-hidden="true"></span>
+        <span class="recipe-detail__back-label">Recipe results</span>
+    </a>
+
+    @if (recipe(); as recipe) {
+    <article class="recipe-detail__card">
+        <app-recipe-summary [recipe]="recipe" />
+        <app-recipe-ingredients class="recipe-detail__section" [recipe]="recipe" />
+        <app-recipe-steps class="recipe-detail__section" [recipe]="recipe" />
+        <app-recipe-like class="recipe-detail__like" [recipeId]="recipe.id" />
+    </article>
+    } @else {
+    <section class="recipe-detail__missing">
+        <h1 class="recipe-detail__missing-title">Recipe not found</h1>
+        <p>This recipe is no longer available. Generate a new one or browse the cookbook.</p>
+    </section>
+    }
+
+    <aside class="recipe-detail__teaser">
+        <p class="recipe-detail__teaser-text">Find inspiration for your next culinary adventure!</p>
+        <a class="recipe-detail__cookbook" routerLink="/cookbook">Cookbook</a>
+    </aside>
+
+    <a class="recipe-detail__new" routerLink="/generator">
+        Generate new recipe
+        <span class="recipe-detail__icon recipe-detail__icon--arrow" aria-hidden="true"></span>
+    </a>
+</main>

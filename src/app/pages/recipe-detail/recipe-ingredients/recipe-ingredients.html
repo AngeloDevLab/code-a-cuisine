@@ -1,0 +1,33 @@
+<app-section-banner heading="Ingredients" variant="ingredients" />
+
+<div class="ingredients__collapse" id="ingredients-content" [class.ingredients__collapse--closed]="!expanded()">
+<div class="ingredients__content">
+    <section class="ingredients__group" aria-labelledby="your-ingredients">
+        <h3 class="ingredients__heading" id="your-ingredients">Your ingredients</h3>
+        <ul class="ingredients__list">
+            @for (ingredient of recipe().ingredients.yours; track ingredient.name) {
+            <li class="ingredients__item">
+                <span class="ingredients__amount">{{ amount(ingredient) }}</span>
+                <span>{{ ingredient.name }}</span>
+            </li>
+            }
+        </ul>
+    </section>
+
+    @if (recipe().ingredients.extra.length) {
+    <section class="ingredients__group" aria-labelledby="extra-ingredients">
+        <h3 class="ingredients__heading" id="extra-ingredients">Extra ingredients</h3>
+        <ul class="ingredients__list">
+            @for (ingredient of recipe().ingredients.extra; track ingredient.name) {
+            <li class="ingredients__item">
+                <span class="ingredients__amount">{{ amount(ingredient) }}</span>
+                <span>{{ ingredient.name }}</span>
+            </li>
+            }
+        </ul>
+    </section>
+    }
+</div>
+</div>
+
+<app-section-toggle label="ingredients" controls="ingredients-content" [(expanded)]="expanded" />

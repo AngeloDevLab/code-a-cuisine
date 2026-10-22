@@ -1,0 +1,41 @@
+@use 'tokens' as *;
+
+:host {
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: $bp-desktop) {
+    display: none;
+  }
+}
+
+.section-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-8;
+  padding: $space-8 $space-16;
+  border: 1px solid transparent;
+  border-radius: $radius-20;
+  font: inherit;
+  font-size: 16px;
+  color: $olive-green;
+  background: none;
+  cursor: pointer;
+  transition: border-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    border-color: $olive-green-50;
+  }
+}
+
+.section-toggle__icon {
+  width: 12px;
+  height: 8px;
+  background-color: currentColor;
+  mask: url('/icons/arrow-dropdown.svg') center / contain no-repeat;
+}
+
+.section-toggle__icon--up {
+  rotate: 180deg;
+}

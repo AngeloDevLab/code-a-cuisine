@@ -20,7 +20,7 @@ One row per generated recipe. Mirrors the Recipe object in [api-contract.md](api
 | `likes` | `int` | default 0 |
 | `nutrition` | `jsonb` | `{ perPortion: { energyKcal, proteinG, fatG, carbsG } }` |
 | `ingredients` | `jsonb` | `{ yours: [...], extra: [...] }` |
-| `steps` | `jsonb` | `[{ order, cook, text, parallel }]` |
+| `steps` | `jsonb` | `[{ order, cook, title, text, parallel }]` |
 
 Index on `(cuisine, created_at desc)` for the paginated category lists.
 

@@ -1,0 +1,37 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+
+:host {
+  display: block;
+  color: $dark-green;
+}
+
+.nutrition__table {
+  border-collapse: collapse;
+}
+
+.nutrition__title {
+  margin-bottom: $space-8;
+  font-size: 18px;
+  text-align: left;
+}
+
+.nutrition__label,
+.nutrition__value {
+  padding: $space-4 fluid($space-16, $space-24) $space-4 0;
+  text-align: left;
+  white-space: nowrap;
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.nutrition__label {
+  font-weight: $weight-bold;
+  font-size: fluid(16px, 22px);
+}
+
+.nutrition__value {
+  font-size: fluid(16px, 20px);
+}

@@ -1,0 +1,17 @@
+<table class="nutrition__table">
+    <caption class="nutrition__title">Nutritional information</caption>
+    <thead>
+        <tr>
+            @for (fact of facts(); track fact.label) {
+            <th class="nutrition__label" scope="col">{{ fact.label }}</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @for (fact of facts(); track fact.label) {
+            <td class="nutrition__value">{{ fact.value }}</td>
+            }
+        </tr>
+    </tbody>
+</table>

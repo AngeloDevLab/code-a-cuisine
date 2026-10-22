@@ -1,0 +1,20 @@
+<app-section-banner heading="Directions" variant="directions" />
+
+<div class="steps__collapse" id="steps-content" [class.steps__collapse--closed]="!expanded()">
+<ol class="steps__list">
+    @for (step of recipe().steps; track step.order) {
+    <li class="steps__item">
+        <div class="steps__header">
+            <span class="steps__number" aria-hidden="true">{{ step.order }}.</span>
+            <h3 class="steps__title">{{ step.title }}</h3>
+            @if (recipe().cooks > 1) {
+            <app-chef-badge class="steps__chef" [cook]="step.cook" />
+            }
+        </div>
+        <p class="steps__text">{{ step.text }}</p>
+    </li>
+    }
+</ol>
+</div>
+
+<app-section-toggle label="directions" controls="steps-content" [(expanded)]="expanded" />

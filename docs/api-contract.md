@@ -98,8 +98,8 @@ The frontend validates these rules, n8n validates them again.
     "extra": [{ "name": "olive oil", "amount": 30, "unit": "ml" }]
   },
   "steps": [
-    { "order": 1, "cook": 1, "text": "Bring a large pot of salted water to a boil.", "parallel": false },
-    { "order": 2, "cook": 2, "text": "Dice the tomatoes.", "parallel": true }
+    { "order": 1, "cook": 1, "title": "Boil the water", "text": "Bring a large pot of salted water to a boil.", "parallel": false },
+    { "order": 2, "cook": 2, "title": "Prepare the tomatoes", "text": "Dice the tomatoes.", "parallel": true }
   ]
 }
 ```
@@ -108,6 +108,7 @@ The frontend validates these rules, n8n validates them again.
 |---|---|
 | `ingredients.extra` | max. 3 basic ingredients the user does not have |
 | `steps[].cook` | 1 to `cooks`, used for the per cook to do lists |
+| `steps[].title` | short heading for the step, max. 4 words |
 | `steps[].parallel` | `true` if the step runs at the same time as the previous one |
 | `nutrition` | per portion only; totals and macro percentages are computed in the frontend |
 

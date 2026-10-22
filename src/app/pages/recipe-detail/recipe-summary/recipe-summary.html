@@ -1,0 +1,26 @@
+<p class="summary__time">
+    <span class="summary__icon summary__icon--time" aria-hidden="true"></span>
+    Cooking time: {{ recipe().cookingTimeMinutes }}min
+</p>
+
+<h1 class="summary__title">{{ recipe().title }}</h1>
+
+<div class="summary__cooks">
+    <span class="summary__cooks-label">Cooking persons: {{ recipe().cooks }}</span>
+    @for (cook of cooks(); track cook) {
+    <app-chef-badge [cook]="cook" />
+    }
+</div>
+
+<app-nutrition-facts class="summary__nutrition" [recipe]="recipe()" />
+
+<ul class="summary__tags">
+    @for (tag of tags(); track tag) {
+    <li class="summary__tag">{{ tag }}</li>
+    }
+    <li class="summary__tag summary__tag--likes">
+        <span class="summary__icon summary__icon--like" aria-hidden="true"></span>
+        {{ recipe().likes }}
+        <span class="summary__hidden-label">likes</span>
+    </li>
+</ul>

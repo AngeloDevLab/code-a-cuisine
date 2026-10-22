@@ -46,11 +46,13 @@ $dark-green: #10310b;
 $white: #ffffff;
 $creamy: #faf0e6;
 $sage: #dbe0db;
+$pale-sage: #d7dfd7;
 $sand: #f6e3cf;
 $peach: #fae0c6;
 
 // Alpha variants
 $green-40: color.change($green, $alpha: 0.4);
+$olive-green-50: color.change($olive-green, $alpha: 0.5);
 $olive-green-40: color.change($olive-green, $alpha: 0.4);
 $olive-green-30: color.change($olive-green, $alpha: 0.3);
 $olive-green-20: color.change($olive-green, $alpha: 0.2);
@@ -60,13 +62,14 @@ $dark-green-30: color.change($dark-green, $alpha: 0.3);
 $creamy-80: color.change($creamy, $alpha: 0.8);
 $creamy-20: color.change($creamy, $alpha: 0.2);
 $sage-70: color.change($sage, $alpha: 0.7);
+$pale-sage-60: color.change($pale-sage, $alpha: 0.6);
 $peach-20: color.change($peach, $alpha: 0.2);
 
 // Opaque variants for colored backgrounds
 $olive-green-30-solid: color.mix($olive-green, $white, 30%);
 
 // Chef labels, one color per cook
-$chef-1: #d7dfd7;
+$chef-1: $pale-sage;
 $chef-2: #ffd9b3;
 $chef-3: color.change(#cfd700, $alpha: 0.3);
 $chef-4: $green-40;
