@@ -96,6 +96,12 @@
   padding: $space-32 $space-24;
   border-radius: $radius-20;
   background-color: $sage;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:has(.results__view:focus-visible) {
+    background-color: $pale-sage-90;
+  }
 }
 
 .results__label {
@@ -133,6 +139,7 @@
   color: $green;
   text-decoration: none;
   background-color: $creamy;
+  transition: background-color 150ms ease-in-out;
 
   .results__card:hover &,
   &:focus-visible {
