@@ -1,1 +1,60 @@
-<p>cookbook works!</p>
+<main class="cookbook">
+    <app-logo />
+    <button class="cookbook__back" type="button" aria-label="Back" (click)="goBack()">
+        <span class="cookbook__icon cookbook__icon--back" aria-hidden="true"></span>
+        <span class="cookbook__back-label">Back</span>
+    </button>
+
+    <header class="cookbook__header">
+        <div class="cookbook__intro">
+            <h1 class="cookbook__title">Cookbook</h1>
+            <p class="cookbook__text">
+                From quick bites to gourmet delights, explore them all in our ultimate cookbook
+                and get inspired for your next culinary adventure.
+            </p>
+        </div>
+
+        <section class="cookbook__top" aria-labelledby="most-liked-title">
+            <h2 class="cookbook__top-title" id="most-liked-title">
+                Most liked recipes
+                <span class="cookbook__icon cookbook__icon--like" aria-hidden="true"></span>
+            </h2>
+            <ul class="cookbook__top-list">
+                @for (recipe of topRecipes.value(); track recipe.id) {
+                <li class="cookbook__top-card">
+                    <p class="cookbook__time">
+                        <span class="cookbook__icon cookbook__icon--time" aria-hidden="true"></span>
+                        Cooking time: {{ recipe.cookingTimeMinutes }}min
+                    </p>
+                    <span class="cookbook__likes" [attr.aria-label]="recipe.likes + ' likes'">
+                        <span class="cookbook__icon cookbook__icon--like-small" aria-hidden="true"></span>
+                        <span aria-hidden="true">{{ recipe.likes }}</span>
+                    </span>
+                    <h3 class="cookbook__recipe-title">
+                        <a class="cookbook__recipe-link" [routerLink]="['/recipes', recipe.id]"
+                            [queryParams]="{ from: 'cookbook' }">{{ recipe.title }}</a>
+                    </h3>
+                </li>
+                }
+            </ul>
+        </section>
+    </header>
+
+    <nav class="cookbook__cuisines" aria-label="Cuisines">
+        @for (cuisine of cuisines; track cuisine.value) {
+        <a class="cookbook__cuisine" [routerLink]="['/cookbook', cuisine.value]">
+            <span class="cookbook__cuisine-title">
+                {{ cuisine.label }} cuisine
+                <img [ngSrc]="'icons/cuisines/' + cuisine.value + '.png'" alt="" width="28" height="28" />
+            </span>
+            <img class="cookbook__cuisine-image" [ngSrc]="'images/cuisines/' + cuisine.value + '.webp'" alt=""
+                width="400" height="400" />
+        </a>
+        }
+    </nav>
+
+    <a class="cookbook__new" routerLink="/generator">
+        Generate new recipe
+        <span class="cookbook__icon cookbook__icon--arrow" aria-hidden="true"></span>
+    </a>
+</main>

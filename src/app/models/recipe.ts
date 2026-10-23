@@ -30,6 +30,8 @@ export interface Recipe {
   steps: RecipeStep[];
 }
 
+export type RecipePreview = Pick<Recipe, 'id' | 'title' | 'cookingTimeMinutes' | 'likes'>;
+
 export interface Quota {
   remaining: number;
   resetsAt: string;
