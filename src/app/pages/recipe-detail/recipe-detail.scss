@@ -19,10 +19,13 @@
   gap: $space-8;
   margin-top: fluid($space-16, $space-32);
   padding: $space-4 $space-8;
+  border: none;
   border-radius: $radius-2;
+  font: inherit;
   font-size: 14px;
   color: inherit;
-  text-decoration: none;
+  background: none;
+  cursor: pointer;
   transition: background-color 150ms ease-in-out;
 
   &:hover,
