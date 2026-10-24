@@ -211,6 +211,9 @@
       ],
       "id": "9d84c458-a3ad-4570-b111-a860dbea2db4",
       "name": "AI Agent",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
       "onError": "continueErrorOutput"
     },
     {
@@ -728,7 +731,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "versionId": "8212c143-78a2-4185-82a6-a4ff276740d0",
+  "versionId": "10eefa1e-a518-4293-854b-a6ba1c742c38",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "fc5ff6d2fc2e3dcd37d9d77516aeec79a3c8b50b4868c9098c1ff757801e1ed9"

@@ -33,7 +33,7 @@ flowchart LR
 | Count requests, Check limits | One query counts today's requests of the IP and of the whole system and finds the IP's last request. Limits: 3 per IP and 12 system wide per day (UTC), 1 request per 10 seconds per IP. |
 | Reserve request | Inserts the request into `quota_log` before Gemini is called, so parallel requests already see it. |
 | Build prompt | Builds the system message and the prompt from the request. User input is wrapped in `<request>` and treated as data only. |
-| AI Agent | Google Gemini Chat Model (`gemini-3.6-flash`, temperature 0.6) with a Structured Output Parser. Gemini either returns 3 recipes or `insufficient: true` with a reason. |
+| AI Agent | Google Gemini Chat Model (`gemini-3.6-flash`, temperature 0.6) with a Structured Output Parser. Gemini either returns 3 recipes or `insufficient: true` with a reason. If Gemini fails, for example when it is overloaded, the agent tries once more after 5 seconds. |
 | Build result | Adds cuisine, diet, portions, cooks and cooking time from the request, keeps `cook` within the number of cooks, fixes `parallel` and the step order. |
 | Save recipes | Inserts the 3 recipes in one query and returns their ids. |
 | Release request | Deletes the reservation again if Gemini or saving failed, so the request does not count. |
