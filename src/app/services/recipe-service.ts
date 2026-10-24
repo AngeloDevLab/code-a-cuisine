@@ -1,22 +1,25 @@
 import { Service } from '@angular/core';
+import { N8N_WEBHOOK_URL } from '../config';
 import { MOCK_LIBRARY } from '../data/mock-library';
-import { MOCK_RECIPES } from '../data/mock-recipes';
 import { ApiError, RecipePage, RecipePreview, RecipeResponse } from '../models/recipe';
 import { Cuisine, RecipeRequest } from '../models/recipe-request';
 
-const MOCK_DELAY_MS = 3000;
 const TOP_RECIPE_LIMIT = 5;
 export const RECIPES_PER_PAGE = 20;
 
-/** Talks to the recipe backend; returns mock data until the n8n webhook exists. */
+/** Talks to the recipe backend: generation via the n8n webhook, cookbook reads still mocked. */
 @Service()
 export class RecipeService {
-  /** Generates three recipes for the given request. */
+  /** Generates three recipes for the given request; throws an ApiError if n8n rejects it. */
   async generate(request: RecipeRequest): Promise<RecipeResponse> {
-    await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY_MS));
-    throwMockError(request);
-    const recipes = MOCK_RECIPES.map((recipe) => ({ ...recipe, portions: request.portions }));
-    return { recipes, quota: { remaining: 0, resetsAt: new Date().toISOString() } };
+    const response = await fetch(`${N8N_WEBHOOK_URL}/recipes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request),
+    });
+    const body: unknown = await response.json().catch(() => null);
+    if (!response.ok) throw toApiError(body);
+    return body as RecipeResponse;
   }
 
   /** Returns the most liked recipes of the cookbook, best first. */
@@ -34,10 +37,11 @@ export class RecipeService {
   }
 }
 
-/** Temporary test hook: an ingredient named "fail" fakes the insufficient ingredients error. */
-function throwMockError(request: RecipeRequest): void {
-  if (request.ingredients.some((ingredient) => ingredient.name.trim().toLowerCase() === 'fail')) {
-    const error: ApiError = { code: 'insufficient_ingredients', message: 'Not enough ingredients.' };
-    throw error;
+/** Unwraps the `{ error }` body of a failed request, with a generic error if the body has none. */
+function toApiError(body: unknown): ApiError {
+  const error = typeof body === 'object' && body !== null && 'error' in body ? body.error : null;
+  if (typeof error === 'object' && error !== null && 'code' in error && 'message' in error) {
+    return error as ApiError;
   }
+  return { code: 'internal_error', message: 'Something went wrong. Please try again.' };
 }
