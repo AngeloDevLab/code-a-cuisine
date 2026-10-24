@@ -1,6 +1,6 @@
 # Database (Supabase)
 
-Two tables. n8n writes with the `service_role` key (kept in n8n only), the frontend reads with the public `anon` key.
+Two tables. n8n connects through the Supabase session pooler as the database user (credentials kept in n8n only), the frontend reads with the public `anon` key.
 
 ## `recipes`
 
@@ -26,7 +26,7 @@ Index on `(cuisine, created_at desc)` for the paginated category lists and on `(
 
 ## `quota_log`
 
-One row per request that reached Gemini, whether it returned recipes or a rejection. Used by n8n for quota and throttling, see [api-contract.md](api-contract.md#quota-and-throttling).
+One row per request that passed the limits. n8n inserts it before calling Gemini and deletes it again if Gemini fails, so only requests answered with recipes or a rejection count. Used by n8n for quota and throttling, see [api-contract.md](api-contract.md#quota-and-throttling).
 
 | Column | Type | Notes |
 |---|---|---|

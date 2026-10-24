@@ -47,11 +47,12 @@ The frontend validates these rules, n8n validates them again in case the webhook
 ### Flow in n8n
 
 1. Validate the request. Invalid requests are answered with `invalid_input` and never reach Gemini.
-2. Check throttling and quota (per IP and system wide) in `quota_log`. If a limit is reached, answer with the matching error without calling Gemini.
-3. Ask Gemini for 3 recipes. In the same call Gemini judges whether the ingredients are enough for the portions.
-4. Log the request in `quota_log` once Gemini has answered, with recipes or with a rejection.
-5. On a rejection, answer with `insufficient_ingredients`.
-6. Save the 3 recipes to Supabase and return them.
+2. Check quota (per IP and system wide) and throttling in `quota_log`. If a limit is reached, answer with the matching error without calling Gemini.
+3. Reserve the request: insert a row into `quota_log` right away, so parallel requests already see it.
+4. Ask Gemini for 3 recipes. In the same call Gemini judges whether the ingredients are enough for the portions.
+5. If Gemini fails (`ai_error`), delete the reserved row again, so the request does not count.
+6. On a rejection, answer with `insufficient_ingredients`. The reserved row stays and counts.
+7. Save the 3 recipes to Supabase and return them.
 
 Gemini answers with structured JSON, either 3 recipes or:
 
