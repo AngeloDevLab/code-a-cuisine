@@ -30,7 +30,17 @@ export interface Recipe {
   steps: RecipeStep[];
 }
 
-export type RecipePreview = Pick<Recipe, 'id' | 'title' | 'cookingTimeMinutes' | 'likes'>;
+export type RecipePreview = Pick<
+  Recipe,
+  'id' | 'title' | 'cookingTimeMinutes' | 'cookingTime' | 'cuisine' | 'diet' | 'likes'
+>;
+
+export interface RecipePage {
+  recipes: RecipePreview[];
+  total: number;
+  page: number;
+  pageCount: number;
+}
 
 export interface Quota {
   remaining: number;

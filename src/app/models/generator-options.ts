@@ -34,6 +34,11 @@ export const CUISINE_OPTIONS: Option<Cuisine>[] = [
   { value: 'fusion', label: 'Fusion' },
 ];
 
+/** Returns the display label of a cuisine, or the raw value if it is unknown. */
+export function cuisineLabel(value: string | null): string {
+  return CUISINE_OPTIONS.find((option) => option.value === value)?.label ?? value ?? '';
+}
+
 export const DIET_OPTIONS: Option<Diet>[] = [
   { value: 'vegetarian', label: 'Vegetarian' },
   { value: 'vegan', label: 'Vegan' },

@@ -1,1 +1,60 @@
-<p>recipe-list works!</p>
+<main class="recipe-list">
+    <app-logo />
+    <div class="recipe-list__nav">
+        <button class="recipe-list__back" type="button" aria-label="Back to cookbook" (click)="goBack()">
+            <span class="recipe-list__icon recipe-list__icon--back" aria-hidden="true"></span>
+            <span class="recipe-list__back-label">Cookbook</span>
+        </button>
+        <a class="recipe-list__generate recipe-list__generate--top" routerLink="/generator">Generate a recipe</a>
+    </div>
+
+    <header class="recipe-list__banner">
+        <img class="recipe-list__banner-image recipe-list__banner-image--mobile" alt=""
+            [ngSrc]="'images/cuisines/' + cuisine() + '-banner-mobile.webp'" [width]="banner().mobile.width"
+            [height]="banner().mobile.height" />
+        <img class="recipe-list__banner-image recipe-list__banner-image--desktop" alt=""
+            [ngSrc]="'images/cuisines/' + cuisine() + '-banner.webp'" [width]="banner().desktop.width"
+            [height]="banner().desktop.height" />
+        <h1 class="recipe-list__title">{{ label() }} cuisine</h1>
+    </header>
+
+    @if (result.value(); as page) {
+    @if (page.total > 0) {
+    <ol class="recipe-list__list" [attr.start]="firstNumber()">
+        @for (recipe of items(); track recipe.id; let index = $index) {
+        <li class="recipe-list__item">
+            <span class="recipe-list__number" aria-hidden="true">{{ firstNumber() + index }}.</span>
+            <p class="recipe-list__time">
+                <span class="recipe-list__icon recipe-list__icon--time" aria-hidden="true"></span>
+                Cooking time: {{ recipe.cookingTimeMinutes }}min
+            </p>
+            <h2 class="recipe-list__recipe-title">
+                <a class="recipe-list__recipe-link" [routerLink]="['/recipes', recipe.id]"
+                    [queryParams]="{ from: cuisine() }">{{ recipe.title }}</a>
+            </h2>
+            <ul class="recipe-list__tags" aria-label="Tags">
+                @for (tag of recipe.tags; track tag) {
+                <li class="recipe-list__tag">{{ tag }}</li>
+                }
+                <li class="recipe-list__tag recipe-list__tag--likes" [attr.aria-label]="recipe.likes + ' likes'">
+                    <span class="recipe-list__icon recipe-list__icon--like" aria-hidden="true"></span>
+                    <span aria-hidden="true">{{ recipe.likes }}</span>
+                </li>
+            </ul>
+        </li>
+        }
+    </ol>
+
+    @if (page.pageCount > 1) {
+    <app-pagination class="recipe-list__pagination" [page]="page.page" [pageCount]="page.pageCount" />
+    }
+    } @else {
+    <section class="recipe-list__empty">
+        <h2 class="recipe-list__empty-title">No {{ label() }} recipes yet</h2>
+        <p>Nobody has cooked up a {{ label() }} recipe so far. Generate one and it will show up here.</p>
+    </section>
+    }
+    }
+
+    <a class="recipe-list__generate recipe-list__generate--bottom" routerLink="/generator">Generate recipe</a>
+</main>

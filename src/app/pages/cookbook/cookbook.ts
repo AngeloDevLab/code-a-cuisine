@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CUISINE_OPTIONS } from '../../models/generator-options';
+import { cuisineLabel } from '../../models/generator-options';
 import { Cuisine } from '../../models/recipe-request';
 import { BackNavigation } from '../../services/back-navigation';
 import { RecipeService } from '../../services/recipe-service';
@@ -20,10 +20,7 @@ export class Cookbook {
   private readonly recipeService = inject(RecipeService);
   private readonly backNavigation = inject(BackNavigation);
 
-  protected readonly cuisines = CUISINE_ORDER.map((value) => ({
-    value,
-    label: CUISINE_OPTIONS.find((option) => option.value === value)?.label ?? value,
-  }));
+  protected readonly cuisines = CUISINE_ORDER.map((value) => ({ value, label: cuisineLabel(value) }));
 
   protected readonly topRecipes = resource({
     defaultValue: [],

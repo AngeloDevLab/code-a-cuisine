@@ -1,0 +1,29 @@
+<nav class="pagination" aria-label="Pagination">
+    @if (page() > 1) {
+    <a class="pagination__link pagination__link--arrow" [routerLink]="[]" [queryParams]="paramsFor(page() - 1)"
+        queryParamsHandling="merge" [replaceUrl]="true" aria-label="Previous page">&lt;</a>
+    } @else {
+    <span class="pagination__link pagination__link--arrow pagination__link--disabled" aria-hidden="true">&lt;</span>
+    }
+
+    <ul class="pagination__pages">
+        @for (item of items(); track $index) {
+        <li>
+            @if (item === 'gap') {
+            <span class="pagination__gap" aria-hidden="true">...</span>
+            } @else {
+            <a class="pagination__link" [class.pagination__link--current]="item === page()" [routerLink]="[]"
+                [queryParams]="paramsFor(item)" queryParamsHandling="merge" [replaceUrl]="true"
+                [attr.aria-current]="item === page() ? 'page' : null" [attr.aria-label]="'Page ' + item">{{ item }}</a>
+            }
+        </li>
+        }
+    </ul>
+
+    @if (page() < pageCount()) {
+    <a class="pagination__link pagination__link--arrow" [routerLink]="[]" [queryParams]="paramsFor(page() + 1)"
+        queryParamsHandling="merge" [replaceUrl]="true" aria-label="Next page">&gt;</a>
+    } @else {
+    <span class="pagination__link pagination__link--arrow pagination__link--disabled" aria-hidden="true">&gt;</span>
+    }
+</nav>

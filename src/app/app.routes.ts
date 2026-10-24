@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { generationStartedGuard } from './guards/generation-started.guard';
 import { hasIngredientsGuard } from './guards/has-ingredients.guard';
 import { hasRecipesGuard } from './guards/has-recipes.guard';
+import { validCuisineGuard } from './guards/valid-cuisine.guard';
+import { cuisineLabel } from './models/generator-options';
 
 export const routes: Routes = [
   {
@@ -39,7 +41,8 @@ export const routes: Routes = [
   },
   {
     path: 'cookbook/:cuisine',
-    title: 'Recipes | Code à Cuisine',
+    title: (route) => `${cuisineLabel(route.paramMap.get('cuisine'))} cuisine | Code à Cuisine`,
+    canActivate: [validCuisineGuard],
     loadComponent: () => import('./pages/recipe-list/recipe-list').then((m) => m.RecipeList),
   },
   {
