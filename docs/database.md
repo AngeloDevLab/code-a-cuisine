@@ -22,20 +22,23 @@ One row per generated recipe. Mirrors the Recipe object in [api-contract.md](api
 | `ingredients` | `jsonb` | `{ yours: [...], extra: [...] }` |
 | `steps` | `jsonb` | `[{ order, cook, title, text, parallel }]` |
 
-Index on `(cuisine, created_at desc)` for the paginated category lists.
+Index on `(cuisine, created_at desc)` for the paginated category lists and on `(likes desc, created_at desc)` for the most liked recipes.
 
 ## `quota_log`
 
-One row per successful request. Used by n8n for quota and throttling.
+One row per request that reached Gemini, whether it returned recipes or a rejection. Used by n8n for quota and throttling, see [api-contract.md](api-contract.md#quota-and-throttling).
 
 | Column | Type | Notes |
 |---|---|---|
 | `id` | `bigint` | primary key, identity |
 | `created_at` | `timestamptz` | `now()` |
 | `ip` | `inet` | supports IPv4 and IPv6 |
-| `recipes` | `int` | recipes generated, default 3 |
 
 Index on `(ip, created_at)`.
+
+- Requests today per IP: `count(*) where ip = ? and created_at >= today 00:00 UTC`, limit 3.
+- Requests today system wide: the same without the IP filter, limit 12.
+- Throttling: latest `created_at` of the IP must be at least 10 seconds ago.
 
 - Days are counted in UTC, the quota resets at 00:00 UTC.
 - Rows older than 2 days are deleted (IP addresses are personal data).
@@ -53,7 +56,7 @@ Likes go through a database function, so `anon` can never update other columns:
 like_recipe(recipe_id uuid, liked boolean)
 ```
 
-`liked = true` adds one like, `false` removes one (never below 0). The browser remembers liked recipes in `localStorage`.
+`liked = true` adds one like, `false` removes one (never below 0). It returns the new like count. The browser remembers liked recipes in `localStorage`.
 
 ## SQL
 
@@ -75,12 +78,12 @@ create table recipes (
 );
 
 create index recipes_cuisine_created_idx on recipes (cuisine, created_at desc);
+create index recipes_likes_created_idx on recipes (likes desc, created_at desc);
 
 create table quota_log (
   id bigint generated always as identity primary key,
   created_at timestamptz not null default now(),
-  ip inet not null,
-  recipes int not null default 3
+  ip inet not null
 );
 
 create index quota_log_ip_created_idx on quota_log (ip, created_at);
