@@ -2,6 +2,7 @@ import { Service } from '@angular/core';
 import { N8N_WEBHOOK_URL } from '../config';
 import { ApiError, RecipeResponse } from '../models/recipe';
 import { RecipeRequest } from '../models/recipe-request';
+import { getClientId } from './client-id';
 
 /** Generates recipes through the n8n webhook. */
 @Service()
@@ -11,7 +12,7 @@ export class RecipeService {
     const response = await fetch(`${N8N_WEBHOOK_URL}/recipes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(request),
+      body: JSON.stringify({ ...request, clientId: getClientId() }),
     });
     const body: unknown = await response.json().catch(() => null);
     if (!response.ok) throw toApiError(body);
