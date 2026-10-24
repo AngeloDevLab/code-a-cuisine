@@ -1,0 +1,86 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+// The dialog itself has no padding, so a click on it can only come from the backdrop.
+.popup {
+  width: fluid(340px, 567px);
+  max-width: calc(100% - #{$space-32});
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: $radius-30;
+  font-family: $font-quicksand;
+  font-weight: $weight-semibold;
+  color: $creamy;
+  background-color: $olive-green;
+
+  &[open] {
+    animation: popup-in 400ms linear;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &::backdrop {
+    background-color: $deep-green-40;
+  }
+}
+
+.popup__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: fluid($space-16, $space-40) fluid($space-24, $space-64) fluid($space-24, $space-64);
+}
+
+.popup__close {
+  display: inline-flex;
+  align-self: flex-end;
+  padding: $space-8;
+  border: none;
+  border-radius: $radius-2;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $creamy-20;
+  }
+}
+
+.popup__icon {
+  @include icon-mask;
+  width: 16px;
+  height: 16px;
+  mask-image: url('/icons/close.svg');
+}
+
+.popup__title {
+  font-weight: $weight-semibold;
+  font-size: 28px;
+}
+
+.popup__break {
+  @media (min-width: $bp-desktop) {
+    display: none;
+  }
+}
+
+.popup__text {
+  margin-top: $space-24;
+  font-size: fluid(16px, 18px);
+}
+
+.popup__action {
+  margin-top: $space-24;
+}
+
+@keyframes popup-in {
+  from {
+    translate: 100vw 0;
+  }
+}

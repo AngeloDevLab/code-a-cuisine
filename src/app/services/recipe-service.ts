@@ -1,7 +1,7 @@
 import { Service } from '@angular/core';
 import { MOCK_LIBRARY } from '../data/mock-library';
 import { MOCK_RECIPES } from '../data/mock-recipes';
-import { RecipePage, RecipePreview, RecipeResponse } from '../models/recipe';
+import { ApiError, RecipePage, RecipePreview, RecipeResponse } from '../models/recipe';
 import { Cuisine, RecipeRequest } from '../models/recipe-request';
 
 const MOCK_DELAY_MS = 3000;
@@ -14,6 +14,7 @@ export class RecipeService {
   /** Generates three recipes for the given request. */
   async generate(request: RecipeRequest): Promise<RecipeResponse> {
     await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY_MS));
+    throwMockError(request);
     const recipes = MOCK_RECIPES.map((recipe) => ({ ...recipe, portions: request.portions }));
     return { recipes, quota: { remaining: 0, resetsAt: new Date().toISOString() } };
   }
@@ -30,5 +31,13 @@ export class RecipeService {
     const current = Math.min(Math.max(page, 1), pageCount);
     const start = (current - 1) * RECIPES_PER_PAGE;
     return { recipes: recipes.slice(start, start + RECIPES_PER_PAGE), total: recipes.length, page: current, pageCount };
+  }
+}
+
+/** Temporary test hook: an ingredient named "fail" fakes the insufficient ingredients error. */
+function throwMockError(request: RecipeRequest): void {
+  if (request.ingredients.some((ingredient) => ingredient.name.trim().toLowerCase() === 'fail')) {
+    const error: ApiError = { code: 'insufficient_ingredients', message: 'Not enough ingredients.' };
+    throw error;
   }
 }

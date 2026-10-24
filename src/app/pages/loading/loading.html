@@ -1,13 +1,1 @@
-@if (recipeStore.error(); as error) {
-<main class="loading">
-    <app-logo variant="creamy" />
-    <section class="loading__error" role="alert">
-        <h1 class="loading__title">Something went wrong</h1>
-        <p class="loading__text">{{ error.message }}</p>
-        <a class="loading__back" appButton label="Back to preferences" tone="creamy"
-            routerLink="/generator/preferences"></a>
-    </section>
-</main>
-} @else {
 <app-loading-screen label="Generating" />
-}

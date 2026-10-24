@@ -1,0 +1,23 @@
+<dialog #dialog class="popup" aria-labelledby="popup-title" (click)="closeOnBackdrop($event)"
+    (close)="store.close()">
+    @if (store.message(); as message) {
+    <div class="popup__content">
+        <button class="popup__close" type="button" aria-label="Close" (click)="store.close()">
+            <span class="popup__icon" aria-hidden="true"></span>
+        </button>
+        <h2 class="popup__title" id="popup-title">
+            @for (line of message.title; track $index) {
+            @if (!$first) {
+            <br class="popup__break" />
+            }
+            {{ line }}
+            }
+        </h2>
+        <p class="popup__text">{{ message.text }}</p>
+        @if (message.action; as action) {
+        <a class="popup__action" appButton [label]="action.label" variant="text" tone="creamy" arrow
+            [routerLink]="action.link" (click)="store.close()"></a>
+        }
+    </div>
+    }
+</dialog>
