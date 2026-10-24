@@ -1,0 +1,68 @@
+{
+  "name": "Code à Cuisine - Error alert",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -48
+      ],
+      "id": "e88f3488-7468-4d7e-a135-f152fb04412b",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "fromEmail": "Code à Cuisine <sender@example.com>",
+        "toEmail": "alerts@example.com",
+        "subject": "=Code à Cuisine: workflow failed at {{ $json.execution.lastNodeExecuted }}",
+        "emailFormat": "text",
+        "text": "=Workflow: {{ $json.workflow.name }}\nFailed node: {{ $json.execution.lastNodeExecuted }}\nError: {{ $json.execution.error.message }}\nTime: {{ $now.toISO() }}\n\nOpen execution: {{ $json.execution.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "d740a736-968f-4a0c-ae11-d5f2a8c544b0",
+      "name": "Send an Email",
+      "webhookId": "15d80f1e-c6f9-4d7b-99aa-a5acffb4a7a3",
+      "credentials": {
+        "smtp": {
+          "id": "cLouz5Sl8w59ZZw6",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "4a309175-6e10-4b89-b62b-76c89d800a88",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fc5ff6d2fc2e3dcd37d9d77516aeec79a3c8b50b4868c9098c1ff757801e1ed9"
+  },
+  "nodeGroups": [],
+  "id": "e5ozpNgvmvF5ZCTX",
+  "tags": []
+}
