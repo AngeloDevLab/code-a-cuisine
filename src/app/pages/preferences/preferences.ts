@@ -1,16 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { FormField, form, max, min } from '@angular/forms/signals';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { COOKING_TIME_OPTIONS, CUISINE_OPTIONS, DIET_OPTIONS } from '../../models/generator-options';
 import { COOK_LIMITS, PORTION_LIMITS } from '../../models/recipe-request';
 import { GeneratorStore } from '../../services/generator-store';
 import { RecipeStore } from '../../services/recipe-store';
+import { BackLink } from '../../shared/back-link/back-link';
+import { Button } from '../../shared/button/button';
 import { Logo } from '../../shared/logo/logo';
 import { Stepper } from '../../shared/stepper/stepper';
 
 /** Second generator step where the user picks portions, cooks, time, cuisine and diet. */
 @Component({
-  imports: [FormField, Logo, RouterLink, Stepper],
+  imports: [BackLink, Button, FormField, Logo, Stepper],
   selector: 'app-preferences',
   styleUrl: './preferences.scss',
   templateUrl: './preferences.html',

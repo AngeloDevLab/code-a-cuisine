@@ -3,43 +3,12 @@
 @use 'mixins' as *;
 
 .cookbook {
-  @include page-container;
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  font-family: $font-quicksand;
-  font-weight: $weight-medium;
-  color: $dark-green;
+  @include page-shell;
 }
 
 .cookbook__back {
-  display: inline-flex;
   align-self: flex-start;
-  align-items: center;
-  gap: $space-8;
   margin-top: fluid($space-16, $space-32);
-  padding: $space-4 $space-8;
-  border: none;
-  border-radius: $radius-2;
-  font: inherit;
-  font-size: 14px;
-  color: inherit;
-  background: none;
-  cursor: pointer;
-  transition: background-color 150ms ease-in-out;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $olive-green-20;
-  }
-}
-
-.cookbook__back-label {
-  display: none;
-
-  @media (min-width: $bp-desktop) {
-    display: inline;
-  }
 }
 
 .cookbook__header {
@@ -136,23 +105,7 @@
 .cookbook__recipe-link {
   color: inherit;
   text-decoration: none;
-
-  // Stretches the click area over the whole card.
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: $radius-8;
-  }
-
-  &:focus-visible {
-    outline: none;
-
-    &::after {
-      outline: 2px solid $middle-green;
-      outline-offset: -2px;
-    }
-  }
+  @include stretched-link($radius-8);
 }
 
 .cookbook__cuisines {
@@ -203,20 +156,8 @@
 }
 
 .cookbook__new {
-  display: inline-flex;
   align-self: center;
-  align-items: center;
-  gap: $space-8;
   margin-top: fluid($space-40, $space-64);
-  padding: $space-16 fluid($space-16, 26px);
-  font-size: fluid(16px, 20px);
-  color: $olive-green;
-  text-decoration: none;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $olive-green-12;
-  }
 
   @media (min-width: $bp-desktop) {
     align-self: flex-end;
@@ -224,16 +165,7 @@
 }
 
 .cookbook__icon {
-  display: inline-block;
-  flex-shrink: 0;
-  background-color: currentColor;
-  mask: center / contain no-repeat;
-}
-
-.cookbook__icon--back {
-  width: 22px;
-  height: 15px;
-  mask-image: url('/icons/arrow.svg');
+  @include icon-mask;
 }
 
 .cookbook__icon--like {
@@ -252,12 +184,4 @@
   width: 16px;
   height: 16px;
   mask-image: url('/icons/schedule.svg');
-}
-
-// The arrow icon points left, so it is mirrored.
-.cookbook__icon--arrow {
-  width: 20px;
-  aspect-ratio: 22 / 15;
-  mask-image: url('/icons/arrow.svg');
-  scale: -1 1;
 }

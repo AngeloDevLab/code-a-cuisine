@@ -1,5 +1,6 @@
 @use 'tokens' as *;
 @use 'functions' as *;
+@use 'mixins' as *;
 
 :host {
   display: flex;
@@ -49,10 +50,10 @@
 }
 
 .like__icon {
+  @include icon-mask;
   width: 40px;
   height: 36px;
-  background-color: currentColor;
-  mask: url('/icons/like.svg') center / contain no-repeat;
+  mask-image: url('/icons/like.svg');
   transition: scale 150ms ease-in-out;
 
   .like__button:active & {

@@ -1,4 +1,5 @@
 @use 'tokens' as *;
+@use 'mixins' as *;
 
 :host {
   display: flex;
@@ -33,11 +34,10 @@
 }
 
 .stepper__icon {
+  @include icon-mask;
   display: block;
   width: 20px;
   height: 20px;
-  background-color: currentColor;
-  mask: center / contain no-repeat;
 }
 
 .stepper__icon--decrease {

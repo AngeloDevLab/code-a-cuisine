@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { COOKING_TIME_OPTIONS, DIET_OPTIONS } from '../../../models/generator-options';
+import { recipeTags } from '../../../models/generator-options';
 import { Recipe } from '../../../models/recipe';
 import { ChefBadge } from '../chef-badge/chef-badge';
 import { NutritionFacts } from '../nutrition-facts/nutrition-facts';
@@ -16,11 +16,5 @@ export class RecipeSummary {
 
   protected readonly cooks = computed(() => Array.from({ length: this.recipe().cooks }, (_, index) => index + 1));
 
-  protected readonly tags = computed(() => {
-    const { diet, cookingTime } = this.recipe();
-    return [
-      diet === 'none' ? undefined : DIET_OPTIONS.find((option) => option.value === diet)?.label,
-      COOKING_TIME_OPTIONS.find((option) => option.value === cookingTime)?.label,
-    ].filter((label) => label !== undefined);
-  });
+  protected readonly tags = computed(() => recipeTags(this.recipe()));
 }

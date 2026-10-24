@@ -1,9 +1,6 @@
 <main class="cookbook">
     <app-logo />
-    <button class="cookbook__back" type="button" aria-label="Back" (click)="goBack()">
-        <span class="cookbook__icon cookbook__icon--back" aria-hidden="true"></span>
-        <span class="cookbook__back-label">Back</span>
-    </button>
+    <app-back-link class="cookbook__back" target="/" />
 
     <header class="cookbook__header">
         <div class="cookbook__intro">
@@ -53,8 +50,5 @@
         }
     </nav>
 
-    <a class="cookbook__new" routerLink="/generator">
-        Generate new recipe
-        <span class="cookbook__icon cookbook__icon--arrow" aria-hidden="true"></span>
-    </a>
+    <a class="cookbook__new" appButton label="Generate new recipe" variant="text" arrow routerLink="/generator"></a>
 </main>

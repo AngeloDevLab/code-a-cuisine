@@ -9,6 +9,44 @@
   padding: fluid(t.$space-16, t.$space-40) fluid(t.$space-16, t.$space-64) fluid(t.$space-40, 126px);
 }
 
+// Root of a page: centered container as a full height column with the base font.
+@mixin page-shell($color: t.$dark-green) {
+  @include page-container;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  font-family: t.$font-quicksand;
+  font-weight: t.$weight-medium;
+  color: $color;
+}
+
+// Link that stretches its click area and focus ring over the nearest positioned ancestor.
+@mixin stretched-link($radius) {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $radius;
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    &::after {
+      outline: 2px solid t.$middle-green;
+      outline-offset: -2px;
+    }
+  }
+}
+
+// Monochrome svg icon that takes the current text color; size and mask-image are set per icon.
+@mixin icon-mask {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: center / contain no-repeat;
+}
+
 // Wrapper that animates its single child's height open and closed.
 // The child needs min-height: 0 and overflow: hidden.
 @mixin collapse {

@@ -11,42 +11,12 @@
 }
 
 .preferences__back {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-8;
+  align-self: flex-start;
   margin-top: fluid($space-16, $space-32);
-  font-size: 14px;
-  text-decoration: none;
-  padding: $space-4 $space-8;
-  border-radius: $radius-2;
-  color: inherit;
-  transition: background-color 150ms ease-in-out;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $olive-green-20;
-  }
-}
-
-.preferences__back-label {
-  display: none;
-
-  @media (min-width: $bp-desktop) {
-    display: inline;
-  }
 }
 
 .preferences__icon {
-  display: inline-block;
-  flex-shrink: 0;
-  background-color: currentColor;
-  mask: center / contain no-repeat;
-}
-
-.preferences__icon--back {
-  width: 22px;
-  height: 15px;
-  mask-image: url('/icons/arrow.svg');
+  @include icon-mask;
 }
 
 .preferences__icon--time {
@@ -185,16 +155,4 @@
 .preferences__submit {
   align-self: center;
   margin-top: fluid($space-40, $space-56);
-  padding: $space-16 fluid($space-16, 26px);
-  border: none;
-  font: inherit;
-  font-size: fluid(16px, 24px);
-  color: $creamy;
-  background-color: $olive-green;
-  cursor: pointer;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $middle-green;
-  }
 }

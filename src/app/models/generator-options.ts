@@ -45,3 +45,10 @@ export const DIET_OPTIONS: Option<Diet>[] = [
   { value: 'keto', label: 'Keto' },
   { value: 'none', label: 'No preferences' },
 ];
+
+/** Returns the diet and cooking time labels shown as recipe tags, without a diet of 'none'. */
+export function recipeTags(recipe: { diet: Diet; cookingTime: CookingTime }): string[] {
+  const diet = recipe.diet === 'none' ? undefined : DIET_OPTIONS.find((option) => option.value === recipe.diet);
+  const time = COOKING_TIME_OPTIONS.find((option) => option.value === recipe.cookingTime);
+  return [diet?.label, time?.label].filter((label) => label !== undefined);
+}

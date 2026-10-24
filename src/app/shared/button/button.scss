@@ -1,0 +1,84 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-8;
+  padding: $space-16 fluid($space-16, 26px);
+  border: none;
+  font-family: $font-quicksand;
+  font-weight: $weight-medium;
+  font-size: fluid(16px, 24px);
+  color: $creamy;
+  text-decoration: none;
+  background-color: $olive-green;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    font-weight: $weight-bold;
+    background-color: $middle-green;
+  }
+}
+
+:host(.button--creamy) {
+  font-weight: $weight-semibold;
+  color: $green;
+  background-color: $creamy;
+
+  &:hover,
+  &:focus-visible {
+    font-weight: $weight-bold;
+    background-color: $peach;
+  }
+}
+
+:host(.button--text) {
+  font-weight: $weight-medium;
+  font-size: fluid(18px, 20px);
+  color: $olive-green;
+  background-color: transparent;
+
+  &:hover,
+  &:focus-visible {
+    font-weight: $weight-medium;
+    background-color: $olive-green-12;
+  }
+}
+
+:host(.button--text.button--creamy) {
+  color: $creamy;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $peach-20;
+  }
+}
+
+.button__label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Invisible bold copy of the label reserves the hover width.
+  &::after {
+    content: attr(data-label);
+    height: 0;
+    overflow: hidden;
+    font-weight: $weight-bold;
+    visibility: hidden;
+  }
+}
+
+// The arrow icon points left, so it is mirrored.
+.button__arrow {
+  @include icon-mask;
+  width: 20px;
+  aspect-ratio: 22 / 15;
+  mask-image: url('/icons/arrow.svg');
+  scale: -1 1;
+}

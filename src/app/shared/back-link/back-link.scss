@@ -1,0 +1,42 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-8;
+  padding: $space-4 $space-8;
+  border: none;
+  border-radius: $radius-2;
+  font: inherit;
+  font-size: 14px;
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $olive-green-20;
+  }
+}
+
+.back-link__icon {
+  @include icon-mask;
+  width: 22px;
+  height: 15px;
+  mask-image: url('/icons/arrow.svg');
+}
+
+.back-link__label {
+  display: none;
+
+  @media (min-width: $bp-desktop) {
+    display: inline;
+  }
+}

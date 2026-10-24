@@ -29,14 +29,12 @@
                 <span class="results__icon results__icon--time" aria-hidden="true"></span>
                 Cooking time: {{ recipe.cookingTimeMinutes }}min
             </p>
-            <a class="results__view" [routerLink]="['/recipes', recipe.id]"
-                [attr.aria-label]="'View ' + recipe.title">View</a>
+            <a class="results__view" appButton label="View" tone="creamy" [routerLink]="['/recipes', recipe.id]"
+                [attr.aria-label]="'View ' + recipe.title"></a>
         </article>
         }
     </section>
 
-    <a class="results__new" routerLink="/generator">
-        Generate new recipe
-        <span class="results__icon results__icon--arrow" aria-hidden="true"></span>
-    </a>
+    <a class="results__new" appButton label="Generate new recipe" variant="text" tone="creamy" arrow
+        routerLink="/generator"></a>
 </main>

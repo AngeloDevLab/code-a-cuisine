@@ -1,10 +1,6 @@
 <main class="recipe-detail">
     <app-logo />
-    <button class="recipe-detail__back" type="button" [attr.aria-label]="'Back to ' + back().label"
-        (click)="goBack()">
-        <span class="recipe-detail__icon recipe-detail__icon--back" aria-hidden="true"></span>
-        <span class="recipe-detail__back-label">{{ back().label }}</span>
-    </button>
+    <app-back-link class="recipe-detail__back" [target]="back().path" [label]="back().label" />
 
     @if (recipe(); as recipe) {
     <article class="recipe-detail__card">
@@ -22,11 +18,8 @@
 
     <aside class="recipe-detail__teaser">
         <p class="recipe-detail__teaser-text">Find inspiration for your next culinary adventure!</p>
-        <a class="recipe-detail__cookbook" routerLink="/cookbook">Cookbook</a>
+        <a class="recipe-detail__cookbook" appButton label="Cookbook" routerLink="/cookbook"></a>
     </aside>
 
-    <a class="recipe-detail__new" routerLink="/generator">
-        Generate new recipe
-        <span class="recipe-detail__icon recipe-detail__icon--arrow" aria-hidden="true"></span>
-    </a>
+    <a class="recipe-detail__new" appButton label="Generate new recipe" variant="text" arrow routerLink="/generator"></a>
 </main>

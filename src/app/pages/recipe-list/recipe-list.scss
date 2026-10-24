@@ -3,13 +3,7 @@
 @use 'mixins' as *;
 
 .recipe-list {
-  @include page-container;
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  font-family: $font-quicksand;
-  font-weight: $weight-medium;
-  color: $dark-green;
+  @include page-shell;
 }
 
 .recipe-list__nav {
@@ -21,47 +15,8 @@
   margin-top: fluid($space-16, $space-32);
 }
 
-.recipe-list__back {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-8;
-  padding: $space-4 $space-8;
-  border: none;
-  border-radius: $radius-2;
-  font: inherit;
-  font-size: 14px;
-  color: inherit;
-  background: none;
-  cursor: pointer;
-  transition: background-color 150ms ease-in-out;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $olive-green-20;
-  }
-}
-
-.recipe-list__back-label {
-  display: none;
-
-  @media (min-width: $bp-desktop) {
-    display: inline;
-  }
-}
-
 .recipe-list__generate {
   align-self: center;
-  padding: $space-16 fluid($space-16, 26px);
-  font-size: fluid(16px, 24px);
-  color: $creamy;
-  text-decoration: none;
-  background-color: $olive-green;
-  transition: background-color 150ms ease-in-out;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $middle-green;
-  }
 }
 
 .recipe-list__generate--top {
@@ -70,7 +25,7 @@
   margin-right: fluid(0px, 82px);
 
   @media (min-width: $bp-desktop) {
-    display: inline-block;
+    display: inline-flex;
   }
 }
 
@@ -94,23 +49,14 @@
   }
 }
 
+.recipe-list__banner-picture {
+  width: 100%;
+}
+
 .recipe-list__banner-image {
+  display: block;
   width: 100%;
   height: auto;
-}
-
-.recipe-list__banner-image--mobile {
-  @media (min-width: $bp-tablet) {
-    display: none;
-  }
-}
-
-.recipe-list__banner-image--desktop {
-  display: none;
-
-  @media (min-width: $bp-tablet) {
-    display: block;
-  }
 }
 
 .recipe-list__title {
@@ -205,21 +151,11 @@
 .recipe-list__recipe-link {
   color: inherit;
   text-decoration: none;
+  @include stretched-link($radius-20);
 
-  // Stretches the click area over the whole item.
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-  }
-
-  &:focus-visible {
-    outline: none;
-
+  @media (min-width: $bp-desktop) {
     &::after {
-      outline: 2px solid $middle-green;
-      outline-offset: -2px;
+      border-radius: $radius-8;
     }
   }
 }
@@ -271,16 +207,7 @@
 }
 
 .recipe-list__icon {
-  display: inline-block;
-  flex-shrink: 0;
-  background-color: currentColor;
-  mask: center / contain no-repeat;
-}
-
-.recipe-list__icon--back {
-  width: 22px;
-  height: 15px;
-  mask-image: url('/icons/arrow.svg');
+  @include icon-mask;
 }
 
 .recipe-list__icon--time {

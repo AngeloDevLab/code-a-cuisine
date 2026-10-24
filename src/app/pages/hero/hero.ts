@@ -1,11 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Button } from '../../shared/button/button';
 import { Logo } from '../../shared/logo/logo';
 
 /** Landing page that introduces the app and leads to the generator. */
 @Component({
-  imports: [Logo, NgOptimizedImage, RouterLink],
+  imports: [Button, Logo, NgOptimizedImage, RouterLink],
   selector: 'app-hero',
   styleUrl: './hero.scss',
   templateUrl: './hero.html',

@@ -59,32 +59,7 @@ $hero-image-width-desktop: 470px;
 }
 
 .hero__cta {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
   margin-top: fluid($space-40, $space-64);
-  padding: $space-16 fluid($space-16, 26px);
-  font-family: $font-quicksand;
-  font-weight: $weight-semibold;
-  font-size: fluid(16px, 24px);
-  color: $green;
-  text-decoration: none;
-  background-color: $creamy;
-
-  &:hover,
-  &:focus-visible {
-    font-weight: $weight-bold;
-    background-color: $peach;
-  }
-
-  // Invisible bold copy of the label reserves the hover width.
-  &::after {
-    content: attr(data-label);
-    height: 0;
-    overflow: hidden;
-    font-weight: $weight-bold;
-    visibility: hidden;
-  }
 }
 
 .hero__teaser {
@@ -106,34 +81,11 @@ $hero-image-width-desktop: 470px;
 }
 
 .hero__link {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-8;
   margin-top: $space-32;
-  font-family: $font-quicksand;
-  font-weight: $weight-medium;
-  font-size: fluid(18px, 20px);
-  padding: $space-16 fluid($space-16, 26px);
-  color: inherit;
-  text-decoration: none;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $peach-20;
-  }
 
   @media (min-width: $bp-desktop) {
     margin-top: 0;
   }
-}
-
-// The arrow icon points left and has a fixed fill, so it is used as a mask.
-.hero__link-icon {
-  width: 20px;
-  aspect-ratio: 22 / 15;
-  background-color: currentColor;
-  mask: url('/icons/arrow.svg') center / contain no-repeat;
-  scale: -1 1;
 }
 
 .hero__images {

@@ -1,5 +1,6 @@
 @use 'tokens' as *;
 @use 'functions' as *;
+@use 'mixins' as *;
 
 :host {
   display: grid;
@@ -95,10 +96,7 @@
 }
 
 .summary__icon {
-  display: inline-block;
-  flex-shrink: 0;
-  background-color: currentColor;
-  mask: center / contain no-repeat;
+  @include icon-mask;
 }
 
 .summary__icon--time {

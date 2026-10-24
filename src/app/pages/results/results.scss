@@ -8,13 +8,7 @@
 }
 
 .results {
-  @include page-container;
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  font-family: $font-quicksand;
-  font-weight: $weight-medium;
-  color: $creamy;
+  @include page-shell($creamy);
 }
 
 .results__header {
@@ -133,43 +127,17 @@
 
 .results__view {
   margin-top: auto;
-  padding: $space-16 fluid($space-16, 26px);
-  font-weight: $weight-semibold;
-  font-size: fluid(16px, 24px);
-  color: $green;
-  text-decoration: none;
-  background-color: $creamy;
-  transition: background-color 150ms ease-in-out;
 
-  .results__card:hover &,
-  &:focus-visible {
+  .results__card:hover & {
+    font-weight: $weight-bold;
     background-color: $peach;
   }
-
-  // Stretches the click area over the whole card.
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: $radius-20;
-  }
+  @include stretched-link($radius-20);
 }
 
 .results__new {
-  display: inline-flex;
-  align-items: center;
   align-self: center;
-  gap: $space-8;
   margin-top: fluid($space-40, $space-64);
-  padding: $space-16 fluid($space-16, 26px);
-  font-size: fluid(18px, 20px);
-  color: inherit;
-  text-decoration: none;
-
-  &:hover,
-  &:focus-visible {
-    background-color: $peach-20;
-  }
 
   @media (min-width: $bp-desktop) {
     align-self: flex-end;
@@ -177,10 +145,7 @@
 }
 
 .results__icon {
-  display: inline-block;
-  flex-shrink: 0;
-  background-color: currentColor;
-  mask: center / contain no-repeat;
+  @include icon-mask;
 }
 
 .results__cloche {
@@ -191,12 +156,4 @@
   width: 20px;
   height: 20px;
   mask-image: url('/icons/schedule.svg');
-}
-
-// The arrow icon points left, so it is mirrored.
-.results__icon--arrow {
-  width: 20px;
-  aspect-ratio: 22 / 15;
-  mask-image: url('/icons/arrow.svg');
-  scale: -1 1;
 }

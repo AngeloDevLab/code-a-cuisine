@@ -1,20 +1,20 @@
 <main class="recipe-list">
     <app-logo />
     <div class="recipe-list__nav">
-        <button class="recipe-list__back" type="button" aria-label="Back to cookbook" (click)="goBack()">
-            <span class="recipe-list__icon recipe-list__icon--back" aria-hidden="true"></span>
-            <span class="recipe-list__back-label">Cookbook</span>
-        </button>
-        <a class="recipe-list__generate recipe-list__generate--top" routerLink="/generator">Generate a recipe</a>
+        <app-back-link target="/cookbook" label="Cookbook" />
+        <a class="recipe-list__generate recipe-list__generate--top" appButton label="Generate a recipe"
+            routerLink="/generator"></a>
     </div>
 
     <header class="recipe-list__banner">
-        <img class="recipe-list__banner-image recipe-list__banner-image--mobile" alt=""
-            [ngSrc]="'images/cuisines/' + cuisine() + '-banner-mobile.webp'" [width]="banner().mobile.width"
-            [height]="banner().mobile.height" />
-        <img class="recipe-list__banner-image recipe-list__banner-image--desktop" alt=""
-            [ngSrc]="'images/cuisines/' + cuisine() + '-banner.webp'" [width]="banner().desktop.width"
-            [height]="banner().desktop.height" />
+        <!-- Plain img on purpose: NgOptimizedImage does not support art direction with <picture>. -->
+        <picture class="recipe-list__banner-picture">
+            <source media="(min-width: 768px)" [attr.srcset]="'images/cuisines/' + cuisine() + '-banner.webp'"
+                [attr.width]="banner().desktop.width" [attr.height]="banner().desktop.height" />
+            <img class="recipe-list__banner-image" alt="" fetchpriority="high"
+                [src]="'images/cuisines/' + cuisine() + '-banner-mobile.webp'" [width]="banner().mobile.width"
+                [height]="banner().mobile.height" />
+        </picture>
         <h1 class="recipe-list__title">{{ label() }} cuisine</h1>
     </header>
 
@@ -56,5 +56,6 @@
     }
     }
 
-    <a class="recipe-list__generate recipe-list__generate--bottom" routerLink="/generator">Generate recipe</a>
+    <a class="recipe-list__generate recipe-list__generate--bottom" appButton label="Generate recipe"
+        routerLink="/generator"></a>
 </main>

@@ -1,9 +1,6 @@
 <main class="preferences">
     <app-logo />
-    <a class="preferences__back" routerLink="/generator" aria-label="Back to ingredients">
-        <span class="preferences__icon preferences__icon--back" aria-hidden="true"></span>
-        <span class="preferences__back-label">Ingredients</span>
-    </a>
+    <app-back-link class="preferences__back" target="/generator" label="Ingredients" [history]="false" />
 
     <h1 class="preferences__title">Choose your preferences</h1>
 
@@ -73,6 +70,6 @@
             </fieldset>
         </div>
 
-        <button class="preferences__submit" type="submit">Generate recipe</button>
+        <button class="preferences__submit" appButton label="Generate recipe" type="submit"></button>
     </form>
 </main>

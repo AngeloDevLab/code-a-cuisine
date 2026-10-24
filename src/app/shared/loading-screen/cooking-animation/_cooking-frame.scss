@@ -1,0 +1,11 @@
+@use 'sass:math';
+
+// All positions are measured in the 436 x 613 px frames of the original animation.
+$frame-width: 436;
+$frame-height: 613;
+$cycle: 12.64s;
+
+// Converts a frame pixel value into a size relative to the stage width.
+@function u($px) {
+  @return math.div($px, $frame-width) * 100cqw;
+}
