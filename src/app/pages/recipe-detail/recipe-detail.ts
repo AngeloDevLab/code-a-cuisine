@@ -1,6 +1,7 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CUISINE_OPTIONS } from '../../models/generator-options';
+import { CookbookService } from '../../services/cookbook-service';
 import { RecipeStore } from '../../services/recipe-store';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
@@ -24,12 +25,20 @@ interface BackTarget {
 })
 export class RecipeDetail {
   private readonly recipeStore = inject(RecipeStore);
+  private readonly cookbook = inject(CookbookService);
 
   readonly id = input.required<string>();
 
   readonly from = input<string>();
 
-  protected readonly recipe = computed(() => this.recipeStore.recipes().find((recipe) => recipe.id === this.id()));
+  private readonly generated = computed(() => this.recipeStore.recipes().find((recipe) => recipe.id === this.id()));
+
+  protected readonly loaded = resource({
+    params: () => (this.generated() ? undefined : this.id()),
+    loader: ({ params }) => this.cookbook.getById(params),
+  });
+
+  protected readonly recipe = computed(() => this.generated() ?? (this.loaded.hasValue() ? this.loaded.value() : null));
   protected readonly back = computed(() => toBackTarget(this.from()));
 }
 

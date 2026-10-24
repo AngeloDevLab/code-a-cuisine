@@ -1,9 +1,9 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, inject, resource } from '@angular/core';
+import { Component, computed, inject, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { cuisineLabel } from '../../models/generator-options';
 import { Cuisine } from '../../models/recipe-request';
-import { RecipeService } from '../../services/recipe-service';
+import { CookbookService } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
 import { Logo } from '../../shared/logo/logo';
@@ -18,12 +18,14 @@ const CUISINE_ORDER: Cuisine[] = ['italian', 'german', 'japanese', 'gourmet', 'i
   templateUrl: './cookbook.html',
 })
 export class Cookbook {
-  private readonly recipeService = inject(RecipeService);
+  private readonly cookbook = inject(CookbookService);
 
   protected readonly cuisines = CUISINE_ORDER.map((value) => ({ value, label: cuisineLabel(value) }));
 
-  protected readonly topRecipes = resource({
+  private readonly topRecipes = resource({
     defaultValue: [],
-    loader: () => this.recipeService.getMostLiked(),
+    loader: () => this.cookbook.getMostLiked(),
   });
+
+  protected readonly mostLiked = computed(() => (this.topRecipes.hasValue() ? this.topRecipes.value() : []));
 }

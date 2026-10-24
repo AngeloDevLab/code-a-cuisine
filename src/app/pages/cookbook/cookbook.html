@@ -17,7 +17,7 @@
                 <span class="cookbook__icon cookbook__icon--like" aria-hidden="true"></span>
             </h2>
             <ul class="cookbook__top-list">
-                @for (recipe of topRecipes.value(); track recipe.id) {
+                @for (recipe of mostLiked(); track recipe.id) {
                 <li class="cookbook__top-card">
                     <p class="cookbook__time">
                         <span class="cookbook__icon cookbook__icon--time" aria-hidden="true"></span>

@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CUISINE_BANNERS } from '../../data/cuisine-banners';
 import { cuisineLabel, recipeTags } from '../../models/generator-options';
 import { Cuisine } from '../../models/recipe-request';
-import { RECIPES_PER_PAGE, RecipeService } from '../../services/recipe-service';
+import { CookbookService, RECIPES_PER_PAGE } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
 import { Logo } from '../../shared/logo/logo';
@@ -17,7 +17,7 @@ import { Pagination } from '../../shared/pagination/pagination';
   templateUrl: './recipe-list.html',
 })
 export class RecipeList {
-  private readonly recipeService = inject(RecipeService);
+  private readonly cookbook = inject(CookbookService);
 
   readonly cuisine = input.required<Cuisine>();
   readonly page = input<string>();
@@ -27,12 +27,14 @@ export class RecipeList {
 
   protected readonly result = resource({
     params: () => ({ cuisine: this.cuisine(), page: Number(this.page()) || 1 }),
-    loader: ({ params }) => this.recipeService.getByCuisine(params.cuisine, params.page),
+    loader: ({ params }) => this.cookbook.getByCuisine(params.cuisine, params.page),
   });
 
-  protected readonly firstNumber = computed(() => ((this.result.value()?.page ?? 1) - 1) * RECIPES_PER_PAGE + 1);
+  protected readonly loadedPage = computed(() => (this.result.hasValue() ? this.result.value() : undefined));
+
+  protected readonly firstNumber = computed(() => ((this.loadedPage()?.page ?? 1) - 1) * RECIPES_PER_PAGE + 1);
 
   protected readonly items = computed(() =>
-    (this.result.value()?.recipes ?? []).map((recipe) => ({ ...recipe, tags: recipeTags(recipe) })),
+    (this.loadedPage()?.recipes ?? []).map((recipe) => ({ ...recipe, tags: recipeTags(recipe) })),
   );
 }

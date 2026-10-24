@@ -9,7 +9,7 @@
         <app-recipe-steps class="recipe-detail__section" [recipe]="recipe" />
         <app-recipe-like class="recipe-detail__like" [recipeId]="recipe.id" />
     </article>
-    } @else {
+    } @else if (!loaded.isLoading()) {
     <section class="recipe-detail__missing">
         <h1 class="recipe-detail__missing-title">Recipe not found</h1>
         <p>This recipe is no longer available. Generate a new one or browse the cookbook.</p>
