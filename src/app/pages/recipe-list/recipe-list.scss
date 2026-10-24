@@ -192,10 +192,12 @@
 .recipe-list__recipe-title {
   grid-area: title;
   font-weight: $weight-semibold;
+  min-height: 2lh;
   font-size: fluid(18px, 24px);
   color: $middle-green;
 
   @media (min-width: $bp-desktop) {
+    min-height: auto;
     font-weight: $weight-medium;
   }
 }
