@@ -18,7 +18,7 @@ Built as a solo project at Developer Akademie.
 - Likes, one per recipe and browser
 - Quota as a cost airbag: 3 requests per user per day, 12 system wide, 1 request per 10 seconds
 - Clear error messages in a popup, for example when the quota is used up or the ingredients are not enough for the portions
-- Responsive from 320px, accessible (AXE checked, keyboard usable)
+- Responsive from 320px, accessibility checked with axe DevTools (0 issues on every page) and fully usable with the keyboard
 - Imprint and privacy policy
 
 ## Demo
@@ -29,7 +29,7 @@ Built as a solo project at Developer Akademie.
 4. After a short wait the 3 recipes appear. Open one to see the steps per chef and the nutrition charts.
 5. Go to the **Cookbook**: your recipes are now in the German list, and you can like them.
 
-Each user can generate 3 times per day. Try *1 piece egg* for 12 portions to see how the AI rejects ingredients that are not enough.
+Each user can generate 3 times per day. Enter something that is not food, for example *2 piece shoe*, to see how the AI rejects a request.
 
 ## Tech Stack
 
