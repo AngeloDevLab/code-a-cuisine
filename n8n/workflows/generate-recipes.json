@@ -7,7 +7,7 @@
         "path": "recipes",
         "responseMode": "responseNode",
         "options": {
-          "allowedOrigins": "http://localhost:4200"
+          "allowedOrigins": "http://localhost:4200,https://cuisine.angelodevelopment.de"
         }
       },
       "type": "n8n-nodes-base.webhook",
@@ -777,7 +777,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "versionId": "b2196bec-6e7b-4cdc-905b-cb2b9d79c393",
+  "versionId": "04d3a0d5-1e3f-4786-8e3a-1a98571e96b8",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "fc5ff6d2fc2e3dcd37d9d77516aeec79a3c8b50b4868c9098c1ff757801e1ed9"
