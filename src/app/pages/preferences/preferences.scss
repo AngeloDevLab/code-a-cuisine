@@ -3,11 +3,7 @@
 @use 'mixins' as *;
 
 .preferences {
-  @include page-container;
-  min-height: 100dvh;
-  font-family: $font-quicksand;
-  font-weight: $weight-medium;
-  color: $dark-green;
+  @include page-shell;
 }
 
 .preferences__back {
@@ -50,6 +46,7 @@
 .preferences__form {
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 720px;
   margin-inline: auto;
 }
