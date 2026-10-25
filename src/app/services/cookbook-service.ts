@@ -5,7 +5,7 @@ import { Recipe, RecipePage, RecipePreview } from '../models/recipe';
 import { Cuisine } from '../models/recipe-request';
 
 export const RECIPES_PER_PAGE = 20;
-const TOP_RECIPE_LIMIT = 5;
+export const TOP_RECIPE_LIMIT = 5;
 const RANGE_NOT_SATISFIABLE = 'PGRST103';
 
 const PREVIEW_COLUMNS = 'id, title, cookingTimeMinutes:cooking_time_minutes, cookingTime:cooking_time, cuisine, diet, likes';

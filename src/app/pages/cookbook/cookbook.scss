@@ -76,6 +76,25 @@
   }
 }
 
+// Same structure as a real card with hidden content, so the row keeps its height while loading.
+.cookbook__top-card--placeholder {
+  animation: cookbook-pulse 1.2s ease-in-out infinite alternate;
+
+  > * {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes cookbook-pulse {
+  to {
+    opacity: 0.5;
+  }
+}
+
 .cookbook__time {
   display: flex;
   align-items: center;
