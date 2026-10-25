@@ -63,7 +63,7 @@ Apply changes with `docker compose up -d` in the Caddy directory.
 
 ## GitHub Action
 
-[.github/workflows/deploy.yml](../.github/workflows/deploy.yml) runs on every push to `main` and can be started by hand under **Actions**. It builds the app and runs `rsync --delete --delay-updates`, so old files are removed and the new build replaces the old one at once.
+[.github/workflows/deploy.yml](../.github/workflows/deploy.yml) runs on every push to `main` that changes more than Markdown files, `docs/` or `n8n/`, and can be started by hand under **Actions**. It builds the app and runs `rsync --delete --delay-updates`, so old files are removed and the new build replaces the old one at once.
 
 Repository secrets (**Settings → Secrets and variables → Actions**):
 
