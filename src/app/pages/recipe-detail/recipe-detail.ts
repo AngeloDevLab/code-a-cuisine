@@ -6,6 +6,7 @@ import { LikeStore } from '../../services/like-store';
 import { RecipeStore } from '../../services/recipe-store';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
+import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 import { RecipeIngredients } from './recipe-ingredients/recipe-ingredients';
 import { RecipeLike } from './recipe-like/recipe-like';
@@ -19,7 +20,7 @@ interface BackTarget {
 
 /** Full view of one recipe with ingredients, steps, nutrition and likes. */
 @Component({
-  imports: [BackLink, Button, Logo, RecipeIngredients, RecipeLike, RecipeSteps, RecipeSummary, RouterLink],
+  imports: [BackLink, Button, LegalLinks, Logo, RecipeIngredients, RecipeLike, RecipeSteps, RecipeSummary, RouterLink],
   selector: 'app-recipe-detail',
   styleUrl: './recipe-detail.scss',
   templateUrl: './recipe-detail.html',

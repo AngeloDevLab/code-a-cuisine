@@ -5,11 +5,12 @@ import { COOKING_TIME_OPTIONS, cuisineLabel } from '../../models/generator-optio
 import { GeneratorStore } from '../../services/generator-store';
 import { RecipeStore } from '../../services/recipe-store';
 import { Button } from '../../shared/button/button';
+import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 
 /** Shows the three generated recipes with links to their details. */
 @Component({
-  imports: [Button, Logo, NgOptimizedImage, RouterLink],
+  imports: [Button, LegalLinks, Logo, NgOptimizedImage, RouterLink],
   selector: 'app-results',
   styleUrl: './results.scss',
   templateUrl: './results.html',

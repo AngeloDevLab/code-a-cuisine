@@ -1,0 +1,146 @@
+<main class="legal">
+    <app-logo />
+    <app-back-link class="legal__back" target="/" />
+
+    <article class="legal__content">
+        <h1 class="legal__title">Privacy policy</h1>
+
+        <h2 class="legal__heading">1. Data controller</h2>
+        <address class="legal__text">
+            Angelo Pietsch<br />
+            Haydnstraße 45<br />
+            02708 Löbau<br />
+            Germany<br />
+            Email: <a class="legal__link" href="mailto:apietsch94@gmail.com">apietsch94&#64;gmail.com</a>
+        </address>
+
+        <h2 class="legal__heading">2. Overview</h2>
+        <p class="legal__text">
+            Code à Cuisine is a learning project that generates recipes from your ingredients with an AI. There are
+            no accounts, no cookies and no tracking. Personal data is only processed to deliver the website, to limit
+            the number of recipe requests per user and day, and to remember your likes.
+        </p>
+
+        <h2 class="legal__heading">3. Hosting of the website</h2>
+        <p class="legal__text">
+            The website is hosted on GitHub Pages. When you open a page, GitHub processes technically necessary data,
+            in particular your IP address, the time of access and the requested page, to deliver the website and
+            protect it against attacks.
+        </p>
+        <p class="legal__text">
+            Provider: GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA. GitHub is certified under
+            the EU-U.S. Data Privacy Framework. Legal basis: Art. 6(1)(f) GDPR (legitimate interest in a secure,
+            working website).
+        </p>
+
+        <h2 class="legal__heading">4. Recipe generation and daily limit</h2>
+        <p class="legal__text">
+            When you generate recipes, your browser sends your ingredients, your preferences (portions, cooking time,
+            cuisine, diet, number of cooks) and a random browser id to our automation server (n8n). The server reads
+            your IP address from the request.
+        </p>
+        <p class="legal__text">
+            The AI service has limited capacity, so every user may send 3 requests per day. To count them, your IP
+            address and your browser id are stored together with the time of the request. Both are used for nothing
+            else and are deleted automatically after 2 days.
+        </p>
+        <p class="legal__text">
+            Legal basis: Art. 6(1)(f) GDPR (legitimate interest in limiting costs and preventing abuse).
+        </p>
+
+        <h2 class="legal__heading">5. AI service (Google Gemini)</h2>
+        <p class="legal__text">
+            To generate the recipes, the server sends your ingredients and preferences to the Google Gemini API. Your
+            IP address and your browser id are never sent to Google.
+        </p>
+        <p class="legal__text">
+            Provider: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. The free tier of the
+            Gemini API is used. Under Google's terms, Google may use submitted content to improve its products, and
+            it may be read by human reviewers. Please do not enter personal information in the ingredient fields.
+        </p>
+        <p class="legal__text">
+            Legal basis: Art. 6(1)(b) GDPR (generating the recipes you asked for).
+        </p>
+
+        <h2 class="legal__heading">6. Public cookbook</h2>
+        <p class="legal__text">
+            Every generated recipe is saved and shown to all visitors in the public cookbook. A recipe contains your
+            ingredients and preferences, but no IP address, no browser id and no other reference to you. Likes are
+            counted as a plain number per recipe.
+        </p>
+
+        <h2 class="legal__heading">7. Database (Supabase)</h2>
+        <p class="legal__text">
+            Recipes, likes and the request log of the daily limit are stored in a Supabase database in Frankfurt,
+            Germany (region eu-central-1). When you open the cookbook or a recipe, or like a recipe, your browser loads
+            the data directly from Supabase, which processes your IP address to deliver it.
+        </p>
+        <p class="legal__text">
+            Provider: Supabase Pte. Ltd., 65 Chulia Street #38-02/03, OCBC Centre, Singapore 049513. Supabase uses EU
+            Standard Contractual Clauses as a safeguard for transfers outside the EU. Legal basis: Art. 6(1)(f) GDPR.
+        </p>
+
+        <h2 class="legal__heading">8. Automation server (Hetzner)</h2>
+        <p class="legal__text">
+            The automation software n8n runs on a server of Hetzner Online GmbH, Industriestr. 25, 91710
+            Gunzenhausen, Germany, located in Germany. For troubleshooting, n8n keeps the data of each request,
+            including your IP address and browser id, for at most 14 days and then deletes it automatically.
+        </p>
+
+        <h2 class="legal__heading">9. Local storage in your browser</h2>
+        <p class="legal__text">The app stores two entries in the local storage of your browser:</p>
+        <ul class="legal__list">
+            <li><code>client-id</code>: the random browser id for the daily limit</li>
+            <li><code>liked-recipes</code>: the recipes you liked, so you can only like each recipe once</li>
+        </ul>
+        <p class="legal__text">
+            These entries are not cookies and are never read by third parties. They stay until you clear the site data
+            of your browser. Legal basis: § 25(2) No. 2 TDDDG, as they are necessary for the functions you use.
+        </p>
+
+        <h2 class="legal__heading">10. No cookies, no tracking</h2>
+        <p class="legal__text">
+            This app uses no cookies, no analytics tools and no tracking. Fonts and icons are hosted with the website,
+            there is no connection to Google Fonts or similar services.
+        </p>
+
+        <h2 class="legal__heading">11. Storage duration</h2>
+        <ul class="legal__list">
+            <li>Request log (IP address, browser id): 2 days</li>
+            <li>Data of each request on the automation server: at most 14 days</li>
+            <li>Recipes and likes: without time limit, as they contain no personal data</li>
+            <li>Local storage: until you clear it</li>
+        </ul>
+
+        <h2 class="legal__heading">12. Your rights</h2>
+        <p class="legal__text">You have the right to:</p>
+        <ul class="legal__list">
+            <li>Access (Art. 15 GDPR)</li>
+            <li>Rectification (Art. 16 GDPR)</li>
+            <li>Erasure (Art. 17 GDPR)</li>
+            <li>Restriction of processing (Art. 18 GDPR)</li>
+            <li>Data portability (Art. 20 GDPR)</li>
+            <li>Objection (Art. 21 GDPR)</li>
+            <li>Lodge a complaint with a supervisory authority (Art. 77 GDPR)</li>
+        </ul>
+        <p class="legal__text">
+            To exercise these rights, contact
+            <a class="legal__link" href="mailto:apietsch94@gmail.com">apietsch94&#64;gmail.com</a>.
+        </p>
+
+        <h2 class="legal__heading">13. Data security</h2>
+        <p class="legal__text">
+            All data is transmitted encrypted via HTTPS. The browser can only read recipes and send likes, the request
+            log is only accessible to the automation server.
+        </p>
+
+        <h2 class="legal__heading">14. Changes to this privacy policy</h2>
+        <p class="legal__text">
+            I reserve the right to update this privacy policy when the functions of the app change.
+        </p>
+
+        <p class="legal__updated">Last updated: 25.10.2026</p>
+    </article>
+
+    <app-legal-links />
+</main>

@@ -6,13 +6,14 @@ import { Cuisine } from '../../models/recipe-request';
 import { CookbookService } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
+import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 
 const CUISINE_ORDER: Cuisine[] = ['italian', 'german', 'japanese', 'gourmet', 'indian', 'fusion'];
 
 /** Entry page of the public cookbook with the most liked recipes and all cuisines. */
 @Component({
-  imports: [BackLink, Button, Logo, NgOptimizedImage, RouterLink],
+  imports: [BackLink, Button, LegalLinks, Logo, NgOptimizedImage, RouterLink],
   selector: 'app-cookbook',
   styleUrl: './cookbook.scss',
   templateUrl: './cookbook.html',

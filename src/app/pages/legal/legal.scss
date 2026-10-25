@@ -1,0 +1,61 @@
+@use 'tokens' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
+.legal {
+  @include page-shell;
+}
+
+.legal__back {
+  align-self: flex-start;
+  margin-top: fluid($space-16, $space-32);
+}
+
+.legal__content {
+  width: 100%;
+  max-width: 800px;
+  margin-top: fluid($space-40, $space-64);
+  margin-inline: auto;
+  font-size: fluid(16px, 18px);
+  line-height: 1.5;
+}
+
+.legal__title {
+  font-weight: $weight-bold;
+  font-size: fluid(40px, 64px);
+  line-height: 1.2;
+  color: $middle-green;
+}
+
+.legal__heading {
+  margin-top: fluid($space-32, $space-40);
+  font-weight: $weight-bold;
+  font-size: fluid(20px, 24px);
+  color: $middle-green;
+}
+
+.legal__text,
+.legal__list {
+  margin-top: $space-8;
+}
+
+.legal__list {
+  padding-left: $space-24;
+  list-style: disc;
+}
+
+.legal__link {
+  color: inherit;
+  text-decoration: underline;
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: $radius-2;
+  }
+}
+
+.legal__updated {
+  margin-top: fluid($space-32, $space-40);
+  font-size: 14px;
+}

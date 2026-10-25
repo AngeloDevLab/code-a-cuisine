@@ -6,6 +6,7 @@ import { INGREDIENT_LIMITS, Unit } from '../../models/recipe-request';
 import { positiveAmount } from '../../models/validators';
 import { GeneratorStore } from '../../services/generator-store';
 import { Button } from '../../shared/button/button';
+import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 import { findSuggestions } from './ingredient-suggestions';
 import { UnitSelect } from './unit-select/unit-select';
@@ -23,7 +24,7 @@ const NAME_FLY_DURATION = 300;
 
 /** First generator step where the user collects the ingredients they have. */
 @Component({
-  imports: [Button, FormField, Logo, RouterLink, UnitSelect],
+  imports: [Button, FormField, LegalLinks, Logo, RouterLink, UnitSelect],
   selector: 'app-generator',
   styleUrl: './generator.scss',
   templateUrl: './generator.html',

@@ -6,12 +6,13 @@ import { Cuisine } from '../../models/recipe-request';
 import { CookbookService, RECIPES_PER_PAGE } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
+import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 import { Pagination } from '../../shared/pagination/pagination';
 
 /** Paginated list of the cookbook recipes of one cuisine. */
 @Component({
-  imports: [BackLink, Button, Logo, Pagination, RouterLink],
+  imports: [BackLink, Button, LegalLinks, Logo, Pagination, RouterLink],
   selector: 'app-recipe-list',
   styleUrl: './recipe-list.scss',
   templateUrl: './recipe-list.html',

@@ -7,12 +7,13 @@ import { GeneratorStore } from '../../services/generator-store';
 import { RecipeStore } from '../../services/recipe-store';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
+import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 import { Stepper } from '../../shared/stepper/stepper';
 
 /** Second generator step where the user picks portions, cooks, time, cuisine and diet. */
 @Component({
-  imports: [BackLink, Button, FormField, Logo, Stepper],
+  imports: [BackLink, Button, FormField, LegalLinks, Logo, Stepper],
   selector: 'app-preferences',
   styleUrl: './preferences.scss',
   templateUrl: './preferences.html',

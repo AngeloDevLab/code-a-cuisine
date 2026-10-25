@@ -88,6 +88,11 @@ $hero-image-width-desktop: 470px;
   }
 }
 
+.hero__legal {
+  align-self: stretch;
+  margin-top: 0;
+}
+
 .hero__images {
   position: absolute;
   top: fluid($space-24, -$space-64);
