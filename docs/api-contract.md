@@ -189,7 +189,7 @@ Returns the new like count. The frontend shows that count instead of only adding
 - The quota counts requests that reach Gemini. Every request generates 3 recipes or is rejected by Gemini, both count.
 - Requests stopped before Gemini (invalid input, quota, throttling) and Gemini failures (`ai_error`) do not count.
 - Per user: 3 requests per day, so up to 9 recipes. A request belongs to the user if its IP or its browser id matches. A device with both IPv4 and IPv6 can reach n8n under either address, the browser id links both addresses to one user. Clearing `localStorage` gives a new browser id, but the IP still counts, the system wide limit keeps the costs capped anyway.
-- System wide: 12 requests per day, so up to 36 recipes. This stays below the 20 requests per day of the Gemini free tier.
+- System wide: 12 requests per day, so up to 36 recipes. This caps the Gemini costs (paid tier, about 1 cent per request), a spending limit in Google AI Studio is the second safeguard.
 - Days are counted in UTC, the quota resets at 00:00 UTC.
 - Throttling: 1 request per 10 seconds per user.
 - When the quota is used up, the user gets a message in the popup. There is no separate quota display.
