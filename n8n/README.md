@@ -67,7 +67,7 @@ Supabase setup:
 
 ## Import and export
 
-Download a workflow in the n8n UI (**⋯ → Download**) and save it as `workflows/<workflow-name>.json`. UI downloads contain no owner data, so they need no cleaning.
+Download a workflow in the n8n UI (**⋯ → Download**) and save it as `workflows/<workflow-name>.json`. UI downloads contain no owner data, but they do contain pinned test data: unpin all nodes before the download, or empty `pinData`, because a pinned webhook call holds a real IP address.
 
 To import, use **⋯ → Import from File** in a new workflow, then:
 
@@ -82,3 +82,5 @@ In production n8n runs on a Hetzner Cloud server (Ubuntu, Docker) at `https://n8
 
 - **Caddy** handles HTTPS and limits `/webhook/*` to 20 requests per minute per IP. It runs with `network_mode: host`, so it sees the real client IPs for both IPv4 and IPv6, and forwards to `localhost:5678`. In a Docker network, IPv6 clients would show up as the gateway address (`172.18.0.1`), and all of them would share one quota.
 - **n8n** publishes its port only on the server itself (`127.0.0.1:5678:5678`) and runs with `N8N_PROXY_HOPS=1`, so it trusts the `x-forwarded-for` header from Caddy.
+
+The same Caddy also serves the frontend, see [docs/deployment.md](../docs/deployment.md).
