@@ -42,7 +42,7 @@ Indexes on `(ip, created_at)` and `(client_id, created_at)`.
 - Throttling: latest `created_at` of the user must be at least 10 seconds ago.
 
 - Days are counted in UTC, the quota resets at 00:00 UTC.
-- Rows older than 2 days are deleted (IP addresses and browser ids are personal data).
+- Rows older than 2 days are deleted daily at 03:00 UTC by a `pg_cron` job (IP addresses and browser ids are personal data).
 
 ## Access (RLS)
 
@@ -90,6 +90,13 @@ create table quota_log (
 
 create index quota_log_ip_created_idx on quota_log (ip, created_at);
 create index quota_log_client_created_idx on quota_log (client_id, created_at);
+
+-- needs the pg_cron extension (Database → Extensions)
+select cron.schedule(
+  'delete-old-quota-log',
+  '0 3 * * *',
+  $$delete from quota_log where created_at < now() - interval '2 days'$$
+);
 
 -- "Automatically expose new tables" is disabled, so privileges are granted explicitly
 grant select on recipes to anon;
