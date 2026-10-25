@@ -41,9 +41,10 @@
                 @for (tag of recipe.tags; track tag) {
                 <li class="recipe-list__tag">{{ tag }}</li>
                 }
-                <li class="recipe-list__tag recipe-list__tag--likes" [attr.aria-label]="recipe.likes + ' likes'">
+                <li class="recipe-list__tag recipe-list__tag--likes">
                     <span class="recipe-list__icon recipe-list__icon--like" aria-hidden="true"></span>
-                    <span aria-hidden="true">{{ recipe.likes }}</span>
+                    {{ recipe.likes }}
+                    <span class="recipe-list__hidden-label">{{ recipe.likes === 1 ? 'like' : 'likes' }}</span>
                 </li>
             </ul>
         </li>

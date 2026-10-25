@@ -184,6 +184,10 @@
   background-color: $olive-green-20;
 }
 
+.recipe-list__hidden-label {
+  @include visually-hidden;
+}
+
 .recipe-list__tag--likes {
   background-color: $olive-green-30;
 }

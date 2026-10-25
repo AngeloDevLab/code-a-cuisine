@@ -33,9 +33,10 @@
                         <span class="cookbook__icon cookbook__icon--time" aria-hidden="true"></span>
                         Cooking time: {{ recipe.cookingTimeMinutes }}min
                     </p>
-                    <span class="cookbook__likes" [attr.aria-label]="recipe.likes + ' likes'">
+                    <span class="cookbook__likes">
                         <span class="cookbook__icon cookbook__icon--like-small" aria-hidden="true"></span>
-                        <span aria-hidden="true">{{ recipe.likes }}</span>
+                        {{ recipe.likes }}
+                        <span class="cookbook__hidden-label">{{ recipe.likes === 1 ? 'like' : 'likes' }}</span>
                     </span>
                     <h3 class="cookbook__recipe-title">
                         <a class="cookbook__recipe-link" [routerLink]="['/recipes', recipe.id]"

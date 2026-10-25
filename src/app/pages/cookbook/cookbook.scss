@@ -113,6 +113,10 @@
   background-color: $olive-green-20;
 }
 
+.cookbook__hidden-label {
+  @include visually-hidden;
+}
+
 .cookbook__recipe-title {
   grid-column: 1 / -1;
   min-height: 2lh;
