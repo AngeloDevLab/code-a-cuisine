@@ -15,13 +15,20 @@
         </div>
 
         <div class="hero__images">
-            <img class="hero__image" ngSrc="images/hero-1.webp" alt="" width="940" height="940" priority />
-            <img class="hero__image hero__image--rotated" ngSrc="images/hero-2.webp" alt="" width="940" height="940" priority />
-            <img class="hero__image" ngSrc="images/hero-3.webp" alt="" width="940" height="940" priority />
-            <img class="hero__image hero__image--wide" ngSrc="images/hero-4.webp" alt="" width="940" height="940" />
-            <img class="hero__image hero__image--wide" ngSrc="images/hero-5.webp" alt="" width="940" height="940" />
-            <img class="hero__image hero__image--uhd" ngSrc="images/hero-1.webp" alt="" width="940" height="940" />
-            <img class="hero__image hero__image--uhd" ngSrc="images/hero-2.webp" alt="" width="940" height="940" />
+            <img class="hero__image" ngSrc="images/hero-1.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" priority />
+            <img class="hero__image hero__image--rotated" ngSrc="images/hero-2.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" priority />
+            <img class="hero__image" ngSrc="images/hero-3.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" priority />
+            <img class="hero__image hero__image--wide" ngSrc="images/hero-4.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" />
+            <img class="hero__image hero__image--wide" ngSrc="images/hero-5.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" />
+            <img class="hero__image hero__image--uhd" ngSrc="images/hero-1.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" />
+            <img class="hero__image hero__image--uhd" ngSrc="images/hero-2.webp" ngSrcset="480w, 640w, 940w" [sizes]="imageSizes"
+                [loaderParams]="responsive" alt="" width="940" height="940" />
         </div>
 
         <app-legal-links class="hero__legal" />

@@ -12,4 +12,7 @@ import { Logo } from '../../shared/logo/logo';
   styleUrl: './hero.scss',
   templateUrl: './hero.html',
 })
-export class Hero {}
+export class Hero {
+  protected readonly imageSizes = '(min-width: 1440px) 470px, calc(15.18vw + 252px)';
+  protected readonly responsive = { responsive: true };
+}
