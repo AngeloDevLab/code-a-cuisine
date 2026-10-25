@@ -1,8 +1,8 @@
 import { Component, ElementRef, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { FormField, form, maxLength, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
-import { UNIT_OPTIONS } from '../../models/generator-options';
-import { INGREDIENT_LIMITS, Unit } from '../../models/recipe-request';
+import { formatAmount } from '../../models/generator-options';
+import { INGREDIENT_LIMITS, Ingredient, Unit } from '../../models/recipe-request';
 import { positiveAmount } from '../../models/validators';
 import { GeneratorStore } from '../../services/generator-store';
 import { Button } from '../../shared/button/button';
@@ -32,7 +32,6 @@ const NAME_FLY_DURATION = 300;
 export class Generator {
   protected readonly store = inject(GeneratorStore);
   private readonly injector = inject(Injector);
-  protected readonly unitShort = Object.fromEntries(UNIT_OPTIONS.map((u) => [u.value, u.short]));
 
   private readonly draft = signal<IngredientDraft>(EMPTY_DRAFT);
   protected readonly ingredientForm = form(this.draft, (path) => {
@@ -62,6 +61,11 @@ export class Generator {
     if (this.ingredientForm().invalid() || amount === null) return;
     this.store.addIngredient({ name: name.trim(), amount, unit });
     this.ingredientForm().reset(EMPTY_DRAFT);
+  }
+
+  /** Formats the amount for the ingredient list; pieces show the bare number, e.g. "2 Eggs". */
+  protected listAmount({ amount, unit }: Ingredient): string {
+    return unit === 'pcs' ? `${amount}` : formatAmount(amount, unit);
   }
 
   /** Shows suggestions for the current input without a highlighted entry. */

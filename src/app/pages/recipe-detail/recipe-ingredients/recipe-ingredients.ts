@@ -1,4 +1,5 @@
 import { Component, input, signal } from '@angular/core';
+import { formatAmount } from '../../../models/generator-options';
 import { Recipe } from '../../../models/recipe';
 import { Ingredient } from '../../../models/recipe-request';
 import { SectionBanner } from '../section-banner/section-banner';
@@ -18,7 +19,6 @@ export class RecipeIngredients {
 
   /** Formats the amount with its unit, e.g. "80g" or "2 pieces". */
   protected amount(ingredient: Ingredient): string {
-    if (ingredient.unit !== 'pcs') return `${ingredient.amount}${ingredient.unit}`;
-    return `${ingredient.amount} ${ingredient.amount === 1 ? 'piece' : 'pieces'}`;
+    return formatAmount(ingredient.amount, ingredient.unit);
   }
 }

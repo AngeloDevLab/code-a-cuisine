@@ -8,7 +8,7 @@ Built as a solo project at Developer Akademie.
 
 ## Features
 
-- Ingredient input with autocomplete, amount and unit (g, ml, pcs), up to 20 ingredients
+- Ingredient input with autocomplete, amount and unit (gram, kg, ml, liter, tbsp, tsp, piece), up to 20 ingredients
 - Preferences: portions (1 to 12), cooking time (quick, medium, complex), cuisine (German, Italian, Japanese, Indian, Gourmet, Fusion), diet (vegetarian, vegan, keto, none) and up to 3 helpers
 - Exactly 3 different recipes per request, each using at least 70% of your ingredients plus at most 3 extra basics, which are marked as missing
 - Step by step instructions in a workflow optimized order, with parallel steps marked
@@ -24,12 +24,12 @@ Built as a solo project at Developer Akademie.
 ## Demo
 
 1. Open [cuisine.angelodevelopment.de](https://cuisine.angelodevelopment.de) and click **Get started**.
-2. Add a few ingredients with amounts, for example *500 g potatoes, 4 pcs eggs, 200 ml cream, 1 pcs onion*.
+2. Add a few ingredients with amounts, for example *500 gram potatoes, 4 piece eggs, 200 ml cream, 1 piece onion, 2 tbsp butter*.
 3. Choose your preferences, for example 2 portions, 2 cooks and German cuisine, then click **Generate recipe**.
 4. After a short wait the 3 recipes appear. Open one to see the steps per chef and the nutrition charts.
 5. Go to the **Cookbook**: your recipes are now in the German list, and you can like them.
 
-Each user can generate 3 times per day. Try *1 pcs egg* for 12 portions to see how the AI rejects ingredients that are not enough.
+Each user can generate 3 times per day. Try *1 piece egg* for 12 portions to see how the AI rejects ingredients that are not enough.
 
 ## Tech Stack
 

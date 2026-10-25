@@ -1,4 +1,4 @@
-export type Unit = 'g' | 'ml' | 'pcs';
+export type Unit = 'g' | 'kg' | 'ml' | 'l' | 'tbsp' | 'tsp' | 'pcs';
 export type CookingTime = 'quick' | 'medium' | 'complex';
 export type Cuisine = 'german' | 'italian' | 'japanese' | 'indian' | 'gourmet' | 'fusion';
 export type Diet = 'vegetarian' | 'vegan' | 'keto' | 'none';

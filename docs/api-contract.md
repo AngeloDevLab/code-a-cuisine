@@ -38,7 +38,7 @@ The frontend also sends a random browser id (`clientId`, a UUID kept in `localSt
 | `ingredients` | array | 1 to 20 items |
 | `ingredients[].name` | string | 1 to 50 characters, trimmed |
 | `ingredients[].amount` | number | > 0 |
-| `ingredients[].unit` | enum | `g`, `ml`, `pcs` |
+| `ingredients[].unit` | enum | `g`, `kg`, `ml`, `l`, `tbsp`, `tsp`, `pcs` |
 | `portions` | integer | 1 to 12, default 2 |
 | `cooks` | integer | 1 to 4, default 1 (the user plus up to 3 helpers) |
 | `cookingTime` | enum | `quick` (up to 20 min), `medium` (20 to 45 min), `complex` (45+ min) |
@@ -110,7 +110,7 @@ Gemini answers with structured JSON, either 3 recipes or:
 | `steps[].parallel` | `true` if the step runs at the same time as the previous one |
 | `nutrition` | per portion only; totals and macro percentages are computed in the frontend |
 
-All ingredients, including extra ones, only use `g`, `ml` or `pcs`.
+All ingredients, including extra ones, use the same units as the request: `g`, `kg`, `ml`, `l`, `tbsp`, `tsp` or `pcs`. Recipes saved before the larger unit list only use `g`, `ml` or `pcs`.
 
 ### Errors
 

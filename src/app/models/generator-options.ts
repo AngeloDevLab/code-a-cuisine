@@ -5,8 +5,10 @@ export interface Option<T> {
   label: string;
 }
 
+// Metric units follow the amount directly ("80g"), the others as a word ("2 tbsp", "3 pieces").
 export interface UnitOption extends Option<Unit> {
-  short: string;
+  metric?: true;
+  plural?: string;
 }
 
 export interface CookingTimeOption extends Option<CookingTime> {
@@ -14,10 +16,21 @@ export interface CookingTimeOption extends Option<CookingTime> {
 }
 
 export const UNIT_OPTIONS: UnitOption[] = [
-  { value: 'g', label: 'gram', short: 'g' },
-  { value: 'ml', label: 'ml', short: 'ml' },
-  { value: 'pcs', label: 'piece', short: '' },
+  { value: 'g', label: 'gram', metric: true },
+  { value: 'kg', label: 'kg', metric: true },
+  { value: 'ml', label: 'ml', metric: true },
+  { value: 'l', label: 'liter', metric: true },
+  { value: 'tbsp', label: 'tbsp' },
+  { value: 'tsp', label: 'tsp' },
+  { value: 'pcs', label: 'piece', plural: 'pieces' },
 ];
+
+/** Formats an amount with its unit, e.g. "80g", "1 tbsp" or "3 pieces". */
+export function formatAmount(amount: number, unit: Unit): string {
+  const option = UNIT_OPTIONS.find((candidate) => candidate.value === unit);
+  if (!option || option.metric) return `${amount}${unit}`;
+  return `${amount} ${amount === 1 ? option.label : (option.plural ?? option.label)}`;
+}
 
 export const COOKING_TIME_OPTIONS: CookingTimeOption[] = [
   { value: 'quick', label: 'Quick', hint: 'up to 20 min' },

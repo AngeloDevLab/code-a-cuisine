@@ -72,7 +72,7 @@
                 </li>
                 } @else {
                 <li class="generator__item">
-                    <span class="generator__item-amount">{{ item.amount }}{{ unitShort[item.unit] }}</span>
+                    <span class="generator__item-amount">{{ listAmount(item) }}</span>
                     <span #itemName class="generator__item-name">{{ item.name }}</span>
                     <button class="generator__item-action" type="button" [attr.aria-label]="'Edit ' + item.name"
                         (click)="startEdit($index, itemName)">
