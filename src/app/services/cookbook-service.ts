@@ -11,7 +11,7 @@ const RANGE_NOT_SATISFIABLE = 'PGRST103';
 const PREVIEW_COLUMNS = 'id, title, cookingTimeMinutes:cooking_time_minutes, cookingTime:cooking_time, cuisine, diet, likes';
 const RECIPE_COLUMNS = `${PREVIEW_COLUMNS}, portions, cooks, nutrition, ingredients, steps`;
 
-/** Reads the public cookbook from Supabase; column aliases deliver the camelCase fields of the models. */
+/** Reads the public cookbook from Supabase and sends likes; column aliases deliver the camelCase fields of the models. */
 @Service()
 export class CookbookService {
   private readonly client = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
@@ -43,6 +43,13 @@ export class CookbookService {
     const { data, error } = await this.client.from('recipes').select(RECIPE_COLUMNS).eq('id', id).maybeSingle();
     if (error) return null;
     return data as unknown as Recipe | null;
+  }
+
+  /** Adds or removes one like and returns the new like count. */
+  async likeRecipe(id: string, liked: boolean): Promise<number> {
+    const { data, error } = await this.client.rpc('like_recipe', { recipe_id: id, liked });
+    if (error) throw error;
+    return data as number;
   }
 
   /** Loads one page with the total count, or null if the page lies behind the last recipe. */

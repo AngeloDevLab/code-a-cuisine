@@ -29,13 +29,6 @@ export class RecipeStore {
       this.status.set('error');
     }
   }
-
-  /** Changes the like count of the recipe with the given id. */
-  changeLikes(id: string, delta: number): void {
-    this.recipes.update((list) =>
-      list.map((recipe) => (recipe.id === id ? { ...recipe, likes: Math.max(recipe.likes + delta, 0) } : recipe)),
-    );
-  }
 }
 
 /** Turns anything thrown during a request into an ApiError. */
