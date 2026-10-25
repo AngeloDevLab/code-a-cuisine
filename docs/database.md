@@ -33,15 +33,16 @@ One row per request that passed the limits. n8n inserts it before calling Gemini
 | `id` | `bigint` | primary key, identity |
 | `created_at` | `timestamptz` | `now()` |
 | `ip` | `inet` | supports IPv4 and IPv6 |
+| `client_id` | `uuid` | browser id from the request, `null` if missing or invalid |
 
-Index on `(ip, created_at)`.
+Indexes on `(ip, created_at)` and `(client_id, created_at)`.
 
-- Requests today per IP: `count(*) where ip = ? and created_at >= today 00:00 UTC`, limit 3.
-- Requests today system wide: the same without the IP filter, limit 12.
-- Throttling: latest `created_at` of the IP must be at least 10 seconds ago.
+- Requests today per user: `count(*) where (ip = ? or client_id = ?) and created_at >= today 00:00 UTC`, limit 3.
+- Requests today system wide: the same without the user filter, limit 12.
+- Throttling: latest `created_at` of the user must be at least 10 seconds ago.
 
 - Days are counted in UTC, the quota resets at 00:00 UTC.
-- Rows older than 2 days are deleted (IP addresses are personal data).
+- Rows older than 2 days are deleted (IP addresses and browser ids are personal data).
 
 ## Access (RLS)
 
@@ -83,10 +84,12 @@ create index recipes_likes_created_idx on recipes (likes desc, created_at desc);
 create table quota_log (
   id bigint generated always as identity primary key,
   created_at timestamptz not null default now(),
-  ip inet not null
+  ip inet not null,
+  client_id uuid
 );
 
 create index quota_log_ip_created_idx on quota_log (ip, created_at);
+create index quota_log_client_created_idx on quota_log (client_id, created_at);
 
 -- "Automatically expose new tables" is disabled, so privileges are granted explicitly
 grant select on recipes to anon;

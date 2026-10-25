@@ -12,6 +12,8 @@ Data exchanged between the Angular frontend, n8n and Supabase.
 
 The client IP is read by n8n from the request headers. The frontend never sends it, and it is never passed to Gemini. n8n validates it as IPv4 or IPv6. Users behind a shared IP (e.g. an office network) share one quota.
 
+The frontend also sends a random browser id (`clientId`, a UUID kept in `localStorage`). n8n counts a request for the user if either the IP or the browser id matches, see [Quota and throttling](#quota-and-throttling).
+
 ## POST `/webhook/recipes`
 
 ### Request
@@ -26,7 +28,8 @@ The client IP is read by n8n from the request headers. The frontend never sends 
   "cooks": 1,
   "cookingTime": "quick",
   "cuisine": "italian",
-  "diet": "vegetarian"
+  "diet": "vegetarian",
+  "clientId": "61ae3d19-3d27-43af-8f95-d8d205dbf779"
 }
 ```
 
@@ -41,13 +44,14 @@ The client IP is read by n8n from the request headers. The frontend never sends 
 | `cookingTime` | enum | `quick` (up to 20 min), `medium` (20 to 45 min), `complex` (45+ min) |
 | `cuisine` | enum | `german`, `italian`, `japanese`, `indian`, `gourmet`, `fusion` |
 | `diet` | enum | `vegetarian`, `vegan`, `keto`, `none` |
+| `clientId` | string | optional UUID. A missing or invalid id is ignored, then only the IP counts |
 
 The frontend validates these rules, n8n validates them again in case the webhook is called directly.
 
 ### Flow in n8n
 
 1. Validate the request. Invalid requests are answered with `invalid_input` and never reach Gemini.
-2. Check quota (per IP and system wide) and throttling in `quota_log`. If a limit is reached, answer with the matching error without calling Gemini.
+2. Check quota (per user and system wide) and throttling in `quota_log`. If a limit is reached, answer with the matching error without calling Gemini.
 3. Reserve the request: insert a row into `quota_log` right away, so parallel requests already see it.
 4. Ask Gemini for 3 recipes. In the same call Gemini judges whether the ingredients are enough for the portions.
 5. If Gemini fails (`ai_error`), delete the reserved row again, so the request does not count.
@@ -69,7 +73,7 @@ Gemini answers with structured JSON, either 3 recipes or:
 }
 ```
 
-`quota.remaining` is the number of requests the IP has left today.
+`quota.remaining` is the number of requests the user has left today.
 
 ### Recipe
 
@@ -126,9 +130,9 @@ All errors share one shape. The frontend unwraps `error` and shows it in the pop
 |---|---|---|---|
 | 400 | `invalid_input` | request breaks the rules above | no |
 | 422 | `insufficient_ingredients` | Gemini judges the ingredients too few for the portions | yes |
-| 429 | `quota_exceeded` | IP quota (3 requests per day) used up | no |
+| 429 | `quota_exceeded` | user quota (3 requests per day) used up | no |
 | 429 | `system_quota_exceeded` | system quota (12 requests per day) used up | no |
-| 429 | `rate_limited` | less than 10 seconds since the last request of this IP | no |
+| 429 | `rate_limited` | less than 10 seconds since the last request of this user | no |
 | 502 | `ai_error` | Gemini failed or returned invalid JSON | no |
 | 500 | `internal_error` | anything else | no |
 
@@ -184,8 +188,8 @@ Returns the new like count. The frontend shows that count instead of only adding
 
 - The quota counts requests that reach Gemini. Every request generates 3 recipes or is rejected by Gemini, both count.
 - Requests stopped before Gemini (invalid input, quota, throttling) and Gemini failures (`ai_error`) do not count.
-- Per IP: 3 requests per day, so up to 9 recipes.
+- Per user: 3 requests per day, so up to 9 recipes. A request belongs to the user if its IP or its browser id matches. A device with both IPv4 and IPv6 can reach n8n under either address, the browser id links both addresses to one user. Clearing `localStorage` gives a new browser id, but the IP still counts, the system wide limit keeps the costs capped anyway.
 - System wide: 12 requests per day, so up to 36 recipes. This stays below the 20 requests per day of the Gemini free tier.
 - Days are counted in UTC, the quota resets at 00:00 UTC.
-- Throttling: 1 request per 10 seconds per IP.
+- Throttling: 1 request per 10 seconds per user.
 - When the quota is used up, the user gets a message in the popup. There is no separate quota display.

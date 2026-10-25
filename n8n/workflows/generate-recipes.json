@@ -23,7 +23,7 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const LIMITS = { ingredientsMax: 20, nameMax: 50, portionsMax: 12, cooksMax: 4 };\nconst UNITS = ['g', 'ml', 'pcs'];\nconst COOKING_TIMES = ['quick', 'medium', 'complex'];\nconst CUISINES = ['german', 'italian', 'japanese', 'indian', 'gourmet', 'fusion'];\nconst DIETS = ['vegetarian', 'vegan', 'keto', 'none'];\n\n/** Returns true if the value is a whole number between min and max. */\nfunction isIntInRange(value, min, max) {\n  return Number.isInteger(value) && value >= min && value <= max;\n}\n\n/** Returns the trimmed ingredient if it follows the rules, otherwise null. */\nfunction toIngredient(raw) {\n  const name = typeof raw?.name === 'string' ? raw.name.trim() : '';\n  const validName = name.length >= 1 && name.length <= LIMITS.nameMax;\n  const validAmount = typeof raw?.amount === 'number' && Number.isFinite(raw.amount) && raw.amount > 0;\n  return validName && validAmount && UNITS.includes(raw?.unit) ? { name, amount: raw.amount, unit: raw.unit } : null;\n}\n\n/** Returns the cleaned request, or null if any field breaks the rules. */\nfunction toRequest(body) {\n  const list = Array.isArray(body?.ingredients) ? body.ingredients : [];\n  const ingredients = list.map(toIngredient);\n  const validIngredients = list.length >= 1 && list.length <= LIMITS.ingredientsMax && ingredients.every(Boolean);\n  const valid = validIngredients\n    && isIntInRange(body.portions, 1, LIMITS.portionsMax)\n    && isIntInRange(body.cooks, 1, LIMITS.cooksMax)\n    && COOKING_TIMES.includes(body.cookingTime)\n    && CUISINES.includes(body.cuisine)\n    && DIETS.includes(body.diet);\n  const { portions, cooks, cookingTime, cuisine, diet } = body ?? {};\n  return valid ? { ingredients, portions, cooks, cookingTime, cuisine, diet } : null;\n}\n\n/** Returns true for a valid IPv4 address. */\nfunction isIpv4(ip) {\n  return /^((25[0-5]|2[0-4]\\d|1?\\d?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1?\\d?\\d)$/.test(ip);\n}\n\n/** Returns true for a valid IPv6 address with 8 groups, or fewer when shortened with \"::\". */\nfunction isIpv6(ip) {\n  const halves = ip.split('::');\n  if (halves.length > 2) return false;\n  const groups = halves.flatMap((half) => (half ? half.split(':') : []));\n  const validGroups = groups.every((group) => /^[0-9a-f]{1,4}$/i.test(group));\n  return validGroups && (halves.length === 2 ? groups.length < 8 : groups.length === 8);\n}\n\n\n/** Reads the client IP that the reverse proxy forwards, or null if it is missing or invalid. */\nfunction toIp(headers) {\n  const raw = String(headers['x-forwarded-for'] ?? headers['x-real-ip'] ?? '');\n  const ip = raw.split(',')[0].trim();\n  return isIpv4(ip) || isIpv6(ip) ? ip : null;\n}\n\nconst request = toRequest($json.body);\nconst ip = toIp($json.headers);\n\nif (!ip) {\n  return { json: { valid: false, status: 500, error: { code: 'internal_error', message: 'Something went wrong. Please try again.' } } };\n}\nif (!request) {\n  return { json: { valid: false, status: 400, error: { code: 'invalid_input', message: 'Some of your inputs are not valid. Please check them and try again.' } } };\n}\nreturn { json: { valid: true, request, ip } };"
+        "jsCode": "const LIMITS = { ingredientsMax: 20, nameMax: 50, portionsMax: 12, cooksMax: 4 };\nconst UNITS = ['g', 'ml', 'pcs'];\nconst COOKING_TIMES = ['quick', 'medium', 'complex'];\nconst CUISINES = ['german', 'italian', 'japanese', 'indian', 'gourmet', 'fusion'];\nconst DIETS = ['vegetarian', 'vegan', 'keto', 'none'];\n\n/** Returns true if the value is a whole number between min and max. */\nfunction isIntInRange(value, min, max) {\n  return Number.isInteger(value) && value >= min && value <= max;\n}\n\n/** Returns the trimmed ingredient if it follows the rules, otherwise null. */\nfunction toIngredient(raw) {\n  const name = typeof raw?.name === 'string' ? raw.name.trim() : '';\n  const validName = name.length >= 1 && name.length <= LIMITS.nameMax;\n  const validAmount = typeof raw?.amount === 'number' && Number.isFinite(raw.amount) && raw.amount > 0;\n  return validName && validAmount && UNITS.includes(raw?.unit) ? { name, amount: raw.amount, unit: raw.unit } : null;\n}\n\n/** Returns the cleaned request, or null if any field breaks the rules. */\nfunction toRequest(body) {\n  const list = Array.isArray(body?.ingredients) ? body.ingredients : [];\n  const ingredients = list.map(toIngredient);\n  const validIngredients = list.length >= 1 && list.length <= LIMITS.ingredientsMax && ingredients.every(Boolean);\n  const valid = validIngredients\n    && isIntInRange(body.portions, 1, LIMITS.portionsMax)\n    && isIntInRange(body.cooks, 1, LIMITS.cooksMax)\n    && COOKING_TIMES.includes(body.cookingTime)\n    && CUISINES.includes(body.cuisine)\n    && DIETS.includes(body.diet);\n  const { portions, cooks, cookingTime, cuisine, diet } = body ?? {};\n  return valid ? { ingredients, portions, cooks, cookingTime, cuisine, diet } : null;\n}\n\n/** Returns true for a valid IPv4 address. */\nfunction isIpv4(ip) {\n  return /^((25[0-5]|2[0-4]\\d|1?\\d?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1?\\d?\\d)$/.test(ip);\n}\n\n/** Returns true for a valid IPv6 address with 8 groups, or fewer when shortened with \"::\". */\nfunction isIpv6(ip) {\n  const halves = ip.split('::');\n  if (halves.length > 2) return false;\n  const groups = halves.flatMap((half) => (half ? half.split(':') : []));\n  const validGroups = groups.every((group) => /^[0-9a-f]{1,4}$/i.test(group));\n  return validGroups && (halves.length === 2 ? groups.length < 8 : groups.length === 8);\n}\n\n/** Reads the client IP that the reverse proxy forwards, or null if it is missing or invalid. */\nfunction toIp(headers) {\n  const raw = String(headers['x-forwarded-for'] ?? headers['x-real-ip'] ?? '');\n  const ip = raw.split(',')[0].trim();\n  return isIpv4(ip) || isIpv6(ip) ? ip : null;\n}\n\n/** Returns the client id if it is a UUID, otherwise null, so a missing id only falls back to the IP. */\nfunction toClientId(body) {\n  const id = typeof body?.clientId === 'string' ? body.clientId : '';\n  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) ? id.toLowerCase() : null;\n}\n\nconst request = toRequest($json.body);\nconst ip = toIp($json.headers);\n\nif (!ip) {\n  return { json: { valid: false, status: 500, error: { code: 'internal_error', message: 'Something went wrong. Please try again.' } } };\n}\nif (!request) {\n  return { json: { valid: false, status: 400, error: { code: 'invalid_input', message: 'Some of your inputs are not valid. Please check them and try again.' } } };\n}\nreturn { json: { valid: true, request, ip, clientId: toClientId($json.body) } };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -88,9 +88,9 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "with day as (\n  select date_trunc('day', now() at time zone 'utc') at time zone 'utc' as start\n)\nselect\n  count(*) filter (where q.ip = $1::inet) as ip_today,\n  count(*) as system_today,\n  (select max(created_at) from quota_log where ip = $1::inet) as ip_last,\n  (select start from day) + interval '1 day' as resets_at\nfrom quota_log q, day\nwhere q.created_at >= day.start;",
+        "query": "with day as (\n  select date_trunc('day', now() at time zone 'utc') at time zone 'utc' as start\n)\nselect\n  count(*) filter (where q.ip = $1::inet or q.client_id = nullif($2, '')::uuid) as ip_today,\n  count(*) as system_today,\n  (select max(created_at) from quota_log\n     where ip = $1::inet or client_id = nullif($2, '')::uuid) as ip_last,\n  (select start from day) + interval '1 day' as resets_at\nfrom quota_log q, day\nwhere q.created_at >= day.start;",
         "options": {
-          "queryReplacement": "={{ $json.ip }}"
+          "queryReplacement": "={{ [$json.ip, $json.clientId ?? ''] }}"
         }
       },
       "type": "n8n-nodes-base.postgres",
@@ -111,7 +111,7 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const LIMITS = { perIp: 3, system: 12, throttleSeconds: 10 };\n\n/** Builds the error item for a request that is stopped before Gemini. */\nfunction stop(code, message, extra = {}) {\n  return { json: { allowed: false, status: 429, error: { code, message, ...extra } } };\n}\n\n/** Returns the seconds the IP still has to wait, or 0 if it may send again. */\nfunction secondsToWait(lastRequest) {\n  if (!lastRequest) return 0;\n  const elapsed = (Date.now() - new Date(lastRequest).getTime()) / 1000;\n  return Math.max(Math.ceil(LIMITS.throttleSeconds - elapsed), 0);\n}\n\nconst ipToday = Number($json.ip_today);\nconst systemToday = Number($json.system_today);\nconst resetsAt = new Date($json.resets_at).toISOString();\nconst wait = secondsToWait($json.ip_last);\nconst { request, ip } = $('Validate request').item.json;\n\nif (ipToday >= LIMITS.perIp) {\n  return stop('quota_exceeded', `You have used all ${LIMITS.perIp} requests for today. Please come back tomorrow.`, { resetsAt });\n}\nif (systemToday >= LIMITS.system) {\n  return stop('system_quota_exceeded', 'Our kitchen is fully booked for today. Please try again tomorrow.', { resetsAt });\n}\nif (wait > 0) {\n  return stop('rate_limited', `Please wait ${wait} seconds before you try again.`, { retryAfterSeconds: wait });\n}\nreturn { json: { allowed: true, request, ip, remaining: LIMITS.perIp - ipToday - 1, resetsAt } };"
+        "jsCode": "const LIMITS = { perIp: 3, system: 12, throttleSeconds: 10 };\n\n/** Builds the error item for a request that is stopped before Gemini. */\nfunction stop(code, message, extra = {}) {\n  return { json: { allowed: false, status: 429, error: { code, message, ...extra } } };\n}\n\n/** Returns the seconds the IP still has to wait, or 0 if it may send again. */\nfunction secondsToWait(lastRequest) {\n  if (!lastRequest) return 0;\n  const elapsed = (Date.now() - new Date(lastRequest).getTime()) / 1000;\n  return Math.max(Math.ceil(LIMITS.throttleSeconds - elapsed), 0);\n}\n\nconst ipToday = Number($json.ip_today);\nconst systemToday = Number($json.system_today);\nconst resetsAt = new Date($json.resets_at).toISOString();\nconst wait = secondsToWait($json.ip_last);\nconst { request, ip, clientId } = $('Validate request').item.json;\n\nif (ipToday >= LIMITS.perIp) {\n  return stop('quota_exceeded', `You have used all ${LIMITS.perIp} requests for today. Please come back tomorrow.`, { resetsAt });\n}\nif (systemToday >= LIMITS.system) {\n  return stop('system_quota_exceeded', 'Our kitchen is fully booked for today. Please try again tomorrow.', { resetsAt });\n}\nif (wait > 0) {\n  return stop('rate_limited', `Please wait ${wait} seconds before you try again.`, { retryAfterSeconds: wait });\n}\nreturn { json: { allowed: true, request, ip, clientId, remaining: LIMITS.perIp - ipToday - 1, resetsAt } };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -159,9 +159,9 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "insert into quota_log (ip) values ($1::inet) returning id;",
+        "query": "insert into quota_log (ip, client_id) values ($1::inet, nullif($2, '')::uuid) returning id;",
         "options": {
-          "queryReplacement": "={{ $json.ip }}"
+          "queryReplacement": "={{ [$json.ip, $json.clientId ?? ''] }}"
         }
       },
       "type": "n8n-nodes-base.postgres",
@@ -472,11 +472,45 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        3264,
-        -160
+        3504,
+        -144
       ],
       "id": "3967afe6-aff2-4b48-89cd-2bc58fa0c119",
       "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5c589e46-dd7e-4046-bc09-53ab6790ef61",
+              "leftValue": "={{ /503|overloaded|high demand|unavailable/i.test(JSON.stringify($('AI Agent').item.json)) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3248,
+        -160
+      ],
+      "id": "24263010-5168-4c70-ab7f-a74e6e7f734c",
+      "name": "Temporary AI error?"
     }
   ],
   "pinData": {},
@@ -714,6 +748,18 @@
       "main": [
         [
           {
+            "node": "Temporary AI error?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Temporary AI error?": {
+      "main": [
+        [],
+        [
+          {
             "node": "Stop and Error",
             "type": "main",
             "index": 0
@@ -731,7 +777,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "versionId": "10eefa1e-a518-4293-854b-a6ba1c742c38",
+  "versionId": "b2196bec-6e7b-4cdc-905b-cb2b9d79c393",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "fc5ff6d2fc2e3dcd37d9d77516aeec79a3c8b50b4868c9098c1ff757801e1ed9"

@@ -24,20 +24,23 @@ flowchart LR
     agent -->|too few ingredients| e422["422 insufficient_ingredients"]
     agent -.->|failed| release["Release request"]
     save -.->|failed| release
-    release --> e502["502 ai_error<br/>+ error mail"]
+    release --> e502["502 ai_error"]
+    e502 --> temp{"Gemini<br/>overloaded?"}
+    temp -->|no| mail["Error mail"]
 ```
 
 | Node | Purpose |
 |---|---|
-| Validate request | Checks every field against the rules of the api contract and reads the client IP from `x-forwarded-for` (IPv4 or IPv6). The frontend validates too, this catches direct calls to the webhook. |
-| Count requests, Check limits | One query counts today's requests of the IP and of the whole system and finds the IP's last request. Limits: 3 per IP and 12 system wide per day (UTC), 1 request per 10 seconds per IP. |
-| Reserve request | Inserts the request into `quota_log` before Gemini is called, so parallel requests already see it. |
+| Validate request | Checks every field against the rules of the api contract and reads the client IP from `x-forwarded-for` (IPv4 or IPv6). An invalid `clientId` becomes `null` instead of an error. The frontend validates too, this catches direct calls to the webhook. |
+| Count requests, Check limits | One query counts today's requests of the user (same IP or same `clientId`) and of the whole system and finds the user's last request. Limits: 3 per user and 12 system wide per day (UTC), 1 request per 10 seconds per user. |
+| Reserve request | Inserts the request with IP and `clientId` into `quota_log` before Gemini is called, so parallel requests already see it. |
 | Build prompt | Builds the system message and the prompt from the request. User input is wrapped in `<request>` and treated as data only. |
 | AI Agent | Google Gemini Chat Model (`gemini-3.6-flash`, temperature 0.6) with a Structured Output Parser. Gemini either returns 3 recipes or `insufficient: true` with a reason. If Gemini fails, for example when it is overloaded, the agent tries once more after 5 seconds. |
 | Build result | Adds cuisine, diet, portions, cooks and cooking time from the request, keeps `cook` within the number of cooks, fixes `parallel` and the step order. |
 | Save recipes | Inserts the 3 recipes in one query and returns their ids. |
 | Release request | Deletes the reservation again if Gemini or saving failed, so the request does not count. |
-| Stop and Error | Marks the execution as failed after the user got the `502`, which starts the error workflow. |
+| Temporary AI error? | Checks the agent's error for `503`, "overloaded", "high demand" or "unavailable". These short Gemini outages end the execution without an alert. |
+| Stop and Error | Marks the execution as failed after the user got the `502`, which starts the error workflow. Only reached for errors that are not temporary. |
 
 Requests rejected by Gemini as too few ingredients count against the quota, failures of Gemini or the database do not.
 
