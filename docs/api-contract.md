@@ -129,7 +129,7 @@ All errors share one shape. The frontend unwraps `error` and shows it in the pop
 | Status | `code` | When | Counts as request |
 |---|---|---|---|
 | 400 | `invalid_input` | request breaks the rules above | no |
-| 422 | `insufficient_ingredients` | Gemini judges the ingredients too few for the portions | yes |
+| 422 | `insufficient_ingredients` | Gemini judges the ingredients far too few for the portions, not food, or only basics like water, salt or oil | yes |
 | 429 | `quota_exceeded` | user quota (3 requests per day) used up | no |
 | 429 | `system_quota_exceeded` | system quota (12 requests per day) used up | no |
 | 429 | `rate_limited` | less than 10 seconds since the last request of this user | no |
