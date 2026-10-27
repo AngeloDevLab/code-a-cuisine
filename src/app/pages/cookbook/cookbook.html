@@ -55,8 +55,10 @@
                 {{ cuisine.label }} cuisine
                 <img [ngSrc]="'icons/cuisines/' + cuisine.value + '.png'" alt="" width="28" height="28" />
             </span>
-            <img class="cookbook__cuisine-image" [ngSrc]="'images/cuisines/' + cuisine.value + '.webp'" alt=""
-                width="400" height="400" />
+            <span class="cookbook__cuisine-frame">
+                <img class="cookbook__cuisine-image" [ngSrc]="'images/cuisines/' + cuisine.value + '.webp'" alt=""
+                    width="400" height="400" />
+            </span>
         </a>
         }
     </nav>

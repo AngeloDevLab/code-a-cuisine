@@ -166,15 +166,30 @@
   font-size: 28px;
 }
 
+// Clips the image while it zooms in on hover.
+.cookbook__cuisine-frame {
+  display: block;
+  overflow: hidden;
+}
+
 .cookbook__cuisine-image {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  transition: opacity 150ms ease-in-out;
+  transition:
+    scale 300ms ease-in-out,
+    opacity 150ms ease-in-out;
 
-  .cookbook__cuisine:hover & {
+  .cookbook__cuisine:hover &,
+  .cookbook__cuisine:focus-visible & {
+    scale: 1.08;
     opacity: 0.85;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 }
 
