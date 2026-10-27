@@ -37,7 +37,7 @@ The frontend also sends a random browser id (`clientId`, a UUID kept in `localSt
 |---|---|---|
 | `ingredients` | array | 1 to 20 items |
 | `ingredients[].name` | string | 1 to 50 characters, trimmed |
-| `ingredients[].amount` | number | > 0 |
+| `ingredients[].amount` | number | > 0 and at most 10000 (the frontend sets larger values back to 10000 while typing) |
 | `ingredients[].unit` | enum | `g`, `kg`, `ml`, `l`, `tbsp`, `tsp`, `pcs` |
 | `portions` | integer | 1 to 12, default 2 |
 | `cooks` | integer | 1 to 4, default 1 (the user plus up to 3 helpers) |

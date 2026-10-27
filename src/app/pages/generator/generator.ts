@@ -1,5 +1,5 @@
 import { Component, ElementRef, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
-import { FormField, form, maxLength, validate } from '@angular/forms/signals';
+import { FieldTree, FormField, form, max, maxLength, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 import { formatAmount } from '../../models/generator-options';
 import { INGREDIENT_LIMITS, Ingredient, Unit } from '../../models/recipe-request';
@@ -38,6 +38,7 @@ export class Generator {
     validate(path.name, ({ value }) => (value().trim() ? undefined : { kind: 'required' }));
     maxLength(path.name, INGREDIENT_LIMITS.nameMaxLength);
     validate(path.amount, positiveAmount);
+    max(path.amount, INGREDIENT_LIMITS.amountMax);
   });
 
   private readonly suggestionsOpen = signal(false);
@@ -50,6 +51,7 @@ export class Generator {
   private readonly editDraft = signal<AmountDraft>({ amount: null, unit: 'g' });
   protected readonly editForm = form(this.editDraft, (path) => {
     validate(path.amount, positiveAmount);
+    max(path.amount, INGREDIENT_LIMITS.amountMax);
   });
   private readonly editAmount = viewChild<ElementRef<HTMLInputElement>>('editAmount');
   private readonly editName = viewChild<ElementRef<HTMLElement>>('editName');
@@ -61,6 +63,14 @@ export class Generator {
     if (this.ingredientForm().invalid() || amount === null) return;
     this.store.addIngredient({ name: name.trim(), amount, unit });
     this.ingredientForm().reset(EMPTY_DRAFT);
+  }
+
+  /** Sets an amount above the maximum back to the maximum while the user types, in the input and the form. */
+  protected clampAmount(field: FieldTree<number | null>, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!(input.valueAsNumber > INGREDIENT_LIMITS.amountMax)) return;
+    input.value = String(INGREDIENT_LIMITS.amountMax);
+    field().value.set(INGREDIENT_LIMITS.amountMax);
   }
 
   /** Formats the amount for the ingredient list; pieces show the bare number, e.g. "2 Eggs". */

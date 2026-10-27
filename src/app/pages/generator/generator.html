@@ -34,7 +34,8 @@
                 <label class="generator__label" for="ingredient-amount">Serving size</label>
                 <div class="generator__amount">
                     <input class="generator__input generator__input--amount" id="ingredient-amount" type="number"
-                        inputmode="decimal" placeholder="100" [formField]="ingredientForm.amount" />
+                        inputmode="decimal" placeholder="100" [formField]="ingredientForm.amount"
+                        (input)="clampAmount(ingredientForm.amount, $event)" />
                     <app-unit-select [formField]="ingredientForm.unit" />
                     <button class="generator__add" type="submit" aria-label="Add ingredient"
                         [disabled]="ingredientForm().invalid() || store.isFull()">
@@ -65,7 +66,7 @@
                         <div class="generator__amount generator__amount--edit">
                             <input #editAmount class="generator__input generator__input--amount" type="number"
                                 inputmode="decimal" [attr.aria-label]="'Amount of ' + item.name"
-                                [formField]="editForm.amount" />
+                                [formField]="editForm.amount" (input)="clampAmount(editForm.amount, $event)" />
                             <app-unit-select [formField]="editForm.unit" />
                         </div>
                     </form>
