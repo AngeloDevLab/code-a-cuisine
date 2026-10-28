@@ -1,18 +1,20 @@
-import { Service } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { N8N_WEBHOOK_URL } from '../config';
 import { ApiError, RecipeResponse } from '../models/api';
 import { RecipeRequest } from '../models/recipe-request';
-import { getClientId } from './client-id';
+import { ClientId } from './client-id';
 
 /** Generates recipes through the n8n webhook. */
 @Service()
 export class RecipeService {
+  private readonly clientId = inject(ClientId);
+
   /** Generates three recipes for the given request; throws an ApiError if n8n rejects it. */
   async generate(request: RecipeRequest): Promise<RecipeResponse> {
     const response = await fetch(`${N8N_WEBHOOK_URL}/recipes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...request, clientId: getClientId() }),
+      body: JSON.stringify({ ...request, clientId: this.clientId.get() }),
     });
     const body: unknown = await response.json().catch(() => null);
     if (!response.ok) throw toApiError(body);

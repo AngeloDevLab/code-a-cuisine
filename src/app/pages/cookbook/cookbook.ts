@@ -3,7 +3,7 @@ import { Component, computed, inject, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Cuisine } from '../../models/preferences';
 import { cuisineLabel } from '../../utils/labels';
-import { CookbookService, TOP_RECIPE_LIMIT } from '../../services/cookbook-service';
+import { CookbookService } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';
 import { LegalLinks } from '../../shared/legal-links/legal-links';
@@ -23,7 +23,7 @@ export class Cookbook {
 
   protected readonly cuisines = CUISINE_ORDER.map((value) => ({ value, label: cuisineLabel(value) }));
 
-  protected readonly placeholders = Array.from({ length: TOP_RECIPE_LIMIT }, (_, index) => index);
+  protected readonly placeholders = Array.from({ length: this.cookbook.topRecipeLimit }, (_, index) => index);
 
   protected readonly topRecipes = resource({
     defaultValue: [],

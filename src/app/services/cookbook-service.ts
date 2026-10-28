@@ -4,8 +4,6 @@ import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from '../config';
 import { Recipe, RecipePage, RecipePreview } from '../models/recipe';
 import { Cuisine } from '../models/preferences';
 
-export const RECIPES_PER_PAGE = 20;
-export const TOP_RECIPE_LIMIT = 5;
 const RANGE_NOT_SATISFIABLE = 'PGRST103';
 
 const PREVIEW_COLUMNS = 'id, title, cookingTimeMinutes:cooking_time_minutes, cookingTime:cooking_time, cuisine, diet, likes';
@@ -18,6 +16,9 @@ export class CookbookService {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
+  readonly recipesPerPage = 20;
+  readonly topRecipeLimit = 5;
+
   /** Returns the most liked recipes, best first. */
   async getMostLiked(): Promise<RecipePreview[]> {
     const { data, error } = await this.client
@@ -25,7 +26,7 @@ export class CookbookService {
       .select(PREVIEW_COLUMNS)
       .order('likes', { ascending: false })
       .order('created_at', { ascending: false })
-      .limit(TOP_RECIPE_LIMIT);
+      .limit(this.topRecipeLimit);
     if (error) throw error;
     return data as unknown as RecipePreview[];
   }
@@ -34,7 +35,7 @@ export class CookbookService {
   async getByCuisine(cuisine: Cuisine, page: number): Promise<RecipePage> {
     const result = await this.fetchPage(cuisine, Math.max(page, 1));
     if (result) return result;
-    const lastPage = pageCountOf(await this.countByCuisine(cuisine));
+    const lastPage = this.pageCountOf(await this.countByCuisine(cuisine));
     return (await this.fetchPage(cuisine, lastPage)) ?? { recipes: [], total: 0, page: 1, pageCount: 1 };
   }
 
@@ -54,17 +55,17 @@ export class CookbookService {
 
   /** Loads one page with the total count, or null if the page lies behind the last recipe. */
   private async fetchPage(cuisine: Cuisine, page: number): Promise<RecipePage | null> {
-    const from = (page - 1) * RECIPES_PER_PAGE;
+    const from = (page - 1) * this.recipesPerPage;
     const { data, count, error } = await this.client
       .from('recipes')
       .select(PREVIEW_COLUMNS, { count: 'exact' })
       .eq('cuisine', cuisine)
       .order('created_at', { ascending: false })
-      .range(from, from + RECIPES_PER_PAGE - 1);
+      .range(from, from + this.recipesPerPage - 1);
     if (error?.code === RANGE_NOT_SATISFIABLE) return null;
     if (error) throw error;
     const total = count ?? 0;
-    return { recipes: data as unknown as RecipePreview[], total, page, pageCount: pageCountOf(total) };
+    return { recipes: data as unknown as RecipePreview[], total, page, pageCount: this.pageCountOf(total) };
   }
 
   /** Counts the recipes of a cuisine without loading them. */
@@ -76,9 +77,9 @@ export class CookbookService {
     if (error) throw error;
     return count ?? 0;
   }
-}
 
-/** Returns the number of pages for the given number of recipes, at least 1. */
-function pageCountOf(total: number): number {
-  return Math.max(Math.ceil(total / RECIPES_PER_PAGE), 1);
+  /** Returns the number of pages for the given number of recipes, at least 1. */
+  private pageCountOf(total: number): number {
+    return Math.max(Math.ceil(total / this.recipesPerPage), 1);
+  }
 }
