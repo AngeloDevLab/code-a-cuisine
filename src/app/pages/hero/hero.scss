@@ -31,6 +31,7 @@ $hero-image-width-desktop: 470px;
 
 .hero__intro {
   margin-top: fluid($space-56, 152px);
+  margin-bottom: $space-24;
 }
 
 .hero__tagline {
@@ -96,7 +97,7 @@ $hero-image-width-desktop: 470px;
 .hero__images {
   position: absolute;
   top: fluid($space-24, -$space-64);
-  right: fluid(-$hero-image-width-mobile * 0.65, $space-64);
+  right: fluid(-$hero-image-width-mobile * 0.7, $space-64);
   display: flex;
   flex-direction: column;
 }
