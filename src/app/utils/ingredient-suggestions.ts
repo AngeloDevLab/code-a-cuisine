@@ -1,4 +1,4 @@
-import INGREDIENTS from '../../data/ingredients.json';
+import INGREDIENTS from '../data/ingredients.json';
 
 const MIN_QUERY_LENGTH = 2;
 const MAX_SUGGESTIONS = 5;

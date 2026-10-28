@@ -8,7 +8,7 @@ import { GeneratorStore } from '../../services/generator-store';
 import { Button } from '../../shared/button/button';
 import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
-import { findSuggestions } from './ingredient-suggestions';
+import { findSuggestions } from '../../utils/ingredient-suggestions';
 import { UnitSelect } from './unit-select/unit-select';
 
 interface IngredientDraft {
