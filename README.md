@@ -79,8 +79,10 @@ code-a-cuisine/
         ├── shared/     # button, logo, popup, pagination, back link, ...
         ├── services/   # signal stores, n8n and Supabase access
         ├── guards/     # keep the generator steps in order
-        ├── models/     # types, options, validators
-        └── data/       # ingredient suggestions, cuisine banners
+        ├── models/     # types and interfaces
+        ├── constants/  # options, limits, cuisine banner sizes
+        ├── utils/      # formatting, validators, image loader, suggestions
+        └── data/       # ingredient list for the suggestions
 ```
 
 ## Tech Decisions

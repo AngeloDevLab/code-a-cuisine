@@ -69,8 +69,10 @@ src/app/
 ├── shared/     reusable components (button, logo, popup, pagination, ...)
 ├── services/   stores and API access
 ├── guards/     keep the generator steps in order
-├── models/     types, options and validators
-└── data/       ingredient suggestions, cuisine banners
+├── models/     types and interfaces
+├── constants/  options, limits, cuisine banner sizes
+├── utils/      formatting, validators, image loader, suggestions
+└── data/       ingredient list for the suggestions
 ```
 
 State lives in signal based services (`@Service()`), components only read and call them:
@@ -80,6 +82,7 @@ State lives in signal based services (`@Service()`), components only read and ca
 | `GeneratorStore` | ingredients and preferences across the two generator steps |
 | `RecipeStore` | generated recipes, quota and the state of the current generation |
 | `RecipeService` | the call to the n8n webhook |
+| `ClientId` | the random browser id the backend counts requests by (`localStorage`) |
 | `CookbookService` | Supabase reads and likes |
 | `LikeStore` | liked recipe ids (`localStorage`) and the like counts Supabase returned |
 | `PopupStore` | the message of the shared error popup |
