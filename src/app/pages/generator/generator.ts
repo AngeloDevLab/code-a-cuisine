@@ -1,14 +1,15 @@
 import { Component, ElementRef, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { FieldTree, FormField, form, max, maxLength, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
-import { formatAmount } from '../../models/generator-options';
-import { INGREDIENT_LIMITS, Ingredient, Unit } from '../../models/recipe-request';
-import { positiveAmount } from '../../models/validators';
+import { INGREDIENT_LIMITS } from '../../constants/limits';
+import { Ingredient, Unit } from '../../models/ingredient';
 import { GeneratorStore } from '../../services/generator-store';
 import { Button } from '../../shared/button/button';
 import { LegalLinks } from '../../shared/legal-links/legal-links';
 import { Logo } from '../../shared/logo/logo';
 import { findSuggestions } from '../../utils/ingredient-suggestions';
+import { formatAmount } from '../../utils/labels';
+import { positiveAmount } from '../../utils/validators';
 import { UnitSelect } from './unit-select/unit-select';
 
 interface IngredientDraft {

@@ -3,7 +3,7 @@ import { generationStartedGuard } from './guards/generation-started.guard';
 import { hasIngredientsGuard } from './guards/has-ingredients.guard';
 import { hasRecipesGuard } from './guards/has-recipes.guard';
 import { validCuisineGuard } from './guards/valid-cuisine.guard';
-import { cuisineLabel } from './models/generator-options';
+import { cuisineLabel } from './utils/labels';
 
 export const routes: Routes = [
   {

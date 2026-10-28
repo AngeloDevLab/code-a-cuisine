@@ -1,9 +1,8 @@
 import { Service, inject, signal } from '@angular/core';
-import { ApiError, Quota, Recipe } from '../models/recipe';
+import { ApiError, GenerationStatus, Quota } from '../models/api';
+import { Recipe } from '../models/recipe';
 import { RecipeRequest } from '../models/recipe-request';
 import { RecipeService } from './recipe-service';
-
-export type GenerationStatus = 'idle' | 'loading' | 'success' | 'error';
 
 /** Holds the generated recipes and the state of the current generation. */
 @Service()

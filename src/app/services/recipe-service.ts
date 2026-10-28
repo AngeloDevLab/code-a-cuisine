@@ -1,6 +1,6 @@
 import { Service } from '@angular/core';
 import { N8N_WEBHOOK_URL } from '../config';
-import { ApiError, RecipeResponse } from '../models/recipe';
+import { ApiError, RecipeResponse } from '../models/api';
 import { RecipeRequest } from '../models/recipe-request';
 import { getClientId } from './client-id';
 

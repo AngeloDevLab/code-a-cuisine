@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
-import { recipeTags } from '../../../models/generator-options';
 import { Recipe } from '../../../models/recipe';
+import { recipeTags } from '../../../utils/labels';
 import { ChefBadge } from '../chef-badge/chef-badge';
 import { NutritionFacts } from '../nutrition-facts/nutrition-facts';
 

@@ -1,5 +1,8 @@
 import { Service, computed, signal } from '@angular/core';
-import { INGREDIENT_LIMITS, Ingredient, Preferences, RecipeRequest } from '../models/recipe-request';
+import { INGREDIENT_LIMITS } from '../constants/limits';
+import { Ingredient } from '../models/ingredient';
+import { Preferences } from '../models/preferences';
+import { RecipeRequest } from '../models/recipe-request';
 
 const DEFAULT_PREFERENCES: Preferences = {
   portions: 2,

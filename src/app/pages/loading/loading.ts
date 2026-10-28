@@ -1,7 +1,8 @@
 import { Component, effect, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiError } from '../../models/recipe';
-import { PopupMessage, PopupStore } from '../../services/popup-store';
+import { ApiError } from '../../models/api';
+import { PopupMessage } from '../../models/popup';
+import { PopupStore } from '../../services/popup-store';
 import { RecipeStore } from '../../services/recipe-store';
 import { LoadingScreen } from '../../shared/loading-screen/loading-screen';
 

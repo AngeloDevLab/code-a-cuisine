@@ -1,7 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { COOKING_TIME_OPTIONS, cuisineLabel } from '../../models/generator-options';
+import { COOKING_TIME_OPTIONS } from '../../constants/options';
+import { cuisineLabel } from '../../utils/labels';
 import { GeneratorStore } from '../../services/generator-store';
 import { RecipeStore } from '../../services/recipe-store';
 import { Button } from '../../shared/button/button';

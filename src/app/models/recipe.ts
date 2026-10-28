@@ -1,4 +1,10 @@
-import { CookingTime, Cuisine, Diet, Ingredient } from './recipe-request';
+import { Ingredient } from './ingredient';
+import { CookingTime, Cuisine, Diet } from './preferences';
+
+export type RecipePreview = Pick<
+  Recipe,
+  'id' | 'title' | 'cookingTimeMinutes' | 'cookingTime' | 'cuisine' | 'diet' | 'likes'
+>;
 
 export interface Nutrition {
   energyKcal: number;
@@ -30,40 +36,9 @@ export interface Recipe {
   steps: RecipeStep[];
 }
 
-export type RecipePreview = Pick<
-  Recipe,
-  'id' | 'title' | 'cookingTimeMinutes' | 'cookingTime' | 'cuisine' | 'diet' | 'likes'
->;
-
 export interface RecipePage {
   recipes: RecipePreview[];
   total: number;
   page: number;
   pageCount: number;
-}
-
-export interface Quota {
-  remaining: number;
-  resetsAt: string;
-}
-
-export interface RecipeResponse {
-  recipes: Recipe[];
-  quota: Quota;
-}
-
-export type ApiErrorCode =
-  | 'invalid_input'
-  | 'insufficient_ingredients'
-  | 'quota_exceeded'
-  | 'system_quota_exceeded'
-  | 'rate_limited'
-  | 'ai_error'
-  | 'internal_error';
-
-export interface ApiError {
-  code: ApiErrorCode;
-  message: string;
-  resetsAt?: string;
-  retryAfterSeconds?: number;
 }

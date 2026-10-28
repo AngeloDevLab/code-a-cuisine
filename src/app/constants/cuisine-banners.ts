@@ -1,14 +1,5 @@
-import { Cuisine } from '../models/recipe-request';
-
-export interface ImageSize {
-  width: number;
-  height: number;
-}
-
-export interface CuisineBanner {
-  desktop: ImageSize;
-  mobile: ImageSize;
-}
+import { CuisineBanner } from '../models/cuisine-banner';
+import { Cuisine } from '../models/preferences';
 
 /** Display sizes of the cuisine banners, the files are twice as large. */
 export const CUISINE_BANNERS: Record<Cuisine, CuisineBanner> = {

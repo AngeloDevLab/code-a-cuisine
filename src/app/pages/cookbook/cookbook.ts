@@ -1,8 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { cuisineLabel } from '../../models/generator-options';
-import { Cuisine } from '../../models/recipe-request';
+import { Cuisine } from '../../models/preferences';
+import { cuisineLabel } from '../../utils/labels';
 import { CookbookService, TOP_RECIPE_LIMIT } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';

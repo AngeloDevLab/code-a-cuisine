@@ -2,7 +2,7 @@ import { Service } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from '../config';
 import { Recipe, RecipePage, RecipePreview } from '../models/recipe';
-import { Cuisine } from '../models/recipe-request';
+import { Cuisine } from '../models/preferences';
 
 export const RECIPES_PER_PAGE = 20;
 export const TOP_RECIPE_LIMIT = 5;

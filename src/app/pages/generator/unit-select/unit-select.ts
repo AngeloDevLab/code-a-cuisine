@@ -1,7 +1,7 @@
 import { Component, computed, model, signal } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
-import { UNIT_OPTIONS } from '../../../models/generator-options';
-import { Unit } from '../../../models/recipe-request';
+import { UNIT_OPTIONS } from '../../../constants/options';
+import { Unit } from '../../../models/ingredient';
 
 let nextId = 0;
 

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { CUISINE_OPTIONS } from '../models/generator-options';
+import { CUISINE_OPTIONS } from '../constants/options';
 
 /** Sends the user to the cookbook if the cuisine in the url does not exist. */
 export const validCuisineGuard: CanActivateFn = (route) =>

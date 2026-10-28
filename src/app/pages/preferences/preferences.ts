@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormField, form, max, min } from '@angular/forms/signals';
 import { Router } from '@angular/router';
-import { COOKING_TIME_OPTIONS, CUISINE_OPTIONS, DIET_OPTIONS } from '../../models/generator-options';
-import { COOK_LIMITS, PORTION_LIMITS } from '../../models/recipe-request';
+import { COOK_LIMITS, PORTION_LIMITS } from '../../constants/limits';
+import { COOKING_TIME_OPTIONS, CUISINE_OPTIONS, DIET_OPTIONS } from '../../constants/options';
 import { GeneratorStore } from '../../services/generator-store';
 import { RecipeStore } from '../../services/recipe-store';
 import { BackLink } from '../../shared/back-link/back-link';

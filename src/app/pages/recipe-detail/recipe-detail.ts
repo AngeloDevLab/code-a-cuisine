@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CUISINE_OPTIONS } from '../../models/generator-options';
+import { CUISINE_OPTIONS } from '../../constants/options';
 import { CookbookService } from '../../services/cookbook-service';
 import { LikeStore } from '../../services/like-store';
 import { RecipeStore } from '../../services/recipe-store';

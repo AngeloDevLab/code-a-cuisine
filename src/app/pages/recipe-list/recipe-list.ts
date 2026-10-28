@@ -1,8 +1,8 @@
 import { Component, computed, inject, input, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CUISINE_BANNERS } from '../../data/cuisine-banners';
-import { cuisineLabel, recipeTags } from '../../models/generator-options';
-import { Cuisine } from '../../models/recipe-request';
+import { CUISINE_BANNERS } from '../../constants/cuisine-banners';
+import { Cuisine } from '../../models/preferences';
+import { cuisineLabel, recipeTags } from '../../utils/labels';
 import { CookbookService, RECIPES_PER_PAGE } from '../../services/cookbook-service';
 import { BackLink } from '../../shared/back-link/back-link';
 import { Button } from '../../shared/button/button';

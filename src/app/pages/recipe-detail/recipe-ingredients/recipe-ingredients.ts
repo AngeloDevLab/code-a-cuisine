@@ -1,7 +1,7 @@
 import { Component, input, signal } from '@angular/core';
-import { formatAmount } from '../../../models/generator-options';
+import { Ingredient } from '../../../models/ingredient';
 import { Recipe } from '../../../models/recipe';
-import { Ingredient } from '../../../models/recipe-request';
+import { formatAmount } from '../../../utils/labels';
 import { SectionBanner } from '../section-banner/section-banner';
 import { SectionToggle } from '../section-toggle/section-toggle';
 
