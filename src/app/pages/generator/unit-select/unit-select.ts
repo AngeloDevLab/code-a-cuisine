@@ -19,7 +19,7 @@ let nextId = 0;
       [attr.inert]="open() ? null : ''">
       <ul class="unit-select__list">
         @for (unit of units; track unit.value) {
-          <li>
+          <li class="unit-select__item">
             <button class="unit-select__option" type="button" [attr.aria-pressed]="unit.value === value()"
               (click)="select(unit.value)">
               {{ unit.label }}

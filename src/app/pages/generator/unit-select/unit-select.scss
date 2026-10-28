@@ -66,8 +66,13 @@ $unit-select-inset: $space-8;
   min-height: 0;
   margin-left: 72px + $unit-select-inset;
   overflow: hidden;
-  padding: $space-8 0 0;
+  padding: 0;
   list-style: none;
+}
+
+// Margin instead of padding, so the closed options can shrink to zero height.
+.unit-select__item:first-child {
+  margin-top: $space-8;
 }
 
 .unit-select__option {
