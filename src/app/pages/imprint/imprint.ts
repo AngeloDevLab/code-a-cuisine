@@ -7,7 +7,7 @@ import { Logo } from '../../shared/logo/logo';
 @Component({
   imports: [BackLink, LegalLinks, Logo],
   selector: 'app-imprint',
-  styleUrl: './legal.scss',
+  styleUrl: './imprint.scss',
   templateUrl: './imprint.html',
 })
 export class Imprint {}

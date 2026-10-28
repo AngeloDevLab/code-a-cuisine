@@ -2,6 +2,8 @@
 @use 'functions' as *;
 @use 'mixins' as *;
 
+// Shared layout of the legal pages (imprint and privacy policy).
+
 .legal {
   @include page-shell;
 }

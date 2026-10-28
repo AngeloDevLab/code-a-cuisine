@@ -7,7 +7,7 @@ import { Logo } from '../../shared/logo/logo';
 @Component({
   imports: [BackLink, LegalLinks, Logo],
   selector: 'app-privacy',
-  styleUrl: './legal.scss',
+  styleUrl: './privacy.scss',
   templateUrl: './privacy.html',
 })
 export class Privacy {}
