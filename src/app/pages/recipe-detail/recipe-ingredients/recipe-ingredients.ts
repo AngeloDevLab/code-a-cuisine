@@ -17,7 +17,11 @@ export class RecipeIngredients {
 
   protected readonly expanded = signal(true);
 
-  /** Formats the amount with its unit, e.g. "80g" or "2 pieces". */
+  /**
+   * Formats the amount with its unit, e.g. "80g" or "2 pieces".
+   * @param ingredient - The ingredient with its amount and unit.
+   * @returns The amount with its unit as display text.
+   */
   protected amount(ingredient: Ingredient): string {
     return formatAmount(ingredient.amount, ingredient.unit);
   }

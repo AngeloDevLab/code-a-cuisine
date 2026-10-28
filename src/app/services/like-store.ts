@@ -12,12 +12,20 @@ export class LikeStore {
   readonly likedIds = signal<string[]>(readLikedIds());
   readonly counts = signal<Record<string, number>>({});
 
-  /** Returns whether the recipe with the given id is liked. */
+  /**
+   * Returns whether the recipe with the given id is liked.
+   * @param id - The id of the recipe.
+   * @returns True if this browser liked the recipe.
+   */
   isLiked(id: string): boolean {
     return this.likedIds().includes(id);
   }
 
-  /** Likes or unlikes the recipe and stores the new count; undoes the like if the request fails. */
+  /**
+   * Likes or unlikes the recipe and stores the new count; undoes the like if the request fails.
+   * @param id - The id of the recipe.
+   * @returns A promise that resolves once the request is done.
+   */
   async toggle(id: string): Promise<void> {
     if (this.pending.has(id)) return;
     const liked = !this.isLiked(id);
@@ -33,14 +41,21 @@ export class LikeStore {
     }
   }
 
-  /** Marks the recipe as liked or not liked and saves the list. */
+  /**
+   * Marks the recipe as liked or not liked and saves the list.
+   * @param id - The id of the recipe.
+   * @param liked - Whether the recipe is liked now.
+   */
   private setLiked(id: string, liked: boolean): void {
     this.likedIds.update((ids) => (liked ? [...ids, id] : ids.filter((likedId) => likedId !== id)));
     saveLikedIds(this.likedIds());
   }
 }
 
-/** Reads the liked recipe ids from localStorage. */
+/**
+ * Reads the liked recipe ids from localStorage.
+ * @returns The stored ids, empty if there are none or storage is blocked.
+ */
 function readLikedIds(): string[] {
   try {
     const ids: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
@@ -50,7 +65,10 @@ function readLikedIds(): string[] {
   }
 }
 
-/** Writes the liked recipe ids to localStorage. */
+/**
+ * Writes the liked recipe ids to localStorage.
+ * @param ids - The ids of all liked recipes.
+ */
 function saveLikedIds(ids: string[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));

@@ -34,7 +34,10 @@ export class Preferences {
     max(path.cooks, COOK_LIMITS.max);
   });
 
-  /** Starts the generation in the background and opens the loading page. */
+  /**
+   * Starts the generation in the background and opens the loading page.
+   * @param event - The submit event of the form.
+   */
   protected generate(event: Event): void {
     event.preventDefault();
     if (this.preferencesForm().invalid()) return;

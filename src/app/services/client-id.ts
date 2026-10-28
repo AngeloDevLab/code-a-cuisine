@@ -7,7 +7,10 @@ const STORAGE_KEY = 'client-id';
 export class ClientId {
   private sessionId: string | null = null;
 
-  /** Returns the stored id or creates one; falls back to an id for this session if storage is blocked. */
+  /**
+   * Returns the stored id or creates one; falls back to an id for this session if storage is blocked.
+   * @returns The client id of this browser.
+   */
   get(): string {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);

@@ -3,7 +3,11 @@ import INGREDIENTS from '../data/ingredients.json';
 const MIN_QUERY_LENGTH = 2;
 const MAX_SUGGESTIONS = 5;
 
-/** Returns up to five known ingredients containing the query, prefix matches first. */
+/**
+ * Returns up to five known ingredients containing the query, prefix matches first.
+ * @param query - The text typed into the ingredient field.
+ * @returns The matching ingredient names, empty if the query is too short or already complete.
+ */
 export function findSuggestions(query: string): string[] {
   const term = query.trim().toLowerCase();
   if (term.length < MIN_QUERY_LENGTH) return [];

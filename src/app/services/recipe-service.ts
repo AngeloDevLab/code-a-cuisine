@@ -9,7 +9,11 @@ import { ClientId } from './client-id';
 export class RecipeService {
   private readonly clientId = inject(ClientId);
 
-  /** Generates three recipes for the given request; throws an ApiError if n8n rejects it. */
+  /**
+   * Generates three recipes for the given request; throws an ApiError if n8n rejects it.
+   * @param request - The ingredients and preferences of the user.
+   * @returns The generated recipes and the remaining quota.
+   */
   async generate(request: RecipeRequest): Promise<RecipeResponse> {
     const response = await fetch(`${N8N_WEBHOOK_URL}/recipes`, {
       method: 'POST',
@@ -22,7 +26,11 @@ export class RecipeService {
   }
 }
 
-/** Unwraps the `{ error }` body of a failed request, with a generic error if the body has none. */
+/**
+ * Unwraps the `{ error }` body of a failed request, with a generic error if the body has none.
+ * @param body - The parsed response body.
+ * @returns The error of the body or a generic internal error.
+ */
 function toApiError(body: unknown): ApiError {
   const error = typeof body === 'object' && body !== null && 'error' in body ? body.error : null;
   if (typeof error === 'object' && error !== null && 'code' in error && 'message' in error) {

@@ -14,7 +14,11 @@ export class RecipeStore {
   readonly status = signal<GenerationStatus>('idle');
   readonly error = signal<ApiError | null>(null);
 
-  /** Requests new recipes and tracks loading, result and error. */
+  /**
+   * Requests new recipes and tracks loading, result and error.
+   * @param request - The ingredients and preferences of the user.
+   * @returns A promise that resolves once the generation has finished.
+   */
   async generate(request: RecipeRequest): Promise<void> {
     this.status.set('loading');
     this.error.set(null);
@@ -30,7 +34,11 @@ export class RecipeStore {
   }
 }
 
-/** Turns anything thrown during a request into an ApiError. */
+/**
+ * Turns anything thrown during a request into an ApiError.
+ * @param error - The thrown value.
+ * @returns The error itself if it is an ApiError, otherwise a generic one.
+ */
 function toApiError(error: unknown): ApiError {
   if (typeof error === 'object' && error !== null && 'code' in error && 'message' in error) {
     return error as ApiError;

@@ -8,7 +8,10 @@ export class BackNavigation {
   private readonly location = inject(Location);
   private readonly router = inject(Router);
 
-  /** Goes to the previous page, or to the fallback url if this page was the first one in the app. */
+  /**
+   * Goes to the previous page, or to the fallback url if this page was the first one in the app.
+   * @param fallbackUrl - The url to open if there is no previous page in the app.
+   */
   back(fallbackUrl: string): void {
     const state = this.location.getState() as { navigationId?: number } | null;
     if ((state?.navigationId ?? 1) > 1) {

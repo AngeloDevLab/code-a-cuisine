@@ -16,13 +16,22 @@ export class Pagination {
 
   protected readonly items = computed(() => visiblePages(this.page(), this.pageCount()));
 
-  /** Returns the query params for a page, page 1 keeps the url clean. */
+  /**
+   * Returns the query params for a page, page 1 keeps the url clean.
+   * @param page - The page number.
+   * @returns The query params, with null for page 1.
+   */
   protected paramsFor(page: number): { page: number | null } {
     return { page: page === 1 ? null : page };
   }
 }
 
-/** Lists the first, last and neighbouring page numbers, with gaps for skipped ranges. */
+/**
+ * Lists the first, last and neighbouring page numbers, with gaps for skipped ranges.
+ * @param page - The current page.
+ * @param count - The number of pages.
+ * @returns The page numbers and gaps to render.
+ */
 function visiblePages(page: number, count: number): PageItem[] {
   const candidates = [1, count, page - 1, page, page + 1, page <= 2 ? 3 : 0, page >= count - 1 ? count - 2 : 0];
   const pages = [...new Set(candidates)].filter((n) => n >= 1 && n <= count).sort((a, b) => a - b);

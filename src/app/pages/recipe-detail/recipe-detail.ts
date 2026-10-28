@@ -51,7 +51,11 @@ export class RecipeDetail {
   protected readonly back = computed(() => toBackTarget(this.from()));
 }
 
-/** Maps the from query param to the page the back link returns to. */
+/**
+ * Maps the from query param to the page the back link returns to.
+ * @param from - The from query param, "cookbook" or a cuisine.
+ * @returns The path and label of the back link.
+ */
 function toBackTarget(from: string | undefined): BackTarget {
   if (from === 'cookbook') {
     return { path: '/cookbook', label: 'Cookbook' };

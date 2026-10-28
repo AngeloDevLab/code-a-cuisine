@@ -39,7 +39,10 @@ export class UnitSelect implements FormValueControl<Unit> {
   protected readonly open = signal(false);
   protected readonly label = computed(() => UNIT_OPTIONS.find((u) => u.value === this.value())?.label);
 
-  /** Sets the chosen unit and closes the options. */
+  /**
+   * Sets the chosen unit and closes the options.
+   * @param unit - The unit the user picked.
+   */
   protected select(unit: Unit): void {
     this.value.set(unit);
     this.open.set(false);

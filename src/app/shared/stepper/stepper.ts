@@ -28,7 +28,10 @@ export class Stepper implements FormValueControl<number> {
   protected readonly canDecrease = computed(() => this.value() > (this.min() ?? -Infinity));
   protected readonly canIncrease = computed(() => this.value() < (this.max() ?? Infinity));
 
-  /** Changes the value by the given delta. */
+  /**
+   * Changes the value by the given delta.
+   * @param delta - The step to add, e.g. 1 or -1.
+   */
   protected step(delta: number): void {
     this.value.update((current) => current + delta);
   }

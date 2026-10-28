@@ -27,7 +27,10 @@ export class Popup {
     });
   }
 
-  /** Closes the popup when the click landed on the backdrop instead of the content. */
+  /**
+   * Closes the popup when the click landed on the backdrop instead of the content.
+   * @param event - The click event on the dialog.
+   */
   protected closeOnBackdrop(event: MouseEvent): void {
     if (event.target === this.dialog().nativeElement) {
       this.store.close();

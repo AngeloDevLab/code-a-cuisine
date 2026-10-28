@@ -25,18 +25,28 @@ export class GeneratorStore {
     ...this.preferences(),
   }));
 
-  /** Adds an ingredient unless the list is already full. */
+  /**
+   * Adds an ingredient unless the list is already full.
+   * @param ingredient - The ingredient to add.
+   */
   addIngredient(ingredient: Ingredient): void {
     if (this.isFull()) return;
     this.ingredients.update((list) => [...list, ingredient]);
   }
 
-  /** Merges the given changes into the ingredient at the given index. */
+  /**
+   * Merges the given changes into the ingredient at the given index.
+   * @param index - The index of the ingredient.
+   * @param changes - The fields to overwrite.
+   */
   updateIngredient(index: number, changes: Partial<Ingredient>): void {
     this.ingredients.update((list) => list.map((item, i) => (i === index ? { ...item, ...changes } : item)));
   }
 
-  /** Removes the ingredient at the given index. */
+  /**
+   * Removes the ingredient at the given index.
+   * @param index - The index of the ingredient.
+   */
   removeIngredient(index: number): void {
     this.ingredients.update((list) => list.filter((_, i) => i !== index));
   }

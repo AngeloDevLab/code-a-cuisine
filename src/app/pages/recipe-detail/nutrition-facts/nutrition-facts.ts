@@ -39,7 +39,11 @@ export class NutritionFacts {
   protected readonly shares = computed(() => toShares(this.recipe().nutrition.perPortion));
 }
 
-/** Splits the macro calories into pie slices with their start offset and rounded percentage. */
+/**
+ * Splits the macro calories into pie slices with their start offset and rounded percentage.
+ * @param nutrition - The nutrition values per portion.
+ * @returns One slice each for protein, fat and carbs.
+ */
 function toShares(nutrition: Nutrition): Share[] {
   const macros = [
     { label: 'Protein', modifier: 'protein', kcal: nutrition.proteinG * 4 },

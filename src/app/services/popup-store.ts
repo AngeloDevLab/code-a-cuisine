@@ -6,7 +6,10 @@ import { PopupMessage } from '../models/popup';
 export class PopupStore {
   readonly message = signal<PopupMessage | null>(null);
 
-  /** Opens the popup with the given message. */
+  /**
+   * Opens the popup with the given message.
+   * @param message - The title, text and optional action to show.
+   */
   show(message: PopupMessage): void {
     this.message.set(message);
   }

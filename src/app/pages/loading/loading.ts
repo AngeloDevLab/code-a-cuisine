@@ -38,7 +38,11 @@ export class Loading {
   }
 }
 
-/** Turns an api error into the message shown in the popup. */
+/**
+ * Turns an api error into the message shown in the popup.
+ * @param error - The error returned by the generation.
+ * @returns The popup message for this error.
+ */
 function toPopupMessage(error: ApiError): PopupMessage {
   if (error.code === 'insufficient_ingredients') {
     return INSUFFICIENT_MESSAGE;
